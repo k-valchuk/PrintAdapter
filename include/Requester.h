@@ -9,6 +9,9 @@
 class QNetworkAccessManager;
 class QNetworkReply;
 
+
+enum class RequestTypes {GET, POST, DELETE_RESOURCE};
+
 class Requester : public QObject {
     Q_OBJECT
 
@@ -16,12 +19,14 @@ class Requester : public QObject {
 
         QNetworkAccessManager* networkManager;
 
-        QNetworkReply* generateReply(const QUrl& url, const QString& keyHeaderName);
+        QNetworkReply* generateReply(const QUrl& url, RequestTypes requestType, const QByteArray& data);
+        QNetworkReply* sendRequest(QNetworkRequest request, RequestTypes requestType, const QByteArray& data); 
 
     public:
 
+
         Requester(QObject* pobj = nullptr);
-        void getRequest(const QUrl& url, const QString& keyHeaderName);
+        void restRequest(const QUrl& url, RequestTypes requestType, const QByteArray& data);
 
     signals:
         void done(int httpStatus, QByteArray body);

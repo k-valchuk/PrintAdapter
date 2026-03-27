@@ -9,9 +9,24 @@ Requester::Requester(QObject* pobj) : QObject(pobj){
     QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
 }
 
-QNetworkReply* Requester::generateReply(const QUrl& url, const QString& keyHeaderName){
+QNetworkReply* Requester::sendRequest(QNetworkRequest request, RequestTypes requestType, const QByteArray& data) {
+    if ( requestType == RequestTypes::GET) {
+        qDebug() << "GET" << "\n";
+        return networkManager->get(request);
+    } else if (requestType == RequestTypes::POST) {
+        return networkManager->post(request, data);
+    } else if (requestType == RequestTypes::DELETE_RESOURCE) {
+        return networkManager->deleteResource(request);
+    }
+    
+    return nullptr;
+    
+}
+
+QNetworkReply* Requester::generateReply(const QUrl& url, RequestTypes requestType, const QByteArray& data){
     QNetworkRequest request(url);
-    QNetworkReply* reply = networkManager->get(request);
+    qDebug() << "URL: " << url << "\n";
+    QNetworkReply* reply = sendRequest(request, requestType, data);
     QTimer* timeout = new QTimer(reply);
     timeout->setSingleShot(true);
     timeout->setInterval(20000);
@@ -25,8 +40,8 @@ QNetworkReply* Requester::generateReply(const QUrl& url, const QString& keyHeade
     return reply;
 }
 
-void Requester::getRequest(const QUrl& url, const QString& keyHeaderName){
-    QNetworkReply* reply = generateReply(url, keyHeaderName);
+void Requester::restRequest(const QUrl& url, RequestTypes requestType, const QByteArray& data){
+    QNetworkReply* reply = generateReply(url, requestType, data);
     connect(reply, &QNetworkReply::finished, this, [this, reply] {
         const bool timedOut = reply->property("timed_out").toBool();
         const int http = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();

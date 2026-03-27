@@ -1,22 +1,30 @@
 #include "RequestDialog.h"
 #include "ExportButton.h"
+#include "GetAllTemplatesButton.h"
 
 #include <QtWidgets>
 
 
-QHBoxLayout* createButtons(RequestDialog* requestDialog) {
+QHBoxLayout* createButtons(RequestDialog* requestDialog, ServerRequester* server_requester) {
     QHBoxLayout* layout = new QHBoxLayout;
 
-    ExportButton* exportBtn = new ExportButton;
+    ExportButton* exportBtn = new ExportButton(requestDialog);
     exportBtn->setText("Экспорт");
     QPushButton* getTemplateBtn = new QPushButton("Показать шаблон");
-    QPushButton* allTemplateBtn = new QPushButton("Все шаблоны");
+    QPushButton* allTemplateBtn = new GetAllTemplatesButton(requestDialog, server_requester);
     QPushButton* addTemplateBtn = new QPushButton("Добавить шаблон");
 
     layout->addWidget(exportBtn);
     layout->addWidget(getTemplateBtn);
     layout->addWidget(allTemplateBtn);
     layout->addWidget(addTemplateBtn);
+
+    QObject::connect(
+        allTemplateBtn, 
+        SIGNAL(done(QString, ContentType)), 
+        requestDialog, 
+        SLOT(changeBrowserContent(QString, ContentType))
+    );
 
     QObject::connect(
         exportBtn, 
@@ -27,7 +35,7 @@ QHBoxLayout* createButtons(RequestDialog* requestDialog) {
     return layout;
 }
 
-RequestDialog::RequestDialog(QWidget *pwgt): QDialog(pwgt, Qt::WindowTitleHint | Qt::WindowSystemMenuHint) {
+RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt, Qt::WindowTitleHint | Qt::WindowSystemMenuHint), server_requester(server_requester) {
     
     QPushButton* cancelButton = new QPushButton("Закрыть");
     browser = new QTextBrowser(this);
@@ -36,7 +44,7 @@ RequestDialog::RequestDialog(QWidget *pwgt): QDialog(pwgt, Qt::WindowTitleHint |
 
     QHBoxLayout* formLayout = new QHBoxLayout;
     formLayout->addWidget(cancelButton);
-    baseLayout->addLayout(createButtons(this));
+    baseLayout->addLayout(createButtons(this, server_requester));
     baseLayout->addWidget(browser);
     baseLayout->addLayout(formLayout);
 

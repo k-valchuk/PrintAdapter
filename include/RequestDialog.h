@@ -3,6 +3,7 @@
 #include <QDialog>
 #include <QComboBox>
 #include <QTextBrowser>
+#include "ServerRequester.h"
 
 class QComboBox;
 
@@ -15,9 +16,10 @@ class RequestDialog: public QDialog {
 
     private:
         QTextBrowser* browser;
+        ServerRequester* server_requester;
     
     public:
-        RequestDialog(QWidget* pwgt = nullptr);
+        RequestDialog(QWidget* pwgt, ServerRequester* server_requester);
 
     
     public slots:
