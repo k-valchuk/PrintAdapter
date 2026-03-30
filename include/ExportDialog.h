@@ -13,6 +13,7 @@ class ExportDialog: public QDialog {
 
     public:
         ExportDialog(QWidget* pwgt = nullptr);
+        QString getName() const;
         QString getContent() const;
     
 };

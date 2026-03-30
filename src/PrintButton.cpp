@@ -3,7 +3,7 @@
 
 PrintButton::PrintButton(QWidget* pwgt) : QPushButton(pwgt) {
     setText("Печать!!");
-    server_requester = new ServerRequester(this, QString("http://localhost:8000")); //TODO без хардкода
+    server_requester = new ServerRequester(this, QString("http://localhost:8000"));
     connect(this, SIGNAL(clicked()), SLOT(requestDialogSlot()));
 };
 

@@ -21,3 +21,7 @@ ExportDialog::ExportDialog(QWidget* pwgt): QDialog(pwgt) {
 QString ExportDialog::getContent() const {
     return requestBody->toPlainText();
 }
+
+QString ExportDialog::getName() const {
+    return templateName->text();
+}

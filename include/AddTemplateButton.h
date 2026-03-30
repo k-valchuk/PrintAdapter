@@ -3,14 +3,14 @@
 #include <QPushButton>
 #include "RequestDialog.h"
 
-class ExportButton: public QPushButton {
+class AddTemplateButton: public QPushButton {
     Q_OBJECT
 
     private:
         ServerRequester* server_requester;
 
     public:
-        ExportButton(QWidget* pwgt, ServerRequester* server_requester);
+        AddTemplateButton(QWidget* pwgt, ServerRequester* server_requester);
     
     private slots:
         void sendRequestSlot();

@@ -1,16 +1,17 @@
 #pragma once
 
-#include <QPushButton>
+#include <QtWidgets>
+#include "ServerRequester.h"
 #include "RequestDialog.h"
 
-class ExportButton: public QPushButton {
+class GetTemplateButton: public QPushButton {
     Q_OBJECT
 
     private:
         ServerRequester* server_requester;
 
     public:
-        ExportButton(QWidget* pwgt, ServerRequester* server_requester);
+        GetTemplateButton(QWidget* pwgt, ServerRequester* server_requester);
     
     private slots:
         void sendRequestSlot();

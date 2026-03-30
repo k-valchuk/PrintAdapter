@@ -12,6 +12,9 @@ class ServerRequester: public QObject {
     public:
         ServerRequester(QObject* pobj, QString base_url);
         void getAllTemplates();
+        void getTemplate(QString templateName);
+        void exportTemplate(const QJsonDocument jsonDoc);
+        void addTemplate(const QJsonDocument jsonDoc);
 
     private slots:
         void slotError(QString message, int httpStatus);

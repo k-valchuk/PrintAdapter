@@ -1,18 +1,18 @@
 #include "RequestDialog.h"
 #include "ExportButton.h"
 #include "GetAllTemplatesButton.h"
+#include "GetTemplatteButton.h"
+#include "AddTemplateButton.h"
 
-#include <QtWidgets>
 
 
 QHBoxLayout* createButtons(RequestDialog* requestDialog, ServerRequester* server_requester) {
     QHBoxLayout* layout = new QHBoxLayout;
 
-    ExportButton* exportBtn = new ExportButton(requestDialog);
-    exportBtn->setText("Экспорт");
-    QPushButton* getTemplateBtn = new QPushButton("Показать шаблон");
+    ExportButton* exportBtn = new ExportButton(requestDialog, server_requester);
+    GetTemplateButton* getTemplateBtn = new GetTemplateButton(requestDialog, server_requester);
     QPushButton* allTemplateBtn = new GetAllTemplatesButton(requestDialog, server_requester);
-    QPushButton* addTemplateBtn = new QPushButton("Добавить шаблон");
+    QPushButton* addTemplateBtn = new AddTemplateButton(requestDialog, server_requester);
 
     layout->addWidget(exportBtn);
     layout->addWidget(getTemplateBtn);
@@ -27,6 +27,20 @@ QHBoxLayout* createButtons(RequestDialog* requestDialog, ServerRequester* server
     );
 
     QObject::connect(
+        getTemplateBtn, 
+        SIGNAL(done(QString, ContentType)), 
+        requestDialog, 
+        SLOT(changeBrowserContent(QString, ContentType))
+    );
+
+    QObject::connect(
+        addTemplateBtn, 
+        SIGNAL(done(QString, ContentType)), 
+        requestDialog, 
+        SLOT(changeBrowserContent(QString, ContentType))
+    );
+
+    QObject::connect(
         exportBtn, 
         SIGNAL(done(QString, ContentType)), 
         requestDialog, 
@@ -35,7 +49,7 @@ QHBoxLayout* createButtons(RequestDialog* requestDialog, ServerRequester* server
     return layout;
 }
 
-RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt, Qt::WindowTitleHint | Qt::WindowSystemMenuHint), server_requester(server_requester) {
+RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt), server_requester(server_requester) {
     
     QPushButton* cancelButton = new QPushButton("Закрыть");
     browser = new QTextBrowser(this);

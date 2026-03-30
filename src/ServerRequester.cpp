@@ -14,6 +14,26 @@ void ServerRequester::getAllTemplates() {
     requester->restRequest(QUrl(QString("%1/db/get_all_templates").arg(base_url)), RequestTypes::GET, nullptr);
 }
 
+void ServerRequester::getTemplate(QString templateName) {
+    requester->restRequest(QUrl(QString("%1/db/get_template?name=%2").arg(base_url).arg(templateName)), RequestTypes::GET, nullptr);
+}
+
+void ServerRequester::exportTemplate(const QJsonDocument jsonDoc) {
+    requester->restRequest(
+        QUrl(QString("%1/export").arg(base_url)), 
+        RequestTypes::POST, 
+        jsonDoc.toJson()
+    );
+}
+
+void ServerRequester::addTemplate(const QJsonDocument jsonDoc) {
+    requester->restRequest(
+        QUrl(QString("%1/db/add_template").arg(base_url)), 
+        RequestTypes::POST, 
+        jsonDoc.toJson()
+    );
+}
+
 void ServerRequester::slotDone(const int& http, const QByteArray& byteArray){
 
     if (http < 200 || http >= 300) {
@@ -23,7 +43,9 @@ void ServerRequester::slotDone(const int& http, const QByteArray& byteArray){
     QJsonParseError pe{};
     const QJsonDocument doc = QJsonDocument::fromJson(byteArray, &pe);
     if (pe.error  != QJsonParseError::NoError) {
-        slotError(pe.errorString(), http);
+        qDebug() << "ServerRequester Error Json catch" << pe.errorString() << "\n";
+        const QJsonDocument doc = QJsonDocument();
+        emit done(http, doc);
         return;
     }
 
@@ -31,5 +53,6 @@ void ServerRequester::slotDone(const int& http, const QByteArray& byteArray){
 }
 
 void ServerRequester::slotError(QString message, int httpStatus){
+    qDebug() << "ServerRequester Error" << message << httpStatus << "\n";
     emit error(message, httpStatus);
 }

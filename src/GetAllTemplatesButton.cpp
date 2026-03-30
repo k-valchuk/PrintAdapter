@@ -15,15 +15,18 @@ void GetAllTemplatesButton::sendRequestSlot() {
 }
 
  void GetAllTemplatesButton::getResultRequestSlot(const int& http, const QJsonDocument doc) {
-    qDebug() << "Gocha" << "\n";
+    qDebug() << "Gocha GetAllTemplatesButton" << "\n";
     const QJsonArray root = doc.array();
 
     QVector<QString> content;
     for (const QJsonValue& value : root) {
         content.append(value.toString());
     }
-    qDebug() << "Send reults" << "\n";
-    emit done(content.toList().join("\n"), ContentType::TEXT);
+    
+    if (!content.isEmpty()) {
+        qDebug() << "Send results GetAllTemplatesButton" << "\n";
+        emit done(content.toList().join("\n"), ContentType::TEXT);
+    }
 }
 
 void GetAllTemplatesButton::getErrorRequestSlot(QString message, int httpStatus) {
