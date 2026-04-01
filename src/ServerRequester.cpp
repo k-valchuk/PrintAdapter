@@ -34,6 +34,10 @@ void ServerRequester::addTemplate(const QJsonDocument jsonDoc) {
     );
 }
 
+void ServerRequester::setCurrentButton(ActionId buttonId) {
+    currentButtonId = buttonId;
+}
+
 void ServerRequester::slotDone(const int& http, const QByteArray& byteArray){
 
     if (http < 200 || http >= 300) {
@@ -45,11 +49,11 @@ void ServerRequester::slotDone(const int& http, const QByteArray& byteArray){
     if (pe.error  != QJsonParseError::NoError) {
         qDebug() << "ServerRequester Error Json catch" << pe.errorString() << "\n";
         const QJsonDocument doc = QJsonDocument();
-        emit done(http, doc);
+        emit done(http, doc, currentButtonId);
         return;
     }
 
-    emit done(http, doc);
+    emit done(http, doc, currentButtonId);
 }
 
 void ServerRequester::slotError(QString message, int httpStatus){

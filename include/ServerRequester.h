@@ -1,6 +1,7 @@
 #pragma once
 #include <QtWidgets>
 #include "Requester.h"
+#include "utils.h"
 
 class ServerRequester: public QObject {
     Q_OBJECT
@@ -8,6 +9,7 @@ class ServerRequester: public QObject {
     private:
         Requester* requester;
         QString base_url;
+        ActionId currentButtonId;
     
     public:
         ServerRequester(QObject* pobj, QString base_url);
@@ -15,12 +17,13 @@ class ServerRequester: public QObject {
         void getTemplate(QString templateName);
         void exportTemplate(const QJsonDocument jsonDoc);
         void addTemplate(const QJsonDocument jsonDoc);
+        void setCurrentButton(ActionId buttonId);
 
     private slots:
         void slotError(QString message, int httpStatus);
         void slotDone(const int&, const QByteArray&);
     
     signals:
-        void done(int httpStatus, const QJsonDocument jsonDoc);
+        void done(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId);
         void error(QString message, int httpStatus);
 };

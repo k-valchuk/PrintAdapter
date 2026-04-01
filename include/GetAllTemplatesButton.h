@@ -1,22 +1,16 @@
 #pragma once
-#include <QPushButton>
+#include "BaseRequestButton.h"
 #include "RequestDialog.h"
 
-class GetAllTemplatesButton: public QPushButton {
+class GetAllTemplatesButton: public BaseRequestButton {
     Q_OBJECT
 
-    private:
-        ServerRequester* server_requester;
-
     public:
-        GetAllTemplatesButton(QWidget* pwgt, ServerRequester* server_requester);
+        GetAllTemplatesButton(
+            QWidget* pwgt, 
+            ServerRequester* server_requester,
+            QLayout* layout
+        );
     
-    private slots:
-        void sendRequestSlot();
-        void getResultRequestSlot(const int& http, const QJsonDocument doc);
-        void getErrorRequestSlot(QString message, int httpStatus);
-
-    
-    signals:
-        void done(QString content, ContentType content_type);
+        void sendRequest(ActionId buttonId) override;
 };
