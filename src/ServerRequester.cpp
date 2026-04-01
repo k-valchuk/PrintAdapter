@@ -26,9 +26,33 @@ void ServerRequester::exportTemplate(const QJsonDocument jsonDoc) {
     );
 }
 
+void ServerRequester::removeTemplate(QString templateName) {
+    requester->restRequest(
+        QUrl(QString("%1/db/get_template?name=%2").arg(base_url).arg(templateName)), 
+        RequestTypes::DELETE_RESOURCE, 
+        nullptr
+    );
+}
+
+void ServerRequester::removeTag(QString tagName) {
+    requester->restRequest(
+        QUrl(QString("%1/db/delete_tag?name=%2").arg(base_url).arg(tagName)), 
+        RequestTypes::DELETE_RESOURCE, 
+        nullptr
+    );
+}
+
 void ServerRequester::addTemplate(const QJsonDocument jsonDoc) {
     requester->restRequest(
         QUrl(QString("%1/db/add_template").arg(base_url)), 
+        RequestTypes::POST, 
+        jsonDoc.toJson()
+    );
+}
+
+void ServerRequester::addTag(const QJsonDocument jsonDoc) {
+    requester->restRequest(
+        QUrl(QString("%1/db/add_tag").arg(base_url)), 
         RequestTypes::POST, 
         jsonDoc.toJson()
     );
