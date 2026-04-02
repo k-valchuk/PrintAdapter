@@ -13,3 +13,6 @@ BaseRequestButton::BaseRequestButton(
     button_group->addButton(this, static_cast<int>(buttonId));
 }
 
+void BaseRequestButton::setCurrentButton(ActionId buttonId) {
+    server_requester->setCurrentButton(buttonId);
+}

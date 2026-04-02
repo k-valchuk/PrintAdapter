@@ -20,6 +20,6 @@ class BaseRequestButton: public QPushButton {
             ActionId buttonId
         );
 
-        virtual void sendRequest(ActionId buttonId){};
+        void setCurrentButton(ActionId buttonId);
 
 };

@@ -27,6 +27,7 @@ class RequestDialog: public QDialog {
         };
 
         ContentModel responseRouting(const QJsonDocument jsonDoc, ActionId buttonId);
+        void requestRouting(ActionId buttonId);
     
     public:
         RequestDialog(QWidget* pwgt, ServerRequester* server_requester);

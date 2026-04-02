@@ -1,46 +1,27 @@
 #include "RequestDialog.h"
-#include "ExportButton.h"
-#include "GetAllTemplatesButton.h"
-#include "GetTemplatteButton.h"
-#include "AddTemplateButton.h"
-#include "AddTagButton.h"
-#include "RemoveTemplateButton.h"
-#include "RemoveTagButton.h"
+#include "ButtonRequests.h"
+#include "BaseRequestButton.h"
+#include <QVector>
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt), server_requester(server_requester) {
     QVBoxLayout* baseLayout = new QVBoxLayout;
     button_group = new QButtonGroup(this); 
-    QHBoxLayout* layout = new QHBoxLayout;
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    QVector<BaseRequestButton*> buttons;
 
-    ExportButton* exportButton = new ExportButton(
-        this, server_requester, layout, button_group, 
-        ActionId::EXPORT
-    );
-    GetTemplateButton* getTemplateButton = new GetTemplateButton(
-        this, server_requester, layout, button_group, 
-        ActionId::GET_TEMPLATE
-    );
-    GetAllTemplatesButton* getAllTemplatesButton = new GetAllTemplatesButton(
-        this, server_requester, layout, button_group,
-        ActionId::GET_ALL_TEMPLATES
-    );
-    AddTemplateButton* addTemplateButton = new AddTemplateButton(
-        this, server_requester, layout, button_group, 
-        ActionId::ADD_TEMPLATE
-    );
-    RemoveTemplateButton* removeTemplateButton = new RemoveTemplateButton(
-        this, server_requester, layout, button_group,
-        ActionId::REMOVE_TEMPLATE
-    );
-    AddTagButton* addTagButton = new AddTagButton(
-        this, server_requester, layout, button_group,
-        ActionId::ADD_TAG
-    );
-    RemoveTagButton* removeTagButton = new RemoveTagButton(
-        this, server_requester, layout, button_group,
-        ActionId::REMOVE_TAG
-    );
+    for (const auto& [buttonId, buttonLabel] : ACTIONS_MAP) {
+        buttons.append(
+            &BaseRequestButton(
+                this, 
+                server_requester, 
+                layout, 
+                buttonLabel, 
+                button_group, 
+                buttonId
+            )
+        );
+    }
 
     connect(
         button_group, 
@@ -55,7 +36,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
 
     QPushButton* cancelButton = new QPushButton("Закрыть");
     connect(cancelButton, SIGNAL(clicked()), SLOT(reject()));
-    QHBoxLayout* formLayout = new QHBoxLayout;
+    QHBoxLayout* formLayout = new QHBoxLayout(this);
     formLayout->addWidget(cancelButton);
     baseLayout->addLayout(formLayout);
 
@@ -76,12 +57,38 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
 
 }
 
+void RequestDialog::requestRouting(ActionId buttonId) {
+    switch (buttonId) {
+        case ActionId::ADD_TEMPLATE:
+            addTemplate(this, server_requester);
+            break;
+        case ActionId::ADD_TAG:
+            addTag(this, server_requester);
+            break;
+        case ActionId::REMOVE_TEMPLATE:
+            removeTemplate(this, server_requester);
+            break;
+        case ActionId::REMOVE_TAG:
+            removeTag(this, server_requester);
+            break;
+        case ActionId::EXPORT:
+            break;
+        case ActionId::GET_TEMPLATE:
+            getTemplate(this, server_requester);
+            break;
+        case ActionId::GET_ALL_TEMPLATES:
+            server_requester->getAllTemplates();
+            break;
+    }
+}
+
 void RequestDialog::handleButtonClicked(QAbstractButton* button) {
     BaseRequestButton* requestButton = qobject_cast<BaseRequestButton*>(button);
     if (requestButton){
         int id = button_group->id(requestButton);
         ActionId buttonId = static_cast<ActionId>(id);
-        requestButton->sendRequest(buttonId);
+        requestButton->setCurrentButton(buttonId);
+        
     }
 }
 
