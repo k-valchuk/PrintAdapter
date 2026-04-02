@@ -11,7 +11,9 @@ class GetTemplateButton: public BaseRequestButton {
         GetTemplateButton(
             QWidget* pwgt, 
             ServerRequester* server_requester,
-            QLayout* layout
+            QLayout* layout,
+            QButtonGroup* button_group,
+            ActionId buttonId
         );
 
         void sendRequest(ActionId buttonId) override;

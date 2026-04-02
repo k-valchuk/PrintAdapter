@@ -4,11 +4,11 @@
 #include "BaseRequestButton.h"
 #include "ServerRequester.h"
 
-class AddTemplateButton: public BaseRequestButton {
+class RemoveTagButton: public BaseRequestButton {
     Q_OBJECT
 
     public:
-        AddTemplateButton(
+        RemoveTagButton(
             QWidget* pwgt, 
             ServerRequester* server_requester,
             QLayout* layout,

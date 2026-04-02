@@ -15,7 +15,9 @@ class BaseRequestButton: public QPushButton {
             QWidget* pwgt, 
             ServerRequester* server_requester, 
             QLayout* layout, 
-            const QString& buttonName
+            const QString& buttonName,
+            QButtonGroup* button_group,
+            ActionId buttonId
         );
 
         virtual void sendRequest(ActionId buttonId){};

@@ -1,7 +1,7 @@
 #include "GetTemplateDialog.h"
 
 GetTemplateDialog::GetTemplateDialog(QWidget* pwgt) : QDialog(pwgt) {
-    QLabel* templateNameLabel = new QLabel("Имя шаблона");
+    QLabel* templateNameLabel = new QLabel("Имя");
     templateName = new QLineEdit();
     templateNameLabel->setBuddy(templateName);
 

@@ -28,7 +28,7 @@ void ServerRequester::exportTemplate(const QJsonDocument jsonDoc) {
 
 void ServerRequester::removeTemplate(QString templateName) {
     requester->restRequest(
-        QUrl(QString("%1/db/get_template?name=%2").arg(base_url).arg(templateName)), 
+        QUrl(QString("%1/db/delete_template?name=%2").arg(base_url).arg(templateName)), 
         RequestTypes::DELETE_RESOURCE, 
         nullptr
     );

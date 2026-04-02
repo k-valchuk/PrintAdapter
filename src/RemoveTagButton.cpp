@@ -1,25 +1,25 @@
-#include "GetTemplatteButton.h"
+#include "RemoveTagButton.h"
 #include "GetTemplateDialog.h"
 
-GetTemplateButton::GetTemplateButton(
+RemoveTagButton::RemoveTagButton(
     QWidget* pwgt, 
     ServerRequester* server_requester,
     QLayout* layout,
     QButtonGroup* button_group,
     ActionId buttonId
-): BaseRequestButton(
+) : BaseRequestButton(
     pwgt, 
     server_requester, 
     layout, 
-    "Показать шаблон",
+    "Удалить тэг",
     button_group, 
     buttonId
 ) {}
 
-void GetTemplateButton::sendRequest(ActionId buttonId) {
+void RemoveTagButton::sendRequest(ActionId buttonId) {
     GetTemplateDialog* dialog = new GetTemplateDialog;
     if (dialog->exec() == QDialog::Accepted) {
         server_requester->setCurrentButton(buttonId);
-        server_requester->getTemplate(dialog->getContent());
+        server_requester->removeTag(dialog->getContent());
     }
 }

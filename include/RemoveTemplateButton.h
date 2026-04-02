@@ -2,18 +2,18 @@
 
 #include <QLayout>
 #include "BaseRequestButton.h"
-#include "ServerRequester.h"
+#include "RequestDialog.h"
 
-class AddTemplateButton: public BaseRequestButton {
+class RemoveTemplateButton: public BaseRequestButton {
     Q_OBJECT
 
     public:
-        AddTemplateButton(
+        RemoveTemplateButton(
             QWidget* pwgt, 
             ServerRequester* server_requester,
             QLayout* layout,
             QButtonGroup* button_group,
-            ActionId buttonId 
+            ActionId buttonId
         );
         void sendRequest(ActionId buttonId) override;
 };

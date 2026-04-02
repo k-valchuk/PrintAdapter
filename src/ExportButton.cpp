@@ -4,8 +4,17 @@
 ExportButton::ExportButton(
     QWidget* pwgt, 
     ServerRequester* server_requester,
-    QLayout* layout 
-): BaseRequestButton(pwgt, server_requester, layout, "Экспорт Шаблона") {}
+    QLayout* layout,
+    QButtonGroup* button_group,
+    ActionId buttonId 
+): BaseRequestButton(
+    pwgt, 
+    server_requester, 
+    layout, 
+    "Экспорт Шаблона",
+    button_group, 
+    buttonId
+) {}
 
 void ExportButton::sendRequest(ActionId buttonId) {
     ExportDialog* pExportDialog = new ExportDialog;

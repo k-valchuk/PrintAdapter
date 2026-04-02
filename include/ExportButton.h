@@ -2,7 +2,7 @@
 
 #include <QLayout>
 #include "BaseRequestButton.h"
-#include "RequestDialog.h"
+#include "ServerRequester.h"
 
 class ExportButton: public BaseRequestButton {
     Q_OBJECT
@@ -11,7 +11,9 @@ class ExportButton: public BaseRequestButton {
         ExportButton(
             QWidget* pwgt, 
             ServerRequester* server_requester,
-            QLayout* layout 
+            QLayout* layout,
+            QButtonGroup* button_group,
+            ActionId buttonId 
         );
         void sendRequest(ActionId buttonId) override;
 };

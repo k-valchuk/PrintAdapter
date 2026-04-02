@@ -4,8 +4,17 @@
 AddTemplateButton::AddTemplateButton(
     QWidget* pwgt, 
     ServerRequester* server_requester,
-    QLayout* layout 
-) : BaseRequestButton(pwgt, server_requester, layout, "Добавить/изменить шаблон") {}
+    QLayout* layout,
+    QButtonGroup* button_group,
+    ActionId buttonId
+) : BaseRequestButton(
+    pwgt, 
+    server_requester, 
+    layout, 
+    "Добавить/изменить шаблон",
+    button_group, 
+    buttonId
+) {}
 
 void AddTemplateButton::sendRequest(ActionId buttonId) {
     ExportDialog* dialog = new ExportDialog;

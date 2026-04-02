@@ -3,6 +3,9 @@
 #include "GetAllTemplatesButton.h"
 #include "GetTemplatteButton.h"
 #include "AddTemplateButton.h"
+#include "AddTagButton.h"
+#include "RemoveTemplateButton.h"
+#include "RemoveTagButton.h"
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt), server_requester(server_requester) {
@@ -10,26 +13,33 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
     button_group = new QButtonGroup(this); 
     QHBoxLayout* layout = new QHBoxLayout;
 
-    ExportButton* exportButton = new ExportButton(this, server_requester, layout);
-    GetTemplateButton* getTemplateButton = new GetTemplateButton(this, server_requester, layout);
-    GetAllTemplatesButton* getAllTemplatesButton = new GetAllTemplatesButton(this, server_requester, layout);
-    AddTemplateButton* addTemplateButton = new AddTemplateButton(this, server_requester, layout);
-
-    button_group->addButton(
-        exportButton, 
-        static_cast<int>(ActionId::EXPORT)
+    ExportButton* exportButton = new ExportButton(
+        this, server_requester, layout, button_group, 
+        ActionId::EXPORT
     );
-    button_group->addButton(
-        getTemplateButton, 
-        static_cast<int>(ActionId::GET_TEMPLATE)
+    GetTemplateButton* getTemplateButton = new GetTemplateButton(
+        this, server_requester, layout, button_group, 
+        ActionId::GET_TEMPLATE
     );
-    button_group->addButton(
-        getAllTemplatesButton, 
-        static_cast<int>(ActionId::GET_ALL_TEMPLATES)
+    GetAllTemplatesButton* getAllTemplatesButton = new GetAllTemplatesButton(
+        this, server_requester, layout, button_group,
+        ActionId::GET_ALL_TEMPLATES
     );
-    button_group->addButton(
-        addTemplateButton, 
-        static_cast<int>(ActionId::ADD_TEMPLATE)
+    AddTemplateButton* addTemplateButton = new AddTemplateButton(
+        this, server_requester, layout, button_group, 
+        ActionId::ADD_TEMPLATE
+    );
+    RemoveTemplateButton* removeTemplateButton = new RemoveTemplateButton(
+        this, server_requester, layout, button_group,
+        ActionId::REMOVE_TEMPLATE
+    );
+    AddTagButton* addTagButton = new AddTagButton(
+        this, server_requester, layout, button_group,
+        ActionId::ADD_TAG
+    );
+    RemoveTagButton* removeTagButton = new RemoveTagButton(
+        this, server_requester, layout, button_group,
+        ActionId::REMOVE_TAG
     );
 
     connect(
@@ -80,6 +90,18 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
     switch (buttonId) {
         case ActionId::ADD_TEMPLATE:
             response.content = QString("Добавлен шаблон");
+            response.content_type = ContentType::TEXT;
+            break;
+        case ActionId::ADD_TAG:
+            response.content = QString("Добавлен тэг");
+            response.content_type = ContentType::TEXT;
+            break;
+        case ActionId::REMOVE_TEMPLATE:
+            response.content = QString("Убран шаблон");
+            response.content_type = ContentType::TEXT;
+            break;
+        case ActionId::REMOVE_TAG:
+            response.content = QString("Убран тэг");
             response.content_type = ContentType::TEXT;
             break;
         case ActionId::EXPORT:

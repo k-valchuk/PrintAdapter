@@ -1,25 +1,25 @@
-#include "GetTemplatteButton.h"
+#include "RemoveTemplateButton.h"
 #include "GetTemplateDialog.h"
 
-GetTemplateButton::GetTemplateButton(
+RemoveTemplateButton::RemoveTemplateButton(
     QWidget* pwgt, 
     ServerRequester* server_requester,
     QLayout* layout,
     QButtonGroup* button_group,
-    ActionId buttonId
-): BaseRequestButton(
+    ActionId buttonId 
+) : BaseRequestButton(
     pwgt, 
     server_requester, 
     layout, 
-    "Показать шаблон",
+    "Удалить шаблон",
     button_group, 
     buttonId
 ) {}
 
-void GetTemplateButton::sendRequest(ActionId buttonId) {
+void RemoveTemplateButton::sendRequest(ActionId buttonId) {
     GetTemplateDialog* dialog = new GetTemplateDialog;
     if (dialog->exec() == QDialog::Accepted) {
         server_requester->setCurrentButton(buttonId);
-        server_requester->getTemplate(dialog->getContent());
+        server_requester->removeTemplate(dialog->getContent());
     }
 }

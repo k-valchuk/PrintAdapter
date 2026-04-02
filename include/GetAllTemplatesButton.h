@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseRequestButton.h"
-#include "RequestDialog.h"
+#include "ServerRequester.h"
 
 class GetAllTemplatesButton: public BaseRequestButton {
     Q_OBJECT
@@ -9,7 +9,9 @@ class GetAllTemplatesButton: public BaseRequestButton {
         GetAllTemplatesButton(
             QWidget* pwgt, 
             ServerRequester* server_requester,
-            QLayout* layout
+            QLayout* layout,
+            QButtonGroup* button_group,
+            ActionId buttonId
         );
     
         void sendRequest(ActionId buttonId) override;

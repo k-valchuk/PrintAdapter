@@ -3,8 +3,17 @@
 GetAllTemplatesButton::GetAllTemplatesButton(
     QWidget* pwgt, 
     ServerRequester* server_requester,
-    QLayout* layout 
-) : BaseRequestButton(pwgt, server_requester, layout, "Все шаблоны") {}
+    QLayout* layout,
+    QButtonGroup* button_group,
+    ActionId buttonId 
+) : BaseRequestButton(
+    pwgt, 
+    server_requester, 
+    layout, 
+    "Все шаблоны",
+    button_group, 
+    buttonId
+) {}
 
 void GetAllTemplatesButton::sendRequest(ActionId buttonId) {
     server_requester->setCurrentButton(buttonId);
