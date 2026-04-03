@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)    
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)   
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Network) 
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Network PrintSupport ) 
 
 file(GLOB_RECURSE NewsPrintAdapter_SOURCES
     "src/*.cpp"
@@ -23,5 +23,5 @@ target_include_directories(NewsPrintAdapter
 )
 
 target_link_libraries(NewsPrintAdapter
-    PUBLIC Qt5::Core Qt5::Widgets Qt5::Network
+    PUBLIC Qt5::Core Qt5::Widgets Qt5::Network Qt5::PrintSupport 
 )

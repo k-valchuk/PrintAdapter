@@ -1,6 +1,7 @@
 #include "RequestDialog.h"
 #include "ButtonRequests.h"
 #include "BaseRequestButton.h"
+#include "PrintableReport.h"
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt), server_requester(server_requester) {
@@ -67,6 +68,7 @@ void RequestDialog::requestRouting(ActionId buttonId) {
             removeTag(this, server_requester);
             break;
         case ActionId::EXPORT:
+            exportTemplate(this, server_requester);
             break;
         case ActionId::GET_TEMPLATE:
             getTemplate(this, server_requester);
@@ -127,7 +129,10 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
 void RequestDialog::changeBrowserContent(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response = responseRouting(jsonDoc, buttonId);
     if (response.content_type == ContentType::HTML) {
-        browser->setHtml(response.content);
+        qDebug() << "PrintableReport";
+        PrintableReport* printableReport = new PrintableReport(QPrinter::HighResolution, response.content, this);
+        printableReport->preview(nullptr, "Печать");
+        qDebug() << "previewed";
     } else if (response.content_type == ContentType::TEXT) {
         browser->setText(response.content);
     }
