@@ -3,14 +3,9 @@
 BaseRequestButton::BaseRequestButton(
     QWidget* pwgt, 
     ServerRequester* server_requester, 
-    QLayout* layout, 
-    const QString& buttonName,
-    QButtonGroup* button_group,
-    ActionId buttonId
+    const QString& buttonName
 ): QPushButton(pwgt), server_requester(server_requester) {
     setText(buttonName);
-    layout->addWidget(this);
-    button_group->addButton(this, static_cast<int>(buttonId));
 }
 
 void BaseRequestButton::setCurrentButton(ActionId buttonId) {

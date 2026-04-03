@@ -14,10 +14,7 @@ class BaseRequestButton: public QPushButton {
         BaseRequestButton(
             QWidget* pwgt, 
             ServerRequester* server_requester, 
-            QLayout* layout, 
-            const QString& buttonName,
-            QButtonGroup* button_group,
-            ActionId buttonId
+            const QString& buttonName
         );
 
         void setCurrentButton(ActionId buttonId);

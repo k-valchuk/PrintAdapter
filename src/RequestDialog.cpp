@@ -1,26 +1,21 @@
 #include "RequestDialog.h"
 #include "ButtonRequests.h"
 #include "BaseRequestButton.h"
-#include <QVector>
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt), server_requester(server_requester) {
-    QVBoxLayout* baseLayout = new QVBoxLayout;
+    QVBoxLayout* baseLayout = new QVBoxLayout(this);
     button_group = new QButtonGroup(this); 
     QHBoxLayout* layout = new QHBoxLayout(this);
-    QVector<BaseRequestButton*> buttons;
 
     for (const auto& [buttonId, buttonLabel] : ACTIONS_MAP) {
-        buttons.append(
-            &BaseRequestButton(
-                this, 
-                server_requester, 
-                layout, 
-                buttonLabel, 
-                button_group, 
-                buttonId
-            )
+        auto button = new BaseRequestButton(
+            this, 
+            server_requester, 
+            buttonLabel
         );
+        layout->addWidget(button);
+        button_group->addButton(button, static_cast<int>(buttonId));
     }
 
     connect(
@@ -88,7 +83,7 @@ void RequestDialog::handleButtonClicked(QAbstractButton* button) {
         int id = button_group->id(requestButton);
         ActionId buttonId = static_cast<ActionId>(id);
         requestButton->setCurrentButton(buttonId);
-        
+        requestRouting(buttonId);
     }
 }
 
