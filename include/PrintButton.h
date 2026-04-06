@@ -11,6 +11,7 @@ class PrintButton: public QPushButton {
 
     public:
         PrintButton(QWidget* pwgt = nullptr);
+        ~PrintButton();
 
     private slots:
         void requestDialogSlot();

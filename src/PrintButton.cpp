@@ -12,3 +12,6 @@ void PrintButton::requestDialogSlot() {
     if (pRequestDialog->exec() == QDialog::Accepted){}
     delete pRequestDialog;
 }
+PrintButton::~PrintButton() {
+    delete server_requester;
+}
