@@ -1,5 +1,6 @@
 #include "BaseDialog.h"
 #include <QPushButton>
+#include "Config.h"
 
 
 BaseDialog::BaseDialog(QWidget* pwgt) : QDialog(pwgt) {
@@ -8,8 +9,8 @@ BaseDialog::BaseDialog(QWidget* pwgt) : QDialog(pwgt) {
 void BaseDialog::setBaseLayout(QLayout* layout) {
     QHBoxLayout* button_layout = new QHBoxLayout;
 
-    QPushButton* acceptButton = new QPushButton("Ок");
-    QPushButton* rejectButton = new QPushButton("Отмена");
+    QPushButton* acceptButton = new QPushButton(OkButtonLabel);
+    QPushButton* rejectButton = new QPushButton(CancelButtonLabel);
 
     button_layout->addWidget(acceptButton);
     button_layout->addWidget(rejectButton);

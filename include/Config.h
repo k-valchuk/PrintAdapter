@@ -1,4 +1,7 @@
 #pragma once
+
+#include <QString>
+
 #include <map>
 
 
@@ -21,3 +24,20 @@ const std::map<ActionId, const QString> ACTIONS_MAP = {
     {ActionId::ADD_TAG, "Добавить/изменить тэг"},
     {ActionId::REMOVE_TAG, "Удалить тэг"},
 };
+
+// BramSpace Print host
+const QString BASE_URL = "http://localhost:8000";
+
+//Buttons Labels
+const QString PrintButtonLabel = "BramSpacePrint";
+
+const QString OkButtonLabel = "Ок";
+const QString CancelButtonLabel = "Отмена";
+
+const QString NameLabel = "Имя";
+const QString DescriptionLabel = "Описание";
+const QString SubsystemLabel = "Подсистема";
+const QString AliasLabel = "Псевдоним в JSON";
+
+const QString TemplateIdLabel = "Id шаблона";
+const QString ElementIdLabel = "Id элемента";

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <QDialog>
+#include "BaseDialog.h"
 #include <QPlainTextEdit>
 #include <QLineEdit>
 
-class ExportDialog: public QDialog {
+class ExportDialog: public BaseDialog {
     Q_OBJECT
 
     private:

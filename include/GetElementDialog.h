@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QDialog>
+#include "BaseDialog.h"
 #include <QtWidgets>
 
-class GetTemplateDialog: public QDialog {
+class GetElementDialog: public BaseDialog {
     Q_OBJECT
 
     private:
         QLineEdit* templateId;
 
     public:
-        GetTemplateDialog(QWidget* pwgt = nullptr);
+        GetElementDialog(QWidget* pwgt = nullptr);
         QString getContent() const;
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <QtWidgets>
 #include "Requester.h"
-#include "utils.h"
+#include "Config.h"
 
 class ServerRequester: public QObject {
     Q_OBJECT

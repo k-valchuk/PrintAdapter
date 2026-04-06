@@ -1,9 +1,10 @@
 #include "PrintButton.h"
 #include "RequestDialog.h"
+#include "Config.h"
 
 PrintButton::PrintButton(QWidget* pwgt) : QPushButton(pwgt) {
-    setText("Печать!!");
-    server_requester = new ServerRequester(this, QString("http://localhost:8000"));
+    setText(PrintButtonLabel);
+    server_requester = new ServerRequester(this, BASE_URL);
     connect(this, SIGNAL(clicked()), SLOT(requestDialogSlot()));
 };
 

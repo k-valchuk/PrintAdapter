@@ -1,6 +1,5 @@
 #include "Requester.h"
 #include <QTimer>
-#include <QDebug>
 #include <QNetworkProxyFactory>
 
 Requester::Requester(QObject* pobj) : QObject(pobj){
@@ -11,7 +10,6 @@ Requester::Requester(QObject* pobj) : QObject(pobj){
 
 QNetworkReply* Requester::sendRequest(QNetworkRequest request, RequestTypes requestType, const QByteArray& data) {
     if ( requestType == RequestTypes::GET) {
-        qDebug() << "GET" << "\n";
         return networkManager->get(request);
     } else if (requestType == RequestTypes::POST) {
         return networkManager->post(request, data);
@@ -25,7 +23,6 @@ QNetworkReply* Requester::sendRequest(QNetworkRequest request, RequestTypes requ
 
 QNetworkReply* Requester::generateReply(const QUrl& url, RequestTypes requestType, const QByteArray& data){
     QNetworkRequest request(url);
-    qDebug() << "URL: " << url << "\n";
     QNetworkReply* reply = sendRequest(request, requestType, data);
     QTimer* timeout = new QTimer(reply);
     timeout->setSingleShot(true);

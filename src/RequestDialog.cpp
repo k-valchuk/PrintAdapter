@@ -4,7 +4,7 @@
 #include "PrintableReport.h"
 
 
-RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): QDialog(pwgt), server_requester(server_requester) {
+RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): BaseDialog(pwgt), server_requester(server_requester) {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
     button_group = new QButtonGroup(this); 
     QHBoxLayout* layout = new QHBoxLayout(this);
@@ -41,13 +41,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
         SLOT(onCellClicked(int, int))
     );
 
-    QPushButton* cancelButton = new QPushButton("Закрыть");
-    connect(cancelButton, SIGNAL(clicked()), SLOT(reject()));
-    QHBoxLayout* formLayout = new QHBoxLayout(this);
-    formLayout->addWidget(cancelButton);
-    baseLayout->addLayout(formLayout);
-
-    setLayout(baseLayout);
+    setBaseLayout(baseLayout);
 
     connect(
         server_requester, 
@@ -69,7 +63,6 @@ void RequestDialog::onCellClicked(int row, int column) {
     QTableWidgetItem *idItem = table->item(row, idColumn);
     if (idItem) {
         QApplication::clipboard()->setText(idItem->text());
-        qDebug() << "Скопирован ID из строки:" << row;
     }
 }
 
@@ -103,16 +96,16 @@ void RequestDialog::requestRouting(ActionId buttonId) {
             baseRequest<TagDialog>(this, server_requester, addTag);
             break;
         case ActionId::REMOVE_TEMPLATE:
-            baseRequest<GetTemplateDialog>(this, server_requester, removeTemplate);
+            baseRequest<GetElementDialog>(this, server_requester, removeTemplate);
             break;
         case ActionId::REMOVE_TAG:
-            baseRequest<GetTemplateDialog>(this, server_requester, removeTag);
+            baseRequest<GetElementDialog>(this, server_requester, removeTag);
             break;
         case ActionId::EXPORT:
             baseRequest<ExportDialog>(this, server_requester, exportTemplate);
             break;
         case ActionId::GET_TEMPLATE:
-            baseRequest<GetTemplateDialog>(this, server_requester, getTemplate);
+            baseRequest<GetElementDialog>(this, server_requester, getTemplate);
             break;
         case ActionId::GET_ALL_TEMPLATES:
             server_requester->getAllTemplates();

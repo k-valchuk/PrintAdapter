@@ -71,7 +71,6 @@ void ServerRequester::slotDone(const int& http, const QByteArray& byteArray){
     QJsonParseError pe{};
     const QJsonDocument doc = QJsonDocument::fromJson(byteArray, &pe);
     if (pe.error  != QJsonParseError::NoError) {
-        qDebug() << "ServerRequester Error Json catch" << pe.errorString() << "\n";
         const QJsonDocument doc = QJsonDocument();
         emit done(http, doc, currentButtonId);
         return;

@@ -1,21 +1,18 @@
 #include "ExportDialog.h"
+#include "Config.h"
 #include <QtWidgets>
 
-ExportDialog::ExportDialog(QWidget* pwgt): QDialog(pwgt) {
-    QLabel* templateIdLabel = new QLabel("Id шаблона");
+ExportDialog::ExportDialog(QWidget* pwgt): BaseDialog(pwgt) {
+    QLabel* templateIdLabel = new QLabel(TemplateIdLabel);
     templateId = new QLineEdit();
     templateIdLabel->setBuddy(templateId);
 
     requestBody = new QPlainTextEdit();
     QVBoxLayout* layout = new QVBoxLayout;
-    QPushButton* okButton = new QPushButton("Ок");
-
-    connect(okButton, SIGNAL(clicked()), SLOT(accept()));
     layout->addWidget(templateIdLabel);
     layout->addWidget(templateId);
     layout->addWidget(requestBody);
-    layout->addWidget(okButton);
-    setLayout(layout);
+    setBaseLayout(layout);
 }
 
 QString ExportDialog::getContent() const {

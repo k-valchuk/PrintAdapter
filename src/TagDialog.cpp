@@ -1,29 +1,30 @@
 #include "TagDialog.h"
+#include "Config.h"
 #include <QLabel>
 
 TagDialog::TagDialog(QWidget* pwgt) : BaseDialog(pwgt) {
     QVBoxLayout* layout = new QVBoxLayout;
 
-    QLabel* tagNameLabel = new QLabel("Имя");
+    QLabel* tagNameLabel = new QLabel(NameLabel);
     tagName = new QLineEdit;
     tagNameLabel->setBuddy(tagName);
     layout->addWidget(tagNameLabel);
     layout->addWidget(tagName);
     
 
-    QLabel* tagDescriptionLabel = new QLabel("Описание");
+    QLabel* tagDescriptionLabel = new QLabel(DescriptionLabel);
     tagDescription = new QPlainTextEdit;
     tagDescriptionLabel->setBuddy(tagDescription);
     layout->addWidget(tagDescriptionLabel);
     layout->addWidget(tagDescription);
 
-    QLabel* tagSubsystemLabel = new QLabel("Подсистема");
+    QLabel* tagSubsystemLabel = new QLabel(SubsystemLabel);
     tagSubsystem = new QLineEdit;
     tagSubsystemLabel->setBuddy(tagSubsystem);
     layout->addWidget(tagSubsystemLabel);
     layout->addWidget(tagSubsystem);
 
-    QLabel* tagAliasLabel = new QLabel("Псевдоним в JSON");
+    QLabel* tagAliasLabel = new QLabel(AliasLabel);
     tagAlias = new QLineEdit;
     tagAliasLabel->setBuddy(tagAlias);
     layout->addWidget(tagAliasLabel);

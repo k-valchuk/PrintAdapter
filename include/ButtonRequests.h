@@ -2,7 +2,7 @@
 #include "TagDialog.h"
 #include "ExportDialog.h"
 #include "ServerRequester.h"
-#include "GetTemplateDialog.h"
+#include "GetElementDialog.h"
 
 template <typename TDialog, typename Func>
 void baseRequest(
@@ -48,14 +48,14 @@ void exportTemplate(ExportDialog* dialog, ServerRequester* server_requester) {
     );
 }
 
-void getTemplate(GetTemplateDialog* dialog, ServerRequester* server_requester) {
+void getTemplate(GetElementDialog* dialog, ServerRequester* server_requester) {
     server_requester->getTemplate(dialog->getContent());
 }
 
-void removeTag(GetTemplateDialog* dialog, ServerRequester* server_requester) {
+void removeTag(GetElementDialog* dialog, ServerRequester* server_requester) {
     server_requester->removeTag(dialog->getContent());
 }
 
-void removeTemplate(GetTemplateDialog* dialog, ServerRequester* server_requester) { 
+void removeTemplate(GetElementDialog* dialog, ServerRequester* server_requester) { 
     server_requester->removeTemplate(dialog->getContent());
 }

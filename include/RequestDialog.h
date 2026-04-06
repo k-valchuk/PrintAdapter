@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QDialog>
 #include <QButtonGroup>
 #include <QTableWidget>
+#include "BaseDialog.h"
 #include "ServerRequester.h"
 #include "BaseRequestButton.h"
 
 
 enum class ContentType { HTML, TEXT, EMPTY };
 
-class RequestDialog: public QDialog {
+class RequestDialog: public BaseDialog {
     Q_OBJECT
     
 
