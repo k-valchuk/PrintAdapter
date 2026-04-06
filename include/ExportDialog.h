@@ -9,7 +9,7 @@ class ExportDialog: public QDialog {
 
     private:
         QPlainTextEdit* requestBody;
-        QLineEdit* templateName;
+        QLineEdit* templateId;
 
     public:
         ExportDialog(QWidget* pwgt = nullptr);

@@ -14,8 +14,8 @@ void ServerRequester::getAllTemplates() {
     requester->restRequest(QUrl(QString("%1/db/get_all_templates").arg(base_url)), RequestTypes::GET, nullptr);
 }
 
-void ServerRequester::getTemplate(QString templateName) {
-    requester->restRequest(QUrl(QString("%1/db/get_template?name=%2").arg(base_url).arg(templateName)), RequestTypes::GET, nullptr);
+void ServerRequester::getTemplate(QString templateId) {
+    requester->restRequest(QUrl(QString("%1/db/get_template?id=%2").arg(base_url).arg(templateId)), RequestTypes::GET, nullptr);
 }
 
 void ServerRequester::exportTemplate(const QJsonDocument jsonDoc) {
@@ -26,17 +26,17 @@ void ServerRequester::exportTemplate(const QJsonDocument jsonDoc) {
     );
 }
 
-void ServerRequester::removeTemplate(QString templateName) {
+void ServerRequester::removeTemplate(QString templateId) {
     requester->restRequest(
-        QUrl(QString("%1/db/delete_template?name=%2").arg(base_url).arg(templateName)), 
+        QUrl(QString("%1/db/delete_template?id=%2").arg(base_url).arg(templateId)), 
         RequestTypes::DELETE_RESOURCE, 
         nullptr
     );
 }
 
-void ServerRequester::removeTag(QString tagName) {
+void ServerRequester::removeTag(QString tagId) {
     requester->restRequest(
-        QUrl(QString("%1/db/delete_tag?name=%2").arg(base_url).arg(tagName)), 
+        QUrl(QString("%1/db/delete_tag?id=%2").arg(base_url).arg(tagId)), 
         RequestTypes::DELETE_RESOURCE, 
         nullptr
     );

@@ -1,9 +1,9 @@
 #include "GetTemplateDialog.h"
 
 GetTemplateDialog::GetTemplateDialog(QWidget* pwgt) : QDialog(pwgt) {
-    QLabel* templateNameLabel = new QLabel("Имя");
-    templateName = new QLineEdit();
-    templateNameLabel->setBuddy(templateName);
+    QLabel* templateNameLabel = new QLabel("Id элемента");
+    templateId = new QLineEdit();
+    templateNameLabel->setBuddy(templateId);
 
     QVBoxLayout* layout = new QVBoxLayout;
     QPushButton* okButton = new QPushButton("Ок");
@@ -13,7 +13,7 @@ GetTemplateDialog::GetTemplateDialog(QWidget* pwgt) : QDialog(pwgt) {
     connect(cancelButton, SIGNAL(clicked()), SLOT(reject()));
 
     layout->addWidget(templateNameLabel);
-    layout->addWidget(templateName);
+    layout->addWidget(templateId);
     QVBoxLayout* horizontal_layout = new QVBoxLayout;
     horizontal_layout->addWidget(okButton);
     horizontal_layout->addWidget(cancelButton);
@@ -22,5 +22,5 @@ GetTemplateDialog::GetTemplateDialog(QWidget* pwgt) : QDialog(pwgt) {
 }
 
 QString GetTemplateDialog::getContent() const {
-    return templateName->text();
+    return templateId->text();
 }

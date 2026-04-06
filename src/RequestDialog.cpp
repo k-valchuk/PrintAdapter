@@ -27,8 +27,19 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
     );
     baseLayout->addLayout(layout);
 
-    browser = new QTextBrowser(this);
-    baseLayout->addWidget(browser);
+    table = new QTableWidget(this);
+    table->setColumnCount(2);
+    QStringList headers;
+    headers << "ID" << "Название";
+    table->setHorizontalHeaderLabels(headers);
+    baseLayout->addWidget(table);
+
+    connect(
+        table,
+        SIGNAL(cellClicked(int, int)),
+        this,
+        SLOT(onCellClicked(int, int))
+    );
 
     QPushButton* cancelButton = new QPushButton("Закрыть");
     connect(cancelButton, SIGNAL(clicked()), SLOT(reject()));
@@ -42,7 +53,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
         server_requester, 
         SIGNAL(done(int, const QJsonDocument, ActionId)), 
         this, 
-        SLOT(changeBrowserContent(int, const QJsonDocument, ActionId))
+        SLOT(showResponseSlot(int, const QJsonDocument, ActionId))
     );
     connect(
         server_requester, 
@@ -53,25 +64,55 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
 
 }
 
+void RequestDialog::onCellClicked(int row, int column) {
+    int idColumn = 0;
+    QTableWidgetItem *idItem = table->item(row, idColumn);
+    if (idItem) {
+        QApplication::clipboard()->setText(idItem->text());
+        qDebug() << "Скопирован ID из строки:" << row;
+    }
+}
+
+void RequestDialog::updateTable(QJsonArray value_array) {
+    int rowCount = table->rowCount();
+    int i = 0;
+    for (const QJsonValue& value : value_array) {
+        if (i >= rowCount) {
+            table->insertRow(rowCount);
+            rowCount = table->rowCount();
+        }
+        table->setItem(
+            i, 0, 
+            new QTableWidgetItem(QString::number(value.toObject().value("element_id").toInt()))
+        );
+        table->setItem(
+            i, 1, 
+            new QTableWidgetItem(value.toObject().value("element_name").toString())
+        );
+        i += 1;
+    }
+
+}
+
 void RequestDialog::requestRouting(ActionId buttonId) {
     switch (buttonId) {
         case ActionId::ADD_TEMPLATE:
-            addTemplate(this, server_requester);
+            baseRequest<ExportDialog>(this, server_requester, addTemplate);
             break;
         case ActionId::ADD_TAG:
-            addTag(this, server_requester);
+            baseRequest<TagDialog>(this, server_requester, addTag);
             break;
         case ActionId::REMOVE_TEMPLATE:
-            removeTemplate(this, server_requester);
+            baseRequest<GetTemplateDialog>(this, server_requester, removeTemplate);
             break;
         case ActionId::REMOVE_TAG:
-            removeTag(this, server_requester);
+            baseRequest<GetTemplateDialog>(this, server_requester, removeTag);
             break;
         case ActionId::EXPORT:
-            exportTemplate(this, server_requester);
+            baseRequest<ExportDialog>(this, server_requester, exportTemplate);
             break;
         case ActionId::GET_TEMPLATE:
-            getTemplate(this, server_requester);
+            baseRequest<GetTemplateDialog>(this, server_requester, getTemplate);
             break;
         case ActionId::GET_ALL_TEMPLATES:
             server_requester->getAllTemplates();
@@ -91,22 +132,19 @@ void RequestDialog::handleButtonClicked(QAbstractButton* button) {
 
 RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response;
+    response.content_type = ContentType::TEXT;
     switch (buttonId) {
         case ActionId::ADD_TEMPLATE:
             response.content = QString("Добавлен шаблон");
-            response.content_type = ContentType::TEXT;
             break;
         case ActionId::ADD_TAG:
             response.content = QString("Добавлен тэг");
-            response.content_type = ContentType::TEXT;
             break;
         case ActionId::REMOVE_TEMPLATE:
             response.content = QString("Убран шаблон");
-            response.content_type = ContentType::TEXT;
             break;
         case ActionId::REMOVE_TAG:
             response.content = QString("Убран тэг");
-            response.content_type = ContentType::TEXT;
             break;
         case ActionId::EXPORT:
         case ActionId::GET_TEMPLATE:
@@ -114,30 +152,23 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
             response.content_type = ContentType::HTML;
             break;
         case ActionId::GET_ALL_TEMPLATES:
-            const QJsonArray root = jsonDoc.array();
-            QVector<QString> content;
-            for (const QJsonValue& value : root) {
-                content.append(value.toString());
-            }
-            response.content = content.toList().join("\n");
-            response.content_type = ContentType::TEXT;
+            updateTable(jsonDoc.array());
+            response.content_type = ContentType::EMPTY;
             break;
     }
     return response;
 }
 
-void RequestDialog::changeBrowserContent(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId) {
+void RequestDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response = responseRouting(jsonDoc, buttonId);
     if (response.content_type == ContentType::HTML) {
-        qDebug() << "PrintableReport";
         PrintableReport* printableReport = new PrintableReport(QPrinter::HighResolution, response.content, this);
         printableReport->preview(nullptr, "Печать");
-        qDebug() << "previewed";
     } else if (response.content_type == ContentType::TEXT) {
-        browser->setText(response.content);
+        QMessageBox::information(this, "Результат", response.content);
     }
 }
 
 void RequestDialog::getErrorRequestSlot(QString message, int httpStatus){
-    browser->setText(message);
+    QMessageBox::critical(this, "Ошибка", message);
 }

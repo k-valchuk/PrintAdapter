@@ -7,7 +7,7 @@ class GetTemplateDialog: public QDialog {
     Q_OBJECT
 
     private:
-        QLineEdit* templateName;
+        QLineEdit* templateId;
 
     public:
         GetTemplateDialog(QWidget* pwgt = nullptr);
