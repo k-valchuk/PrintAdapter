@@ -111,6 +111,9 @@ void RequestDialog::requestRouting(ActionId buttonId) {
         case ActionId::GET_ALL_TEMPLATES:
             server_requester->getAllTemplates();
             break;
+        case ActionId::GET_ALL_TAGS:
+            server_requester->getAllTags();
+            break;
     }
 }
 
@@ -146,6 +149,7 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
             response.content_type = ContentType::HTML;
             break;
         case ActionId::GET_ALL_TEMPLATES:
+        case ActionId::GET_ALL_TAGS:
             updateTable(jsonDoc.array());
             response.content_type = ContentType::EMPTY;
             break;

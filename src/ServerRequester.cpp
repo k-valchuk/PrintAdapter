@@ -14,6 +14,10 @@ void ServerRequester::getAllTemplates() {
     requester->restRequest(QUrl(QString("%1/db/get_all_templates").arg(base_url)), RequestTypes::GET, nullptr);
 }
 
+void ServerRequester::getAllTags() {
+    requester->restRequest(QUrl(QString("%1/db/get_all_tags").arg(base_url)), RequestTypes::GET, nullptr);
+}
+
 void ServerRequester::getTemplate(QString templateId) {
     requester->restRequest(QUrl(QString("%1/db/get_template?id=%2").arg(base_url).arg(templateId)), RequestTypes::GET, nullptr);
 }

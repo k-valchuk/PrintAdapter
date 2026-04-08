@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QString>
-
 #include <map>
 
 
@@ -12,7 +11,8 @@ enum class ActionId {
     ADD_TEMPLATE,
     REMOVE_TEMPLATE,
     ADD_TAG,
-    REMOVE_TAG
+    REMOVE_TAG,
+    GET_ALL_TAGS,
 };
 
 const std::map<ActionId, const QString> ACTIONS_MAP = {
@@ -21,6 +21,7 @@ const std::map<ActionId, const QString> ACTIONS_MAP = {
     {ActionId::GET_ALL_TEMPLATES, "Все шаблоны"},
     {ActionId::ADD_TEMPLATE, "Добавить/изменить шаблон"},
     {ActionId::REMOVE_TEMPLATE, "Удалить шаблон"},
+    {ActionId::GET_ALL_TAGS, "Все тэги"},
     {ActionId::ADD_TAG, "Добавить/изменить тэг"},
     {ActionId::REMOVE_TAG, "Удалить тэг"},
 };
