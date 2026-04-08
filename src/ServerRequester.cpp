@@ -62,6 +62,14 @@ void ServerRequester::setCurrentButton(ActionId buttonId) {
     currentButtonId = buttonId;
 }
 
+void ServerRequester::setExportJson(QJsonDocument json_doc){
+    exportJson = json_doc;
+}
+
+QJsonDocument ServerRequester::getExportJson(){
+    return exportJson;
+}
+
 void ServerRequester::slotDone(const int& http, const QByteArray& byteArray){
 
     if (http < 200 || http >= 300) {

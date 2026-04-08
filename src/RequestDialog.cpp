@@ -67,6 +67,7 @@ void RequestDialog::onCellClicked(int row, int column) {
 }
 
 void RequestDialog::updateTable(QJsonArray value_array) {
+    table->clearContents();
     int rowCount = table->rowCount();
     int i = 0;
     for (const QJsonValue& value : value_array) {
@@ -90,7 +91,7 @@ void RequestDialog::updateTable(QJsonArray value_array) {
 void RequestDialog::requestRouting(ActionId buttonId) {
     switch (buttonId) {
         case ActionId::ADD_TEMPLATE:
-            baseRequest<ExportDialog>(this, server_requester, addTemplate);
+            baseRequest<AddTemplateDialog>(this, server_requester, addTemplate);
             break;
         case ActionId::ADD_TAG:
             baseRequest<TagDialog>(this, server_requester, addTag);
@@ -102,7 +103,7 @@ void RequestDialog::requestRouting(ActionId buttonId) {
             baseRequest<GetElementDialog>(this, server_requester, removeTag);
             break;
         case ActionId::EXPORT:
-            baseRequest<ExportDialog>(this, server_requester, exportTemplate);
+            baseRequest<GetElementDialog>(this, server_requester, exportTemplate);
             break;
         case ActionId::GET_TEMPLATE:
             baseRequest<GetElementDialog>(this, server_requester, getTemplate);

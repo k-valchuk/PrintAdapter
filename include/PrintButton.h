@@ -11,6 +11,7 @@ class PrintButton: public QPushButton {
 
     public:
         PrintButton(QWidget* pwgt = nullptr);
+        void setExportJson(QJsonDocument json_doc);
         ~PrintButton();
 
     private slots:

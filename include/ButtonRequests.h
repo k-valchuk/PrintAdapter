@@ -1,6 +1,6 @@
 #pragma once
 #include "TagDialog.h"
-#include "ExportDialog.h"
+#include "AddTemplateDialog.h"
 #include "ServerRequester.h"
 #include "GetElementDialog.h"
 
@@ -28,7 +28,7 @@ void addTag(TagDialog* dialog, ServerRequester* server_requester) {
     );
 }
 
-void addTemplate(ExportDialog* dialog, ServerRequester* server_requester) {
+void addTemplate(AddTemplateDialog* dialog, ServerRequester* server_requester) {
     QJsonObject jsonObj;
     jsonObj["name"] = dialog->getName();
     jsonObj["content"] = dialog->getContent();
@@ -37,12 +37,11 @@ void addTemplate(ExportDialog* dialog, ServerRequester* server_requester) {
     );
 }
 
-void exportTemplate(ExportDialog* dialog, ServerRequester* server_requester) {
+void exportTemplate(GetElementDialog* dialog, ServerRequester* server_requester) {
     QJsonObject jsonObj;
-    jsonObj["template_name"] = dialog->getName();
-    jsonObj["data"] = QJsonDocument::fromJson(
-        dialog->getContent().toUtf8()
-    ).object();
+    jsonObj["template_id"] = dialog->getContent().toInt();
+    jsonObj["data"] = server_requester->getExportJson().object();
+    
     server_requester->exportTemplate(
         QJsonDocument(jsonObj)
     );

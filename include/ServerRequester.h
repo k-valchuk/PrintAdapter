@@ -10,6 +10,7 @@ class ServerRequester: public QObject {
         Requester* requester;
         QString base_url;
         ActionId currentButtonId;
+        QJsonDocument exportJson;
     
     public:
         ServerRequester(QObject* pobj, QString base_url);
@@ -22,6 +23,8 @@ class ServerRequester: public QObject {
         void addTag(const QJsonDocument jsonDoc);
         void removeTag(QString tagName);
 
+        void setExportJson(QJsonDocument json_doc);
+        QJsonDocument getExportJson();
 
     private slots:
         void slotError(QString message, int httpStatus);

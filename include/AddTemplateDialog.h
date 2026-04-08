@@ -4,15 +4,15 @@
 #include <QPlainTextEdit>
 #include <QLineEdit>
 
-class ExportDialog: public BaseDialog {
+class AddTemplateDialog: public BaseDialog {
     Q_OBJECT
 
     private:
         QPlainTextEdit* requestBody;
-        QLineEdit* templateId;
+        QLineEdit* templateName;
 
     public:
-        ExportDialog(QWidget* pwgt = nullptr);
+        AddTemplateDialog(QWidget* pwgt = nullptr);
         QString getName() const;
         QString getContent() const;
     

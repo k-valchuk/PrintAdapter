@@ -13,6 +13,11 @@ void PrintButton::requestDialogSlot() {
     if (pRequestDialog->exec() == QDialog::Accepted){}
     delete pRequestDialog;
 }
+
+void PrintButton::setExportJson(QJsonDocument json_doc) {
+    server_requester->setExportJson(json_doc);
+}
+
 PrintButton::~PrintButton() {
     delete server_requester;
 }
