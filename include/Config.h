@@ -42,3 +42,12 @@ const QString AliasLabel = "Псевдоним в JSON";
 
 const QString TemplateIdLabel = "Id шаблона";
 const QString ElementIdLabel = "Id элемента";
+
+const QString AddTemplateLabel = "Добавлен шаблон";
+const QString RemoveTemplateLabel = "Убран шаблон";
+const QString AddTagLabel = "Добавлен тэг";
+const QString RemoveTagLabel = "Убран тэг";
+
+const QString PrintTitle = "Печать";
+const QString ResultTitle = "Результат";
+const QString ErrorTitle = "Ошибка";

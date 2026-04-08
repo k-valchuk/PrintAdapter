@@ -132,16 +132,16 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
     response.content_type = ContentType::TEXT;
     switch (buttonId) {
         case ActionId::ADD_TEMPLATE:
-            response.content = QString("Добавлен шаблон");
+            response.content = QString(AddTemplateLabel);
             break;
         case ActionId::ADD_TAG:
-            response.content = QString("Добавлен тэг");
+            response.content = QString(AddTagLabel);
             break;
         case ActionId::REMOVE_TEMPLATE:
-            response.content = QString("Убран шаблон");
+            response.content = QString(RemoveTemplateLabel);
             break;
         case ActionId::REMOVE_TAG:
-            response.content = QString("Убран тэг");
+            response.content = QString(RemoveTagLabel);
             break;
         case ActionId::EXPORT:
         case ActionId::GET_TEMPLATE:
@@ -161,12 +161,12 @@ void RequestDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc
     ContentModel response = responseRouting(jsonDoc, buttonId);
     if (response.content_type == ContentType::HTML) {
         PrintableReport* printableReport = new PrintableReport(QPrinter::HighResolution, response.content, this);
-        printableReport->preview(nullptr, "Печать");
+        printableReport->preview(nullptr, PrintTitle);
     } else if (response.content_type == ContentType::TEXT) {
-        QMessageBox::information(this, "Результат", response.content);
+        QMessageBox::information(this, "ResultTitle", response.content);
     }
 }
 
 void RequestDialog::getErrorRequestSlot(QString message, int httpStatus){
-    QMessageBox::critical(this, "Ошибка", message);
+    QMessageBox::critical(this, ErrorTitle, message);
 }
