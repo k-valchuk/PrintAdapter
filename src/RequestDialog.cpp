@@ -2,6 +2,7 @@
 #include "ButtonRequests.h"
 #include "BaseRequestButton.h"
 #include "PrintableReport.h"
+#include <QTableView>
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): BaseDialog(pwgt), server_requester(server_requester) {
@@ -27,19 +28,22 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
     );
     baseLayout->addLayout(layout);
 
-    table = new QTableWidget(this);
-    table->setColumnCount(2);
-    QStringList headers;
-    headers << "ID" << "Название";
-    table->setHorizontalHeaderLabels(headers);
-    baseLayout->addWidget(table);
+    QTableView* templateTableView = new QTableView(this);
+    templatesModel = new QStandardItemModel(0, 2, this);
+    templatesModel->setHorizontalHeaderLabels({"ID", "Название"});
+    templateTableView->setModel(templatesModel);
+    templateTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    connect(
-        table,
-        SIGNAL(cellClicked(int, int)),
-        this,
-        SLOT(onCellClicked(int, int))
-    );
+    QTableView* tagTableView = new QTableView(this);
+    tagsModel = new QStandardItemModel(0, 2, this);
+    tagsModel->setHorizontalHeaderLabels({"ID", "Название"});
+    tagTableView->setModel(tagsModel);
+    tagTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    
+    QHBoxLayout* table_layout = new QHBoxLayout(this);
+    table_layout->addWidget(templateTableView);
+    table_layout->addWidget(tagTableView);
+    baseLayout->addLayout(table_layout);
 
     setBaseLayout(baseLayout);
 
@@ -58,34 +62,14 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
 
 }
 
-void RequestDialog::onCellClicked(int row, int column) {
-    int idColumn = 0;
-    QTableWidgetItem *idItem = table->item(row, idColumn);
-    if (idItem) {
-        QApplication::clipboard()->setText(idItem->text());
-    }
-}
-
-void RequestDialog::updateTable(QJsonArray value_array) {
-    table->clearContents();
-    int rowCount = table->rowCount();
-    int i = 0;
+void RequestDialog::updateTable(QJsonArray value_array, QStandardItemModel* itemModel) {
+    itemModel->clear();
     for (const QJsonValue& value : value_array) {
-        if (i >= rowCount) {
-            table->insertRow(rowCount);
-            rowCount = table->rowCount();
-        }
-        table->setItem(
-            i, 0, 
-            new QTableWidgetItem(QString::number(value.toObject().value("element_id").toInt()))
-        );
-        table->setItem(
-            i, 1, 
-            new QTableWidgetItem(value.toObject().value("element_name").toString())
-        );
-        i += 1;
+        QList<QStandardItem*> rowData;
+        rowData << new QStandardItem(QString::number(value.toObject().value("element_id").toInt()));
+        rowData << new QStandardItem(value.toObject().value("element_name").toString());
+        itemModel->appendRow(rowData);
     }
-
 }
 
 void RequestDialog::requestRouting(ActionId buttonId) {
@@ -142,6 +126,7 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
             break;
         case ActionId::REMOVE_TAG:
             response.content = QString(RemoveTagLabel);
+
             break;
         case ActionId::EXPORT:
         case ActionId::GET_TEMPLATE:
@@ -149,8 +134,11 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
             response.content_type = ContentType::HTML;
             break;
         case ActionId::GET_ALL_TEMPLATES:
+            updateTable(jsonDoc.array(), templatesModel);
+            response.content_type = ContentType::EMPTY;
+            break;
         case ActionId::GET_ALL_TAGS:
-            updateTable(jsonDoc.array());
+            updateTable(jsonDoc.array(), tagsModel);
             response.content_type = ContentType::EMPTY;
             break;
     }

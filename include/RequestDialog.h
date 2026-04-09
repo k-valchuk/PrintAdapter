@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QButtonGroup>
-#include <QTableWidget>
+#include <QStandardItemModel>
 #include "BaseDialog.h"
 #include "ServerRequester.h"
 #include "BaseRequestButton.h"
@@ -14,7 +14,8 @@ class RequestDialog: public BaseDialog {
     
 
     private:
-        QTableWidget* table;
+        QStandardItemModel* templatesModel;
+        QStandardItemModel* tagsModel;
         ServerRequester* server_requester;
         QButtonGroup* button_group;
 
@@ -28,7 +29,7 @@ class RequestDialog: public BaseDialog {
 
         ContentModel responseRouting(const QJsonDocument jsonDoc, ActionId buttonId);
         void requestRouting(ActionId buttonId);
-        void updateTable(QJsonArray value_array);
+        void updateTable(QJsonArray value_array, QStandardItemModel* itemModel);
     
     public:
         RequestDialog(QWidget* pwgt, ServerRequester* server_requester);
@@ -37,7 +38,6 @@ class RequestDialog: public BaseDialog {
     public slots:
         void showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId);
         void getErrorRequestSlot(QString message, int httpStatus);
-        void onCellClicked(int row, int column);
     
     private slots:
         void handleButtonClicked(QAbstractButton *button);
