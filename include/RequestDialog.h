@@ -2,6 +2,7 @@
 
 #include <QButtonGroup>
 #include <QStandardItemModel>
+#include "BaseTableView.h"
 #include "BaseDialog.h"
 #include "ServerRequester.h"
 #include "BaseRequestButton.h"
@@ -15,6 +16,8 @@ class RequestDialog: public BaseDialog {
 
     private:
         QStandardItemModel* templatesModel;
+        BaseTableView* templateTableView;
+        BaseTableView* tagTableView;
         QStandardItemModel* tagsModel;
         ServerRequester* server_requester;
         QButtonGroup* button_group;

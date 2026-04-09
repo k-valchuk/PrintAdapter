@@ -2,7 +2,6 @@
 #include "ButtonRequests.h"
 #include "BaseRequestButton.h"
 #include "PrintableReport.h"
-#include <QTableView>
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): BaseDialog(pwgt), server_requester(server_requester) {
@@ -28,17 +27,11 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
     );
     baseLayout->addLayout(layout);
 
-    QTableView* templateTableView = new QTableView(this);
     templatesModel = new QStandardItemModel(0, 2, this);
-    templatesModel->setHorizontalHeaderLabels({"ID", "Название"});
-    templateTableView->setModel(templatesModel);
-    templateTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    templateTableView = new BaseTableView(this, templatesModel);
 
-    QTableView* tagTableView = new QTableView(this);
     tagsModel = new QStandardItemModel(0, 2, this);
-    tagsModel->setHorizontalHeaderLabels({"ID", "Название"});
-    tagTableView->setModel(tagsModel);
-    tagTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tagTableView = new BaseTableView(this, tagsModel);
     
     QHBoxLayout* table_layout = new QHBoxLayout(this);
     table_layout->addWidget(templateTableView);
@@ -63,12 +56,19 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
 }
 
 void RequestDialog::updateTable(QJsonArray value_array, QStandardItemModel* itemModel) {
-    itemModel->clear();
+    int i = 0;
+    int rowsCount = itemModel->rowCount(); 
     for (const QJsonValue& value : value_array) {
         QList<QStandardItem*> rowData;
         rowData << new QStandardItem(QString::number(value.toObject().value("element_id").toInt()));
         rowData << new QStandardItem(value.toObject().value("element_name").toString());
-        itemModel->appendRow(rowData);
+        if (i >= rowsCount) {
+            itemModel->appendRow(rowData);
+        } else {
+            itemModel->removeRow(i);
+            itemModel->insertRow(i, rowData);
+        }
+        i++;
     }
 }
 
