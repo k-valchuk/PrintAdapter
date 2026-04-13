@@ -18,7 +18,7 @@ class ServerRequester: public QObject {
         void getAllTags();
         void getTemplate(QString templateName);
         void removeTemplate(QString templateName);
-        void exportTemplate(const QJsonDocument jsonDoc);
+        void exportTemplate(int templateId);
         void addTemplate(const QJsonDocument jsonDoc);
         void setCurrentButton(ActionId buttonId);
         void addTag(const QJsonDocument jsonDoc);

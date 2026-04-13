@@ -11,10 +11,12 @@ ServerRequester::ServerRequester(QObject* pobj, QString base_url) : QObject(pobj
 }
 
 void ServerRequester::getAllTemplates() {
+    setCurrentButton(ActionId::GET_ALL_TEMPLATES);
     requester->restRequest(QUrl(QString("%1/db/get_all_templates").arg(base_url)), RequestTypes::GET, nullptr);
 }
 
 void ServerRequester::getAllTags() {
+    setCurrentButton(ActionId::GET_ALL_TAGS);
     requester->restRequest(QUrl(QString("%1/db/get_all_tags").arg(base_url)), RequestTypes::GET, nullptr);
 }
 
@@ -22,11 +24,14 @@ void ServerRequester::getTemplate(QString templateId) {
     requester->restRequest(QUrl(QString("%1/db/get_template?id=%2").arg(base_url).arg(templateId)), RequestTypes::GET, nullptr);
 }
 
-void ServerRequester::exportTemplate(const QJsonDocument jsonDoc) {
+void ServerRequester::exportTemplate(int templateId) {
+    QJsonObject jsonObj;
+    jsonObj["template_id"] = templateId;
+    jsonObj["data"] = exportJson.object();
     requester->restRequest(
         QUrl(QString("%1/export").arg(base_url)), 
         RequestTypes::POST, 
-        jsonDoc.toJson()
+        QJsonDocument(jsonObj).toJson()
     );
 }
 

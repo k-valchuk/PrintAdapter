@@ -2,7 +2,6 @@
 #include "TagDialog.h"
 #include "AddTemplateDialog.h"
 #include "ServerRequester.h"
-#include "GetElementDialog.h"
 
 template <typename TDialog, typename Func>
 void baseRequest(
@@ -35,26 +34,4 @@ void addTemplate(AddTemplateDialog* dialog, ServerRequester* server_requester) {
     server_requester->addTemplate(
         QJsonDocument(jsonObj)
     );
-}
-
-void exportTemplate(GetElementDialog* dialog, ServerRequester* server_requester) {
-    QJsonObject jsonObj;
-    jsonObj["template_id"] = dialog->getContent().toInt();
-    jsonObj["data"] = server_requester->getExportJson().object();
-    
-    server_requester->exportTemplate(
-        QJsonDocument(jsonObj)
-    );
-}
-
-void getTemplate(GetElementDialog* dialog, ServerRequester* server_requester) {
-    server_requester->getTemplate(dialog->getContent());
-}
-
-void removeTag(GetElementDialog* dialog, ServerRequester* server_requester) {
-    server_requester->removeTag(dialog->getContent());
-}
-
-void removeTemplate(GetElementDialog* dialog, ServerRequester* server_requester) { 
-    server_requester->removeTemplate(dialog->getContent());
 }

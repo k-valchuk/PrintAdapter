@@ -5,7 +5,6 @@
 #include "BaseTableView.h"
 #include "BaseDialog.h"
 #include "ServerRequester.h"
-#include "BaseRequestButton.h"
 
 
 enum class ContentType { HTML, TEXT, EMPTY };
@@ -31,18 +30,19 @@ class RequestDialog: public BaseDialog {
         };
 
         ContentModel responseRouting(const QJsonDocument jsonDoc, ActionId buttonId);
-        void requestRouting(ActionId buttonId);
         void updateTable(QJsonArray value_array, QStandardItemModel* itemModel);
+        void templateContextMenu(const QPoint &pos);
+        void tagContextMenu(const QPoint &pos);
+        void removeRowByID(int itemID, QStandardItemModel* itemModel);
+       
     
     public:
-        RequestDialog(QWidget* pwgt, ServerRequester* server_requester);
+        RequestDialog(QWidget* pwgt, ServerRequester* server_requester_);
 
     
     public slots:
         void showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId);
         void getErrorRequestSlot(QString message, int httpStatus);
     
-    private slots:
-        void handleButtonClicked(QAbstractButton *button);
 
 };

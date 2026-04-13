@@ -1,31 +1,10 @@
 #include "RequestDialog.h"
 #include "ButtonRequests.h"
-#include "BaseRequestButton.h"
 #include "PrintableReport.h"
 
 
-RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): BaseDialog(pwgt), server_requester(server_requester) {
+RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseDialog(pwgt), server_requester(server_requester_) {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
-    button_group = new QButtonGroup(this); 
-    QHBoxLayout* layout = new QHBoxLayout(this);
-
-    for (const auto& [buttonId, buttonLabel] : ACTIONS_MAP) {
-        auto button = new BaseRequestButton(
-            this, 
-            server_requester, 
-            buttonLabel
-        );
-        layout->addWidget(button);
-        button_group->addButton(button, static_cast<int>(buttonId));
-    }
-
-    connect(
-        button_group, 
-        SIGNAL(buttonClicked(QAbstractButton*)), 
-        this, 
-        SLOT(handleButtonClicked(QAbstractButton*))
-    );
-    baseLayout->addLayout(layout);
 
     templatesModel = new QStandardItemModel(0, 2, this);
     templateTableView = new BaseTableView(this, templatesModel);
@@ -53,6 +32,22 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester): 
         SLOT(getErrorRequestSlot(QString, int))
     );
 
+    templateTableView->setContextMenuPolicy(Qt::CustomContextMenu);
+    tagTableView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(
+        templateTableView, &QTableView::customContextMenuRequested,
+        this, &RequestDialog::templateContextMenu
+    );
+    connect(
+        tagTableView, &QTableView::customContextMenuRequested,
+        this, &RequestDialog::tagContextMenu
+    );
+
+    server_requester->getAllTemplates();
+    QTimer::singleShot(150, this, [this]() {
+        server_requester->getAllTags();
+    });
+
 }
 
 void RequestDialog::updateTable(QJsonArray value_array, QStandardItemModel* itemModel) {
@@ -72,61 +67,106 @@ void RequestDialog::updateTable(QJsonArray value_array, QStandardItemModel* item
     }
 }
 
-void RequestDialog::requestRouting(ActionId buttonId) {
-    switch (buttonId) {
-        case ActionId::ADD_TEMPLATE:
+void RequestDialog::templateContextMenu(const QPoint &pos) {
+    QModelIndex index = templateTableView->indexAt(pos);
+    QString dbId = templateTableView->model()->data(templateTableView->model()->index(index.row(), 0)).toString();
+    if (!index.isValid()) return;
+    QMenu menu(this);
+    menu.addAction(
+        "Добавить Шаблон",
+        this,
+        [this]{
+            server_requester->setCurrentButton(ActionId::ADD_TEMPLATE);
             baseRequest<AddTemplateDialog>(this, server_requester, addTemplate);
-            break;
-        case ActionId::ADD_TAG:
-            baseRequest<TagDialog>(this, server_requester, addTag);
-            break;
-        case ActionId::REMOVE_TEMPLATE:
-            baseRequest<GetElementDialog>(this, server_requester, removeTemplate);
-            break;
-        case ActionId::REMOVE_TAG:
-            baseRequest<GetElementDialog>(this, server_requester, removeTag);
-            break;
-        case ActionId::EXPORT:
-            baseRequest<GetElementDialog>(this, server_requester, exportTemplate);
-            break;
-        case ActionId::GET_TEMPLATE:
-            baseRequest<GetElementDialog>(this, server_requester, getTemplate);
-            break;
-        case ActionId::GET_ALL_TEMPLATES:
-            server_requester->getAllTemplates();
-            break;
-        case ActionId::GET_ALL_TAGS:
-            server_requester->getAllTags();
-            break;
-    }
+        }
+    );
+    menu.addAction(
+        "Показать Шаблон",
+        this,
+        [this, dbId]{
+            server_requester->setCurrentButton(ActionId::GET_TEMPLATE);
+            server_requester->getTemplate(dbId);
+        }
+    );
+    menu.addAction(
+        "Экспорт Шаблона",
+        this,
+        [this, dbId]{
+            server_requester->setCurrentButton(ActionId::GET_TEMPLATE);
+            server_requester->exportTemplate(dbId.toInt());
+        }
+    );
+    menu.addAction(
+        "Удалить Шаблон",
+        this,
+        [this, dbId]{
+            server_requester->setCurrentButton(ActionId::REMOVE_TEMPLATE);
+            server_requester->removeTemplate(dbId);
+        }
+    );
+
+    menu.exec(templateTableView->viewport()->mapToGlobal(pos));
 }
 
-void RequestDialog::handleButtonClicked(QAbstractButton* button) {
-    BaseRequestButton* requestButton = qobject_cast<BaseRequestButton*>(button);
-    if (requestButton){
-        int id = button_group->id(requestButton);
-        ActionId buttonId = static_cast<ActionId>(id);
-        requestButton->setCurrentButton(buttonId);
-        requestRouting(buttonId);
+void RequestDialog::tagContextMenu(const QPoint &pos) {
+    QModelIndex index = tagTableView->indexAt(pos);
+    QString dbId = tagTableView->model()->data(tagTableView->model()->index(index.row(), 0)).toString();
+    if (!index.isValid()) return;
+    QMenu menu(this);
+    menu.addAction(
+        "Добавить Тэг",
+        this,
+        [this]{
+            server_requester->setCurrentButton(ActionId::ADD_TAG);
+            baseRequest<TagDialog>(this, server_requester, addTag);
+        }
+    );
+    menu.addAction(
+        "Удалить Тэг",
+        this,
+        [this, dbId]{
+            server_requester->setCurrentButton(ActionId::REMOVE_TAG);
+            server_requester->removeTag(dbId);
+        }
+    );
+    menu.exec(tagTableView->viewport()->mapToGlobal(pos));
+}
+
+void RequestDialog::removeRowByID(int itemID, QStandardItemModel* itemModel){
+    for (int i = 0; i < itemModel->rowCount(); i++) {
+        if (itemModel->data(itemModel->index(i, 0)).toInt() == itemID) {
+            itemModel->removeRow(i);
+            break;
+        }
     }
 }
 
 RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response;
     response.content_type = ContentType::TEXT;
+    QList<QStandardItem*> rowData{};
     switch (buttonId) {
         case ActionId::ADD_TEMPLATE:
-            response.content = QString(AddTemplateLabel);
+            rowData << new QStandardItem(QString::number(jsonDoc.object().value("ID").toInt()));
+            rowData << new QStandardItem(jsonDoc.object().value("name").toString());
+            templatesModel->appendRow(rowData);
             break;
         case ActionId::ADD_TAG:
-            response.content = QString(AddTagLabel);
+            rowData << new QStandardItem(QString::number(jsonDoc.object().value("ID").toInt()));
+            rowData << new QStandardItem(jsonDoc.object().value("name").toString());
+            tagsModel->appendRow(rowData);
             break;
         case ActionId::REMOVE_TEMPLATE:
-            response.content = QString(RemoveTemplateLabel);
+            removeRowByID(
+                jsonDoc.object().value("ID").toInt(),
+                templatesModel
+            );
             break;
         case ActionId::REMOVE_TAG:
-            response.content = QString(RemoveTagLabel);
-
+            removeRowByID(
+                jsonDoc.object().value("ID").toInt(),
+                tagsModel
+            );
             break;
         case ActionId::EXPORT:
         case ActionId::GET_TEMPLATE:
@@ -135,11 +175,9 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
             break;
         case ActionId::GET_ALL_TEMPLATES:
             updateTable(jsonDoc.array(), templatesModel);
-            response.content_type = ContentType::EMPTY;
             break;
         case ActionId::GET_ALL_TAGS:
             updateTable(jsonDoc.array(), tagsModel);
-            response.content_type = ContentType::EMPTY;
             break;
     }
     return response;
@@ -150,8 +188,6 @@ void RequestDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc
     if (response.content_type == ContentType::HTML) {
         PrintableReport* printableReport = new PrintableReport(QPrinter::HighResolution, response.content, this);
         printableReport->preview(nullptr, PrintTitle);
-    } else if (response.content_type == ContentType::TEXT) {
-        QMessageBox::information(this, "ResultTitle", response.content);
     }
 }
 
