@@ -34,6 +34,7 @@ class RequestDialog: public BaseDialog {
         void templateContextMenu(const QPoint &pos);
         void tagContextMenu(const QPoint &pos);
         void removeRowByID(int itemID, QStandardItemModel* itemModel);
+        void applyTheme();
        
     
     public:
