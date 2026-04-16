@@ -11,6 +11,11 @@ BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTab
     verticalHeader()->hide();
     setStyle(QStyleFactory::create("Fusion"));
 
+    QPalette palette;
+    palette.setColor(QPalette::Base, Qt::black);
+    palette.setColor(QPalette::Text, Qt::white);
+    setPalette(palette);
+
     setStyleSheet("gridline-color: #444; border: none;");
 
     horizontalHeader()->setStyleSheet(
