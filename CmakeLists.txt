@@ -13,6 +13,7 @@ find_package(Qt5 REQUIRED COMPONENTS Core Widgets Network PrintSupport )
 file(GLOB_RECURSE NewsPrintAdapter_SOURCES
     "src/*.cpp"
     "include/*.h"
+    "resources/icons.qrc"
 )
 
 add_library(NewsPrintAdapter SHARED ${NewsPrintAdapter_SOURCES})

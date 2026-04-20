@@ -5,6 +5,7 @@
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseDialog(pwgt), server_requester(server_requester_) {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
+    baseLayout->setContentsMargins(0, 0, 10, 0);
 
     templatesModel = new QStandardItemModel(0, 2, this);
     templateTableView = new BaseTableView(this, templatesModel);
@@ -14,7 +15,6 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     table_layout->addWidget(templateTableView);
     baseLayout->addLayout(table_layout);
 
-    setBaseLayout(baseLayout);
 
     connect(
         server_requester, 
@@ -35,6 +35,16 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     );
 
     server_requester->getAllTemplates();
+
+    QHBoxLayout* button_layout = new QHBoxLayout(this);
+    button_layout->setContentsMargins(313, 90, 0, 0);
+    QPushButton* cancelButton = new QPushButton("Отмена");
+    QPushButton* chooseButton = new QPushButton("Выбрать");
+    button_layout->addWidget(cancelButton);
+    button_layout->addWidget(chooseButton);
+    baseLayout->addLayout(button_layout);
+
+    setBaseLayout(baseLayout);
 
     applyTheme();
 }
