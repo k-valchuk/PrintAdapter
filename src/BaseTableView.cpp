@@ -3,25 +3,28 @@
 #include <QStyleFactory>
 
 BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTableView(pwgt) {
-    itemModel->setHorizontalHeaderLabels({"ID", "Название"});
+    horizontalHeader()->hide();
+
     setModel(itemModel);
     horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
     verticalHeader()->hide();
-    setStyle(QStyleFactory::create("Fusion"));
 
     QPalette palette;
-    palette.setColor(QPalette::Base, Qt::black);
-    palette.setColor(QPalette::Text, Qt::white);
+    palette.setColor(QPalette::Base, QColor(45, 44, 50));
+    palette.setColor(QPalette::Text, QColor(143, 143, 145));
     setPalette(palette);
+    setContextMenuPolicy(Qt::CustomContextMenu);
 
-    setStyleSheet("gridline-color: #444; border: none;");
-
-    horizontalHeader()->setStyleSheet(
-        "QHeaderView::section { background-color: #3d3d3d; color: white; border: 1px solid #555; padding: 4px; }"
+    connect(
+        this, SIGNAL(customContextMenuRequested(const QPoint)),
+        pwgt, SLOT(templateContextMenu(const QPoint))
     );
+
+    setStyleSheet("border: none;");
+
     verticalHeader()->setStyleSheet(
-        "QHeaderView::section { background-color: #3d3d3d; color: white; }"
+        "QHeaderView::section { background-color: #2b2d32; color: #9d9d9f; }"
     );
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "TagDialog.h"
 #include "AddTemplateDialog.h"
 #include "ServerRequester.h"
 
@@ -14,17 +13,6 @@ void baseRequest(
         requestFunc(dialog, server_requester);
     }
     delete dialog;
-}
-
-void addTag(TagDialog* dialog, ServerRequester* server_requester) {
-    QJsonObject jsonObj;
-    jsonObj["name"] = dialog->getName();
-    jsonObj["description"] = dialog->getDescription();
-    jsonObj["subsystem"] = dialog->getSubsystem();
-    jsonObj["alias"] = dialog->getAlias();
-    server_requester->addTag(
-        QJsonDocument(jsonObj)
-    );
 }
 
 void addTemplate(AddTemplateDialog* dialog, ServerRequester* server_requester) {

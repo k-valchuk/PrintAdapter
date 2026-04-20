@@ -16,8 +16,6 @@ class RequestDialog: public BaseDialog {
     private:
         QStandardItemModel* templatesModel;
         BaseTableView* templateTableView;
-        BaseTableView* tagTableView;
-        QStandardItemModel* tagsModel;
         ServerRequester* server_requester;
         QButtonGroup* button_group;
 
@@ -31,8 +29,6 @@ class RequestDialog: public BaseDialog {
 
         ContentModel responseRouting(const QJsonDocument jsonDoc, ActionId buttonId);
         void updateTable(QJsonArray value_array, QStandardItemModel* itemModel);
-        void templateContextMenu(const QPoint &pos);
-        void tagContextMenu(const QPoint &pos);
         void removeRowByID(int itemID, QStandardItemModel* itemModel);
         void applyTheme();
        
@@ -44,6 +40,5 @@ class RequestDialog: public BaseDialog {
     public slots:
         void showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId);
         void getErrorRequestSlot(QString message, int httpStatus);
-    
-
+        void templateContextMenu(const QPoint &pos);
 };
