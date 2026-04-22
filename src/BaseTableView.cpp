@@ -17,8 +17,6 @@ BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTab
     verticalHeader()->setVisible(false);
     verticalHeader()->setDefaultSectionSize(34);
 
-    setContextMenuPolicy(Qt::CustomContextMenu);
-
     connect(
         this, SIGNAL(customContextMenuRequested(const QPoint)),
         pwgt, SLOT(templateContextMenu(const QPoint))

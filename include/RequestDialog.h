@@ -40,5 +40,5 @@ class RequestDialog: public BaseDialog {
     public slots:
         void showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId);
         void getErrorRequestSlot(QString message, int httpStatus);
-        void templateContextMenu(const QPoint &pos);
+        void printTemplate();
 };

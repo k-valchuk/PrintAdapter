@@ -28,10 +28,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
         SLOT(getErrorRequestSlot(QString, int))
     );
 
-    connect(
-        templateTableView, &QTableView::customContextMenuRequested,
-        this, &RequestDialog::templateContextMenu
-    );
+    
 
     server_requester->getAllTemplates();
 
@@ -40,11 +37,29 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     QPushButton* cancelButton = new QPushButton("Отмена");
     cancelButton->setFixedHeight(30);
     cancelButton->setMinimumWidth(93);
-    cancelButton->setStyleSheet("border: 1px solid #494949; border-radius: 2px; font: normal normal normal 15px/18px Roboto; color: #6F8CB7; background-color: transparent;");
+    cancelButton->setStyleSheet(
+        "QPushButton {border: 1px solid #494949; border-radius: 2px; font: normal normal normal 15px/18px Roboto; color: #6F8CB7; background-color: transparent; margin-right: 10px;}"
+        "QPushButton:hover{border: 1px solid #6F8CB7;}"
+    );
+    
+    connect(
+        cancelButton, SIGNAL(clicked()),
+        this, SLOT(close())
+    );
+    
     QPushButton* chooseButton = new QPushButton("Выбрать");
     chooseButton->setFixedHeight(30);
     chooseButton->setMinimumWidth(114);
-    chooseButton->setStyleSheet("font: normal normal normal 15px/18px Roboto; background: #6F8CB7; color: #FFFFFF; border-radius: 2px;");
+    chooseButton->setStyleSheet(
+        "QPushButton{font: normal normal normal 15px/18px Roboto; background: #6F8CB7; color: #FFFFFF; border-radius: 2px; margin-left: 10px;}"
+        "QPushButton:hover{background: #9abcff;}"
+    );
+
+    connect(
+        chooseButton, SIGNAL(clicked()),
+        this, SLOT(printTemplate())
+    );
+
     button_layout->addWidget(cancelButton);
     button_layout->addWidget(chooseButton);
     baseLayout->addLayout(button_layout);
@@ -81,29 +96,11 @@ void RequestDialog::updateTable(QJsonArray value_array, QStandardItemModel* item
     }
 }
 
-void RequestDialog::templateContextMenu(const QPoint &pos) {
-    QModelIndex index = templateTableView->indexAt(pos);
+void RequestDialog::printTemplate(){
+    QModelIndex index = templateTableView->selectionModel()->currentIndex();
     QString dbId = templateTableView->model()->data(templateTableView->model()->index(index.row(), 0)).toString();
-    if (!index.isValid()) return;
-    QMenu menu(this);
-    menu.addAction(
-        "Показать Шаблон",
-        this,
-        [this, dbId]{
-            server_requester->setCurrentButton(ActionId::GET_TEMPLATE);
-            server_requester->getTemplate(dbId);
-        }
-    );
-    menu.addAction(
-        "Экспорт Шаблона",
-        this,
-        [this, dbId]{
-            server_requester->setCurrentButton(ActionId::EXPORT);
-            server_requester->exportTemplate(dbId.toInt());
-        }
-    );
-
-    menu.exec(templateTableView->viewport()->mapToGlobal(pos));
+    server_requester->setCurrentButton(ActionId::EXPORT);
+    server_requester->exportTemplate(dbId.toInt());
 }
 
 void RequestDialog::removeRowByID(int itemID, QStandardItemModel* itemModel){

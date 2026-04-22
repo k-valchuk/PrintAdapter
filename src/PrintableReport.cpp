@@ -7,6 +7,7 @@
 #include <QDate>
 #include <QApplication>
 #include "PrintableReport.h"
+#include "PrintDialog.h"
 
 QString standartFooter1 = "<p align=\"right\"><strong>&page;</strong></p>";
 QString standartFooter2 = "<p align=\"right\"><strong>&page;/&totalpages;</strong></p>";
@@ -79,28 +80,10 @@ void PrintableReport::print(QWidget *parent, const QString &title)
 
 void PrintableReport::preview(QWidget *parent, const QString &title)
 {
-	QPrintPreviewDialog *dialog = new QPrintPreviewDialog(m_printer, parent);
-	dialog->setWindowTitle(title);
-        dialog->setWindowFlags(Qt::WindowMinMaxButtonsHint|Qt::WindowCloseButtonHint);
+	PrintDialog *dialog = new PrintDialog(parent, m_printer);
 
 	connect(dialog, SIGNAL(paintRequested(QPrinter *)), this, SLOT(print(QPrinter *)));
-	QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
-    darkPalette.setColor(QPalette::WindowText, Qt::white);
-    darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
-    darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
-    darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
-    darkPalette.setColor(QPalette::ToolTipText, Qt::white);
-    darkPalette.setColor(QPalette::Text, Qt::white);
-    darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
-    darkPalette.setColor(QPalette::ButtonText, Qt::white);
-    darkPalette.setColor(QPalette::BrightText, Qt::red);
-    darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
-    darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-    darkPalette.setColor(QPalette::HighlightedText, Qt::black);
-
-    dialog->setPalette(darkPalette);
-
+	
 	dialog->exec();
 
 	delete dialog;

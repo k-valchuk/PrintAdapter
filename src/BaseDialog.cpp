@@ -15,16 +15,19 @@ BaseDialog::BaseDialog(QWidget* pwgt, QString title) : QDialog(pwgt) {
     
     
     titleBar->setStyleSheet("background-color: #2b2d32;");
-
+    setStyleSheet("background-color: #2b2d32;");
     
     QHBoxLayout *titleLayout = new QHBoxLayout(titleBar);
 
     QLabel *titleLabel = new QLabel(title, titleBar);
     titleLabel->setStyleSheet("font: normal normal normal 18px/22px Roboto; color: #6F8CB7;");
     QPushButton *closeButton = new QPushButton(titleBar);
-    closeButton->setFixedSize(16, 16);
+    closeButton->setMinimumSize(16, 16);
     closeButton->setIcon(QIcon(":/icons/modal-close-icon.svg"));
-    closeButton->setStyleSheet("background: transparent;");
+    closeButton->setStyleSheet(
+        "QPushButton{background: transparent;}"
+        "QPushButton:hover{background: rgba(100, 100, 100, 50); margin: -10px;}"
+    );
 
     titleLayout->addWidget(titleLabel); 
     titleLayout->addStretch();         

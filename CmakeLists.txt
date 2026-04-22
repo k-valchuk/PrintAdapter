@@ -16,7 +16,8 @@ file(GLOB_RECURSE NewsPrintAdapter_SOURCES
     "resources/icons.qrc"
 )
 
-add_library(NewsPrintAdapter SHARED ${NewsPrintAdapter_SOURCES})
+add_library(NewsPrintAdapter SHARED ${NewsPrintAdapter_SOURCES}
+    src/PrintDialog.cpp)
 
 target_include_directories(NewsPrintAdapter
     PUBLIC
