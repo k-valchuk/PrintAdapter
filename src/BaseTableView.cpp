@@ -1,20 +1,22 @@
 #include "BaseTableView.h"
 #include <QHeaderView>
 #include <QStyleFactory>
+#include "RowDelegate.h"
 
 BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTableView(pwgt) {
-    horizontalHeader()->hide();
 
     setModel(itemModel);
     horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     setSelectionBehavior(QAbstractItemView::SelectRows);
+    connect(selectionModel(), &QItemSelectionModel::selectionChanged, viewport(), qOverload<>(&QWidget::update));
     setSelectionMode(QAbstractItemView::SingleSelection);
-    verticalHeader()->hide();
+    
+    setFrameShape(QFrame::NoFrame);
+    setShowGrid(false);
+    horizontalHeader()->setVisible(false);
+    verticalHeader()->setVisible(false);
+    verticalHeader()->setDefaultSectionSize(34);
 
-    QPalette palette;
-    palette.setColor(QPalette::Base, QColor(45, 44, 50));
-    palette.setColor(QPalette::Text, QColor(143, 143, 145));
-    setPalette(palette);
     setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(
@@ -22,9 +24,6 @@ BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTab
         pwgt, SLOT(templateContextMenu(const QPoint))
     );
 
-    setStyleSheet("border: none;");
-
-    verticalHeader()->setStyleSheet(
-        "QHeaderView::section { background-color: #2b2d32; color: #9d9d9f; }"
-    );
+    setStyleSheet("border: none; background-color: transparent; font: normal normal normal 15px/18px Roboto;");
+    setItemDelegate(new RowDelegate(this));
 }

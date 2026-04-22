@@ -1,11 +1,10 @@
 #include "RequestDialog.h"
-#include "ButtonRequests.h"
 #include "PrintableReport.h"
 
 
-RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseDialog(pwgt), server_requester(server_requester_) {
+RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseDialog(pwgt, "Выбор шаблона печати"), server_requester(server_requester_) {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
-    baseLayout->setContentsMargins(0, 0, 10, 0);
+    baseLayout->setContentsMargins(10, 10, 20, 30);
 
     templatesModel = new QStandardItemModel(0, 2, this);
     templateTableView = new BaseTableView(this, templatesModel);
@@ -39,7 +38,13 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     QHBoxLayout* button_layout = new QHBoxLayout(this);
     button_layout->setContentsMargins(313, 90, 0, 0);
     QPushButton* cancelButton = new QPushButton("Отмена");
+    cancelButton->setFixedHeight(30);
+    cancelButton->setMinimumWidth(93);
+    cancelButton->setStyleSheet("border: 1px solid #494949; border-radius: 2px; font: normal normal normal 15px/18px Roboto; color: #6F8CB7; background-color: transparent;");
     QPushButton* chooseButton = new QPushButton("Выбрать");
+    chooseButton->setFixedHeight(30);
+    chooseButton->setMinimumWidth(114);
+    chooseButton->setStyleSheet("font: normal normal normal 15px/18px Roboto; background: #6F8CB7; color: #FFFFFF; border-radius: 2px;");
     button_layout->addWidget(cancelButton);
     button_layout->addWidget(chooseButton);
     baseLayout->addLayout(button_layout);
@@ -55,6 +60,7 @@ void RequestDialog::applyTheme() {
     darkPalette.setColor(QPalette::Window, QColor(45, 44, 50));
     darkPalette.setColor(QPalette::WindowText, Qt::white);
 
+   
     setPalette(darkPalette);
 }
 
@@ -81,14 +87,6 @@ void RequestDialog::templateContextMenu(const QPoint &pos) {
     if (!index.isValid()) return;
     QMenu menu(this);
     menu.addAction(
-        "Добавить Шаблон",
-        this,
-        [this]{
-            server_requester->setCurrentButton(ActionId::ADD_TEMPLATE);
-            baseRequest<AddTemplateDialog>(this, server_requester, addTemplate);
-        }
-    );
-    menu.addAction(
         "Показать Шаблон",
         this,
         [this, dbId]{
@@ -100,16 +98,8 @@ void RequestDialog::templateContextMenu(const QPoint &pos) {
         "Экспорт Шаблона",
         this,
         [this, dbId]{
-            server_requester->setCurrentButton(ActionId::GET_TEMPLATE);
+            server_requester->setCurrentButton(ActionId::EXPORT);
             server_requester->exportTemplate(dbId.toInt());
-        }
-    );
-    menu.addAction(
-        "Удалить Шаблон",
-        this,
-        [this, dbId]{
-            server_requester->setCurrentButton(ActionId::REMOVE_TEMPLATE);
-            server_requester->removeTemplate(dbId);
         }
     );
 
@@ -130,17 +120,6 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
     response.content_type = ContentType::TEXT;
     QList<QStandardItem*> rowData{};
     switch (buttonId) {
-        case ActionId::ADD_TEMPLATE:
-            rowData << new QStandardItem(QString::number(jsonDoc.object().value("ID").toInt()));
-            rowData << new QStandardItem(jsonDoc.object().value("name").toString());
-            templatesModel->appendRow(rowData);
-            break;
-        case ActionId::REMOVE_TEMPLATE:
-            removeRowByID(
-                jsonDoc.object().value("ID").toInt(),
-                templatesModel
-            );
-            break;
         case ActionId::EXPORT:
         case ActionId::GET_TEMPLATE:
             response.content = jsonDoc.object().value("content").toString();

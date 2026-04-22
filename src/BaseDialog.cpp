@@ -5,23 +5,22 @@
 #include <QMouseEvent>
 #include <QSizeGrip>
 
-BaseDialog::BaseDialog(QWidget* pwgt) : QDialog(pwgt) {
+BaseDialog::BaseDialog(QWidget* pwgt, QString title) : QDialog(pwgt) {
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     base_layout = new QVBoxLayout(this);
 
-    base_layout->setContentsMargins(30, 20, 20, 30); 
-
     titleBar = new QFrame(this);
     titleBar->setObjectName("titleBar");
+    titleBar->setContentsMargins(30, 20, 20, 15);
     
     
-    titleBar->setFixedHeight(35);
-    titleBar->setStyleSheet("background-color: #2b2d32; color: #8e9ec5;");
+    titleBar->setStyleSheet("background-color: #2b2d32;");
 
     
     QHBoxLayout *titleLayout = new QHBoxLayout(titleBar);
 
-    QLabel *titleLabel = new QLabel("Мой Заголовок", titleBar);
+    QLabel *titleLabel = new QLabel(title, titleBar);
+    titleLabel->setStyleSheet("font: normal normal normal 18px/22px Roboto; color: #6F8CB7;");
     QPushButton *closeButton = new QPushButton(titleBar);
     closeButton->setFixedSize(16, 16);
     closeButton->setIcon(QIcon(":/icons/modal-close-icon.svg"));
@@ -30,7 +29,7 @@ BaseDialog::BaseDialog(QWidget* pwgt) : QDialog(pwgt) {
     titleLayout->addWidget(titleLabel); 
     titleLayout->addStretch();         
     titleLayout->addWidget(closeButton); 
-     connect(closeButton, &QPushButton::clicked, this, &QDialog::close);
+    connect(closeButton, &QPushButton::clicked, this, &QDialog::close);
 
     base_layout->addWidget(titleBar);
 }
@@ -43,11 +42,15 @@ void BaseDialog::setBaseLayout(QLayout* layout) {
 }
 
 void BaseDialog::mousePressEvent(QMouseEvent *event) {
-     if (event->button() & Qt::LeftButton) {
+    if (event->button() & Qt::LeftButton) {
         
         QWidget* widgetAtPos = childAt(event->pos());
+        if (qobject_cast<QSizeGrip*>(widgetAtPos)) {
+            return; 
+        }
         
         if (widgetAtPos == titleBar || titleBar->findChildren<QWidget*>().contains(widgetAtPos)) {
+            m_dragged = true;
             dragCoordinate = event->globalPos() - frameGeometry().topLeft();
             event->accept();
         }
@@ -55,8 +58,12 @@ void BaseDialog::mousePressEvent(QMouseEvent *event) {
 }
 
 void BaseDialog::mouseMoveEvent(QMouseEvent *event) {
-    if (event->buttons() & Qt::LeftButton){
+    if (m_dragged && (event->buttons() & Qt::LeftButton)){
         move(event->globalPos() - dragCoordinate);
         event->accept();
     }
+}
+
+void BaseDialog::mouseReleaseEvent(QMouseEvent *event){
+    m_dragged = false;
 }
