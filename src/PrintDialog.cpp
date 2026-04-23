@@ -1,13 +1,43 @@
 #include "PrintDialog.h"
 #include <QPrintPreviewWidget>
+#include <QToolBar>
 #include <QPushButton>
 
-PrintDialog::PrintDialog(QWidget* pwgt, QPrinter* printer): BaseDialog(pwgt, "Предварительный просмотр") {
+PrintDialog::PrintDialog(QWidget* pwgt, PrintableReport* printReport, QPrinter* printer): BaseDialog(pwgt, "Предварительный просмотр") {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
     baseLayout->setContentsMargins(10, 10, 20, 30);
 
+    QToolBar* toolBar = new QToolBar(this);
+    QAction* printAction = toolBar->addAction(QIcon(":/icons/print-button.svg"),"Печать");
+    QAction* portraitAction = toolBar->addAction(QIcon(":/icons/portrait-layout-button.svg"),"Книжная ориентация");
+    QAction* landscapeAction = toolBar->addAction(QIcon(":/icons/landscape-layout-button.svg"),"Альбомная ориентация");
+    QAction* headersAction = toolBar->addAction(QIcon(":/icons/headers-footers-button.svg"),"Включить колонтитулы / Отключить колонтитулы");
+    QAction* fitWidthAction = toolBar->addAction(QIcon(":/icons/fit-to-width-button.svg"),"Просмотр по ширине страницы");
+    QAction* fitPageAction = toolBar->addAction(QIcon(":/icons/fit-to-page-button.svg"),"Просмотр всей страницы");
+    QAction* zoomOutAction = toolBar->addAction(QIcon(":/icons/zoom-out-button.svg"),"Масштаб меньше");
+    QAction* zoomInAction = toolBar->addAction(QIcon(":/icons/zoom-in-button.svg"),"Масштаб больше");
+    QAction* settingsAction = toolBar->addAction(QIcon(":/icons/page-setup-button.svg"),"Параметры страницы");
+
+    
     QPrintPreviewWidget* previewWidget = new QPrintPreviewWidget(printer, this);
+    previewWidget->setStyleSheet(
+        "QGraphicsView { qproperty-backgroundBrush: #222226; border: none; }"
+    );
+    
+    baseLayout->addWidget(toolBar);
     baseLayout->addWidget(previewWidget);
+
+    connect(previewWidget, SIGNAL(paintRequested(QPrinter *)), printReport, SLOT(print(QPrinter *)));
+    connect(printAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::print);
+    connect(portraitAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::setPortraitOrientation);
+    connect(landscapeAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::setLandscapeOrientation);
+    //connect(headersAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomIn);
+    connect(fitWidthAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::fitToWidth);
+    connect(fitPageAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::fitInView);
+    connect(zoomOutAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomOut);
+    connect(zoomInAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomIn);
+    //connect(settingsAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomOut);
+
 
 
     
@@ -46,8 +76,6 @@ PrintDialog::PrintDialog(QWidget* pwgt, QPrinter* printer): BaseDialog(pwgt, "П
         "QPushButton{font: normal normal normal 15px/18px Roboto; background: #6F8CB7; color: #FFFFFF; border-radius: 2px; margin-left: 10px;}"
         "QPushButton:hover{background: #9abcff;}"
     );
-    connect(previewWidget, &QPrintPreviewWidget::paintRequested,
-            this, &PrintDialog::onPaintRequested);
     previewWidget->updatePreview();
 
     button_layout->addWidget(backButton);

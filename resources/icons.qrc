@@ -2,5 +2,14 @@
 <RCC version="1.0">
   <qresource prefix="/icons">
     <file alias="modal-close-icon.svg">icons/modal-close-icon.svg</file>
+    <file alias="fit-to-page-button.svg">icons/fit-to-page-button.svg</file>
+    <file alias="fit-to-width-button.svg">icons/fit-to-width-button.svg</file>
+    <file alias="headers-footers-button.svg">icons/headers-footers-button.svg</file>
+    <file alias="landscape-layout-button.svg">icons/landscape-layout-button.svg</file>
+    <file alias="page-setup-button.svg">icons/page-setup-button.svg</file>
+    <file alias="portrait-layout-button.svg">icons/portrait-layout-button.svg</file>
+    <file alias="print-button.svg">icons/print-button.svg</file>
+    <file alias="zoom-in-button.svg">icons/zoom-in-button.svg</file>
+    <file alias="zoom-out-button.svg">icons/zoom-out-button.svg</file>
   </qresource>
 </RCC>

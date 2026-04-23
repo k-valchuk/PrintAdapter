@@ -132,7 +132,7 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
 void RequestDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response = responseRouting(jsonDoc, buttonId);
     if (response.content_type == ContentType::HTML) {
-        PrintableReport* printableReport = new PrintableReport(QPrinter::HighResolution, response.content, this);
+        PrintableReport* printableReport = new PrintableReport(QPrinter::ScreenResolution, response.content, this);
         printableReport->preview(nullptr, PrintTitle);
     }
 }

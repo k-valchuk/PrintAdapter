@@ -80,9 +80,9 @@ void PrintableReport::print(QWidget *parent, const QString &title)
 
 void PrintableReport::preview(QWidget *parent, const QString &title)
 {
-	PrintDialog *dialog = new PrintDialog(parent, m_printer);
+	PrintDialog *dialog = new PrintDialog(parent, this, m_printer);
 
-	connect(dialog, SIGNAL(paintRequested(QPrinter *)), this, SLOT(print(QPrinter *)));
+	//connect(dialog, SIGNAL(paintRequested(QPrinter *)), this, SLOT(print(QPrinter *)));
 	
 	dialog->exec();
 
@@ -276,6 +276,7 @@ void PrintableReport::paintPage(QPainter *painter, int pagenum)
 		doc.setUseDesignMetrics(true);
 		doc.setHtml(footer);
 		doc.documentLayout()->setPaintDevice(painter->device());
+		doc.setTextWidth(m_printer->pageRect().width());
 		doc.setPageSize(rect.size());
 		doc.drawContents(painter, clip);
 		painter->restore();
