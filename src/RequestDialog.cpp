@@ -1,5 +1,5 @@
 #include "RequestDialog.h"
-#include "PrintableReport.h"
+#include "PrintDialog.h"
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseDialog(pwgt, "Выбор шаблона печати"), server_requester(server_requester_) {
@@ -132,8 +132,14 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
 void RequestDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response = responseRouting(jsonDoc, buttonId);
     if (response.content_type == ContentType::HTML) {
-        PrintableReport* printableReport = new PrintableReport(QPrinter::ScreenResolution, response.content, this);
-        printableReport->preview(nullptr, PrintTitle);
+        this->hide();
+        PrintDialog* dialog = new PrintDialog(nullptr, response.content);
+        dialog->setAttribute(Qt::WA_DeleteOnClose);
+        connect(dialog, &PrintDialog::backButtonClicked, this, [this]() {
+            this->show();
+            qDebug() << "Статус видимости после show():" << this->isVisible();
+        });
+        dialog->show();
     }
 }
 

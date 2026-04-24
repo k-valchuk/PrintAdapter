@@ -8,6 +8,7 @@
 #include <QApplication>
 #include "PrintableReport.h"
 #include "PrintDialog.h"
+#include <QDebug>
 
 QString standartFooter1 = "<p align=\"right\"><strong>&page;</strong></p>";
 QString standartFooter2 = "<p align=\"right\"><strong>&page;/&totalpages;</strong></p>";
@@ -80,13 +81,13 @@ void PrintableReport::print(QWidget *parent, const QString &title)
 
 void PrintableReport::preview(QWidget *parent, const QString &title)
 {
-	PrintDialog *dialog = new PrintDialog(parent, this, m_printer);
+	//PrintDialog *dialog = new PrintDialog(parent, this, m_printer);
 
 	//connect(dialog, SIGNAL(paintRequested(QPrinter *)), this, SLOT(print(QPrinter *)));
 	
-	dialog->exec();
+	//dialog->exec();
 
-	delete dialog;
+	//delete dialog;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

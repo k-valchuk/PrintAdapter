@@ -13,7 +13,7 @@ class PrintableReport : public QObject
 Q_OBJECT
 
 protected:
-	QPrinter *m_printer;
+	
 	QTextDocument *m_document;
 
 	double m_spacing;
@@ -28,6 +28,7 @@ protected:
 	QString m_dateFormat;
 
 public:
+	QPrinter *m_printer;
 	PrintableReport(QPrinter::PrinterMode printerMode, QObject *parent = NULL);
 	PrintableReport(QPrinter::PrinterMode printerMode, const QTextDocument &document, QObject *parent = NULL);
 	PrintableReport(QPrinter::PrinterMode printerMode, const QString &content, QObject *parent = NULL);
@@ -87,6 +88,10 @@ public:
 		if((size > 0) && (size <= m_printer->paperRect().height() / 8))
 			m_headerSize = size;
 	}
+	inline void disabelHeaderSize()
+	{
+		m_headerSize = 0;
+	}
 	inline void setHeaderRule(double pointsize)
 	{
 		m_headerRule = qMax(0.0, pointsize);
@@ -112,6 +117,10 @@ public:
 	{
 		if ((size > 0) && (size <= m_printer->paperRect().height() / 8))
 			m_footerSize = size;
+	}
+	inline void disabelFooterSize()
+	{
+		m_footerSize = 0;
 	}
 	inline void setFooterRule(double pointsize)
 	{

@@ -10,8 +10,8 @@ PrintButton::PrintButton(QWidget* pwgt) : QPushButton(pwgt) {
 
 void PrintButton::requestDialogSlot() {
     RequestDialog* pRequestDialog= new RequestDialog(this, server_requester);
-    if (pRequestDialog->exec() == QDialog::Accepted){}
-    delete pRequestDialog;
+    pRequestDialog->setAttribute(Qt::WA_DeleteOnClose); 
+    pRequestDialog->show(); 
 }
 
 void PrintButton::setExportJson(QJsonDocument json_doc) {

@@ -1,14 +1,18 @@
 #pragma once
 #include "PrintableReport.h"
+#include <QPrintPreviewWidget>
 #include "BaseDialog.h"
 
 class PrintDialog: public BaseDialog {
     Q_OBJECT
 
+    private:
+        PrintableReport* printReport;
+        QPrintPreviewWidget* previewWidget;
+        bool active_headers;
+
     public:
-        PrintDialog(QWidget* pwgt, PrintableReport* printReport, QPrinter* printer);
+        PrintDialog(QWidget* pwgt, QString printContent);
     signals:
-        void paintRequested(QPrinter *);
-    public slots:
-        void onPaintRequested(QPrinter *printer);
+        void backButtonClicked();
 };

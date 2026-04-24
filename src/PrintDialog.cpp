@@ -1,9 +1,9 @@
 #include "PrintDialog.h"
-#include <QPrintPreviewWidget>
 #include <QToolBar>
 #include <QPushButton>
+#include <QDebug>
 
-PrintDialog::PrintDialog(QWidget* pwgt, PrintableReport* printReport, QPrinter* printer): BaseDialog(pwgt, "Предварительный просмотр") {
+PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, "Предварительный просмотр") {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
     baseLayout->setContentsMargins(10, 10, 20, 30);
 
@@ -18,24 +18,39 @@ PrintDialog::PrintDialog(QWidget* pwgt, PrintableReport* printReport, QPrinter* 
     QAction* zoomInAction = toolBar->addAction(QIcon(":/icons/zoom-in-button.svg"),"Масштаб больше");
     QAction* settingsAction = toolBar->addAction(QIcon(":/icons/page-setup-button.svg"),"Параметры страницы");
 
+
+    printReport = new PrintableReport(QPrinter::ScreenResolution, printContent, this);
     
-    QPrintPreviewWidget* previewWidget = new QPrintPreviewWidget(printer, this);
+    previewWidget = new QPrintPreviewWidget(printReport->m_printer, this);
     previewWidget->setStyleSheet(
         "QGraphicsView { qproperty-backgroundBrush: #222226; border: none; }"
     );
     
     baseLayout->addWidget(toolBar);
     baseLayout->addWidget(previewWidget);
+    active_headers = false;
 
     connect(previewWidget, SIGNAL(paintRequested(QPrinter *)), printReport, SLOT(print(QPrinter *)));
     connect(printAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::print);
     connect(portraitAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::setPortraitOrientation);
     connect(landscapeAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::setLandscapeOrientation);
-    //connect(headersAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomIn);
+    connect(headersAction, &QAction::triggered, previewWidget, [this](){
+        if (active_headers) {
+            active_headers = false;
+            printReport->disabelHeaderSize();
+            printReport->disabelFooterSize();
+        } else {
+            active_headers = true;
+            printReport->setHeaderSize(10);
+            printReport->setFooterSize(10);
+        }
+        previewWidget->updatePreview(); 
+    });
     connect(fitWidthAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::fitToWidth);
     connect(fitPageAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::fitInView);
-    connect(zoomOutAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomOut);
-    connect(zoomInAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomIn);
+
+    connect(zoomOutAction, SIGNAL(triggered()), previewWidget, SLOT(zoomOut()));
+    connect(zoomInAction, SIGNAL(triggered()), previewWidget,  SLOT(zoomIn()));
     //connect(settingsAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomOut);
 
 
@@ -53,8 +68,12 @@ PrintDialog::PrintDialog(QWidget* pwgt, PrintableReport* printReport, QPrinter* 
     );
     
     connect(
-        backButton, SIGNAL(clicked()),
-        this, SLOT(close())
+        backButton, &QPushButton::clicked,
+        this, [this](){
+            qDebug() << "Кнопка 'Назад' реально нажата"; 
+            emit backButtonClicked();
+            this->close();
+        }
     );
     QPushButton* cancelButton = new QPushButton("Отмена");
     cancelButton->setFixedHeight(30);
@@ -87,8 +106,4 @@ PrintDialog::PrintDialog(QWidget* pwgt, PrintableReport* printReport, QPrinter* 
 
     setBaseLayout(baseLayout);
 
-}
-
-void PrintDialog::onPaintRequested(QPrinter* printer){
-    emit paintRequested(printer);
 }
