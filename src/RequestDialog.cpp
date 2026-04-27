@@ -33,8 +33,8 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     server_requester->getAllTemplates();
 
     QHBoxLayout* button_layout = new QHBoxLayout(this);
-    button_layout->setContentsMargins(313, 90, 0, 0);
-    QPushButton* cancelButton = new QPushButton("Отмена");
+    button_layout->setContentsMargins(343, 90, 0, 0);
+    QPushButton* cancelButton = new QPushButton("Отмена", this);
     cancelButton->setFixedHeight(30);
     cancelButton->setMinimumWidth(93);
     cancelButton->setStyleSheet(

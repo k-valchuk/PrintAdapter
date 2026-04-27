@@ -14,7 +14,6 @@ Q_OBJECT
 
 protected:
 	
-	QTextDocument *m_document;
 
 	double m_spacing;
 
@@ -29,6 +28,7 @@ protected:
 
 public:
 	QPrinter *m_printer;
+	QTextDocument *m_document;
 	PrintableReport(QPrinter::PrinterMode printerMode, QObject *parent = NULL);
 	PrintableReport(QPrinter::PrinterMode printerMode, const QTextDocument &document, QObject *parent = NULL);
 	PrintableReport(QPrinter::PrinterMode printerMode, const QString &content, QObject *parent = NULL);

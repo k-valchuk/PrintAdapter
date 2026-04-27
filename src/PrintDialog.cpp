@@ -1,4 +1,6 @@
 #include "PrintDialog.h"
+#include "PageSetupDialog.h"
+
 #include <QToolBar>
 #include <QPushButton>
 #include <QDebug>
@@ -51,7 +53,13 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
 
     connect(zoomOutAction, SIGNAL(triggered()), previewWidget, SLOT(zoomOut()));
     connect(zoomInAction, SIGNAL(triggered()), previewWidget,  SLOT(zoomIn()));
-    //connect(settingsAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::zoomOut);
+    connect(settingsAction, &QAction::triggered, previewWidget, [this](){
+        PageSetupDialog * dialog = new PageSetupDialog (this, printReport->m_printer, previewWidget, printReport->m_document);
+        if (dialog->exec() == QDialog::Accepted) {
+            previewWidget->updatePreview();
+        }
+        delete dialog;
+    });
 
 
 
