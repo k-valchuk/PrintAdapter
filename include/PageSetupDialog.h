@@ -8,6 +8,8 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QTextDocument>
+#include <QEvent>
+#include <QLineEdit>
 #include "BaseDialog.h"
 
 class PageSetupDialog: public BaseDialog {
@@ -18,6 +20,11 @@ class PageSetupDialog: public BaseDialog {
         QPrintPreviewWidget* previewWidget;
         QLabel* previewLabel;
         QTextDocument *doc;
+        QList<QLineEdit*> marginEdits;
+        QComboBox* paperComboBox;
+        QComboBox* orientationComboBox;
+
+        bool eventFilter(QObject *watched, QEvent *event) override;
 
 
         void setCancelButtonStyle(QPushButton* btn);
@@ -25,6 +32,7 @@ class PageSetupDialog: public BaseDialog {
         void setComboBoxStyle(QComboBox* cbox, const QStringList elements, int distance);
         void setGroupBoxStyle(QGroupBox* gbox);
         void addParam(const QString label, QFormLayout* layout, QWidget* pwgt, int distance);
+        void setLineEditStyle(QLineEdit* lineEdit);
         void updateThumbnail();
 
     public:

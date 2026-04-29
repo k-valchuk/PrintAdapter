@@ -96,7 +96,7 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
         this, SLOT(close())
     );
     
-    QPushButton* chooseButton = new QPushButton("Выбрать");
+    QPushButton* chooseButton = new QPushButton("Печать");
     chooseButton->setFixedHeight(30);
     chooseButton->setMinimumWidth(114);
     chooseButton->setStyleSheet(
