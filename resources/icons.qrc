@@ -13,5 +13,9 @@
     <file alias="zoom-out-button.svg">icons/zoom-out-button.svg</file>
     <file alias="arrow-up.png">icons/arrow-up.png</file>
     <file alias="arrow-down.png">icons/arrow-down.png</file>
+    <file alias="go-to-first-page-button.svg">icons/go-to-first-page-button.svg</file>
+    <file alias="go-to-last-page-button.svg">icons/go-to-last-page-button.svg</file>
+    <file alias="next-page-button.svg">icons/next-page-button.svg</file>
+    <file alias="previous-page-button.svg">icons/previous-page-button.svg</file>
   </qresource>
 </RCC>
