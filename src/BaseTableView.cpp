@@ -1,6 +1,7 @@
 #include "BaseTableView.h"
 #include <QHeaderView>
 #include <QStyleFactory>
+#include <QFile>
 #include "RowDelegate.h"
 
 BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTableView(pwgt) {
@@ -21,7 +22,11 @@ BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTab
         this, SIGNAL(customContextMenuRequested(const QPoint)),
         pwgt, SLOT(templateContextMenu(const QPoint))
     );
-
-    setStyleSheet("border: none; background-color: transparent; font: normal normal normal 15px/18px Roboto;");
+    QFile styleFile(":/styles/tables.qss");
+    QString styles;
+    if (styleFile.open(QFile::ReadOnly)){
+        styles += styleFile.readAll();
+    }
+    setStyleSheet(styles);
     setItemDelegate(new RowDelegate(this));
 }

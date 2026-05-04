@@ -18,4 +18,10 @@
     <file alias="next-page-button.svg">icons/next-page-button.svg</file>
     <file alias="previous-page-button.svg">icons/previous-page-button.svg</file>
   </qresource>
+  <qresource prefix="/styles">
+    <file alias="dialogs.qss">dark/dialogs.qss</file>
+    <file alias="tables.qss">dark/tables.qss</file>
+    <file alias="combobox.qss">dark/combobox.qss</file>
+    <file alias="toolbar.qss">dark/toolbar.qss</file>
+  </qresource>
 </RCC>

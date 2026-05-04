@@ -2,32 +2,26 @@
 #include <QPushButton>
 #include "Config.h"
 #include <QLabel>
+#include <QDirIterator>
 #include <QMouseEvent>
 #include <QSizeGrip>
 
 BaseDialog::BaseDialog(QWidget* pwgt, QString title) : QDialog(pwgt) {
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    
     base_layout = new QVBoxLayout(this);
 
     titleBar = new QFrame(this);
     titleBar->setObjectName("titleBar");
     titleBar->setContentsMargins(30, 20, 20, 15);
     
-    
-    titleBar->setStyleSheet("background-color: #2b2d32;");
-    setStyleSheet("background-color: #2b2d32;");
-    
     QHBoxLayout *titleLayout = new QHBoxLayout(titleBar);
 
     QLabel *titleLabel = new QLabel(title, titleBar);
-    titleLabel->setStyleSheet("font: normal normal normal 18px/22px Roboto; color: #6F8CB7;");
+    titleLabel->setProperty("class", "title");
+    
     QPushButton *closeButton = new QPushButton(titleBar);
-    closeButton->setMinimumSize(16, 16);
-    closeButton->setIcon(QIcon(":/icons/modal-close-icon.svg"));
-    closeButton->setStyleSheet(
-        "QPushButton{background: transparent;}"
-        "QPushButton:hover{background: rgba(100, 100, 100, 50); margin: -10px;}"
-    );
+    closeButton->setObjectName("closeButton");
 
     titleLayout->addWidget(titleLabel); 
     titleLayout->addStretch();         
@@ -42,6 +36,15 @@ void BaseDialog::setBaseLayout(QLayout* layout) {
     setLayout(base_layout);
     QSizeGrip* sizeGrip = new QSizeGrip(this);
     base_layout->addWidget(sizeGrip, 0, Qt::AlignRight | Qt::AlignBottom);
+    QDirIterator it(":/styles", QStringList() << "*.qss", QDir::Files);
+    QString styles;
+    while (it.hasNext()){
+        QFile file(it.next());
+        if (file.open(QFile::ReadOnly)){
+            styles += file.readAll() + "\n";
+        }
+    }
+    setStyleSheet(styles);
 }
 
 void BaseDialog::mousePressEvent(QMouseEvent *event) {

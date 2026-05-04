@@ -1,0 +1,57 @@
+QDialog {
+    background-color: #2b2d32;
+}
+
+QFrame#titleBar {
+    background-color: #2b2d32;
+}
+
+QLabel[class="title"] {
+    font: normal normal normal 18px/22px Roboto;
+    color: #6F8CB7;
+}
+
+QPushButton#closeButton {
+    background: transparent;
+    qproperty-icon: url(:/icons/modal-close-icon.svg);
+    qproperty-iconSize: 16px 16px
+}
+
+QPushButton#closeButton:hover {
+    background: rgba(100, 100, 100, 50);
+    margin: -10px;
+}
+
+QPushButton#cancelButton {
+    border: 1px solid #494949;
+    border-radius: 2px;
+    font: normal normal normal 15px/18px Roboto;
+    color: #6F8CB7;
+    background-color: transparent;
+    margin-right: 10px;
+    height: 30px;
+    min-width: 93px;
+}
+
+QPushButton#cancelButton:hover {
+    border: 1px solid #6F8CB7;
+}
+
+QPushButton#applyButton {
+    font: normal normal normal 15px/18px Roboto;
+    background: #6F8CB7;
+    color: #FFFFFF;
+    border-radius: 2px;
+    margin-left: 10px;
+    height: 30px;
+    min-width: 114px;
+}
+
+QPushButton#applyButton:hover {
+    background: #9abcff;
+}
+
+QGraphicsView {
+    qproperty-backgroundBrush: #222226;
+    border: none;
+}

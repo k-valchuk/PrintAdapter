@@ -35,12 +35,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     QHBoxLayout* button_layout = new QHBoxLayout(this);
     button_layout->setContentsMargins(343, 90, 0, 0);
     QPushButton* cancelButton = new QPushButton("Отмена", this);
-    cancelButton->setFixedHeight(30);
-    cancelButton->setMinimumWidth(93);
-    cancelButton->setStyleSheet(
-        "QPushButton {border: 1px solid #494949; border-radius: 2px; font: normal normal normal 15px/18px Roboto; color: #6F8CB7; background-color: transparent; margin-right: 10px;}"
-        "QPushButton:hover{border: 1px solid #6F8CB7;}"
-    );
+    cancelButton->setObjectName("cancelButton");
     
     connect(
         cancelButton, SIGNAL(clicked()),
@@ -48,12 +43,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     );
     
     QPushButton* chooseButton = new QPushButton("Выбрать");
-    chooseButton->setFixedHeight(30);
-    chooseButton->setMinimumWidth(114);
-    chooseButton->setStyleSheet(
-        "QPushButton{font: normal normal normal 15px/18px Roboto; background: #6F8CB7; color: #FFFFFF; border-radius: 2px; margin-left: 10px;}"
-        "QPushButton:hover{background: #9abcff;}"
-    );
+    chooseButton->setObjectName("applyButton");
 
     connect(
         chooseButton, SIGNAL(clicked()),
@@ -66,17 +56,6 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
 
     setBaseLayout(baseLayout);
 
-    applyTheme();
-}
-
-void RequestDialog::applyTheme() {
-    
-    QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(45, 44, 50));
-    darkPalette.setColor(QPalette::WindowText, Qt::white);
-
-   
-    setPalette(darkPalette);
 }
 
 void RequestDialog::updateTable(QJsonArray value_array, QStandardItemModel* itemModel) {
@@ -137,7 +116,6 @@ void RequestDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         connect(dialog, &PrintDialog::backButtonClicked, this, [this]() {
             this->show();
-            qDebug() << "Статус видимости после show():" << this->isVisible();
         });
         dialog->show();
     }

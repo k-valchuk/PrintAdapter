@@ -30,7 +30,6 @@ class RequestDialog: public BaseDialog {
         ContentModel responseRouting(const QJsonDocument jsonDoc, ActionId buttonId);
         void updateTable(QJsonArray value_array, QStandardItemModel* itemModel);
         void removeRowByID(int itemID, QStandardItemModel* itemModel);
-        void applyTheme();
        
     
     public:
