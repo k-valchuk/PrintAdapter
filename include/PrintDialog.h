@@ -1,6 +1,8 @@
 #pragma once
 #include "PrintableReport.h"
 #include <QPrintPreviewWidget>
+#include <QLabel>
+#include <QComboBox>
 #include "BaseDialog.h"
 
 class PrintDialog: public BaseDialog {
@@ -10,6 +12,9 @@ class PrintDialog: public BaseDialog {
         PrintableReport* printReport;
         QPrintPreviewWidget* previewWidget;
         bool active_headers;
+        QLabel* totalPagesLabel;
+        QLineEdit* pageNumber;
+        QComboBox* pageShow;
 
     public:
         PrintDialog(QWidget* pwgt, QString printContent);

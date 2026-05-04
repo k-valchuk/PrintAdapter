@@ -140,23 +140,21 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     QGroupBox* fieldGroupBox = new QGroupBox("Поля (мм)", this);
     QFormLayout *field_form_layout = new QFormLayout();
     QMarginsF margins = printer->pageLayout().margins();
-    QMap<QString, qreal> data;
-    data.insert("Верхнее", margins.top());
-    data.insert("Нижнее", margins.bottom());
-    data.insert("Левое", margins.left());
-    data.insert("Правое", margins.right());
-    QMapIterator<QString, qreal> item(data);
-    for (;item.hasNext();){
-        item.next();
+    QList<QPair<QString, qreal>> data;
+    data.append({"Верхнее", margins.top()});
+    data.append({"Нижнее", margins.bottom()});
+    data.append({"Левое", margins.left()});
+    data.append({"Правое", margins.right()});
+    for (auto pair : data){
         QLineEdit* pLineEdit = new QLineEdit(this);
-        pLineEdit->setText(QString::number(item.value(), 'f', 1));
+        pLineEdit->setText(QString::number(pair.second, 'f', 1));
         setLineEditStyle(pLineEdit);
         QDoubleValidator* validator = new QDoubleValidator(0.0, 999, 2, pLineEdit);
         validator->setNotation(QDoubleValidator::StandardNotation);
         validator->setLocale(QLocale::C);
         pLineEdit->setValidator(validator);
         
-        addParam(item.key(), field_form_layout, pLineEdit, 40);
+        addParam(pair.first, field_form_layout, pLineEdit, 40);
         marginEdits.append(pLineEdit);
         connect(pLineEdit, &QLineEdit::editingFinished, this, &PageSetupDialog::updateThumbnail);
     }
@@ -180,7 +178,6 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     previewLabel = new QLabel(this);
     previewLabel->setStyleSheet("background-color: #313135; none;");
     previewLabel->setAlignment(Qt::AlignCenter);
-    previewLabel->installEventFilter(this);
     previewLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QVBoxLayout* previewLayout = new QVBoxLayout(this);
     previewLayout->addStretch();
@@ -233,7 +230,21 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
 
     QPushButton* applyButton = new QPushButton("Применить");
     setApplyButtonStyle(applyButton);
-    connect(applyButton, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(
+        applyButton, &QPushButton::clicked, 
+        this, [this](){
+            printer->setPageOrientation((QPageLayout::Orientation)orientationComboBox->currentData().toInt());
+            printer->setPaperSize((QPrinter::PaperSize)paperComboBox->currentData().toInt());
+            QPageLayout layout = printer->pageLayout();
+            double left = marginEdits[2]->text().toDouble();
+            double top = marginEdits[0]->text().toDouble();
+            double right = marginEdits[3]->text().toDouble();
+            double bottom = marginEdits[1]->text().toDouble();
+            layout.setMargins(QMarginsF(left, top, right, bottom));
+            printer->setPageLayout(layout);
+            accept();
+        }
+    );
 
 
     button_layout->addWidget(cancelButton);
@@ -242,22 +253,19 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     setBaseLayout(baseLayout);
 }
 
-bool PageSetupDialog::eventFilter(QObject *watched, QEvent *event){
-    if (watched == previewLabel && event->type() == QEvent::Resize) {
-        updateThumbnail();
-    }
-    return QDialog::eventFilter(watched, event);
-}
 
 void PageSetupDialog::updateThumbnail() {
     QSize labelSize = previewLabel->size();
     if (labelSize.isEmpty()) return;
+    auto originOrientation = printer->orientation();
+    auto originPageSize = printer->paperSize();
     printer->setPageOrientation((QPageLayout::Orientation)orientationComboBox->currentData().toInt());
     printer->setPaperSize((QPrinter::PaperSize)paperComboBox->currentData().toInt());
-    qDebug() << paperComboBox->currentData();
 
     QRectF pageRect = printer->pageLayout().fullRectPoints();
-    
+
+    printer->setPaperSize(originPageSize);
+    printer->setOrientation(originOrientation);
    
     double scale = qMin((double)labelSize.width() / pageRect.width(), 
                         (double)labelSize.height() / pageRect.height()) * 0.9; 
@@ -276,14 +284,10 @@ void PageSetupDialog::updateThumbnail() {
     
     //{"Верхнее", "Нижнее", "Левое", "Правое"}
     double mmToPx = 2.8346; 
-    double left = marginEdits[2]->text().toDouble();
-    double top = marginEdits[0]->text().toDouble();
-    double right = marginEdits[3]->text().toDouble();
-    double bottom = marginEdits[1]->text().toDouble();
-    double marginLeft = left * mmToPx;
-    double marginTop = top * mmToPx;
-    double marginRight = right * mmToPx;
-    double marginBottom = bottom * mmToPx;
+    double marginLeft = marginEdits[2]->text().toDouble() * mmToPx;
+    double marginTop = marginEdits[0]->text().toDouble() * mmToPx;
+    double marginRight = marginEdits[3]->text().toDouble() * mmToPx;
+    double marginBottom = marginEdits[1]->text().toDouble() * mmToPx;
 
     QTextDocument* doc_clone = doc->clone();
     doc_clone->setPageSize(QSize(pageRect.width() - marginLeft -marginRight, pageRect.height() - marginTop - marginBottom));
@@ -306,9 +310,6 @@ void PageSetupDialog::updateThumbnail() {
 
     
     painter.end();
-    QPageLayout layout = printer->pageLayout();
-    layout.setMargins(QMarginsF(left, top, right, bottom));
-    printer->setPageLayout(layout);
 
 
     previewLabel->setPixmap(pixmap);

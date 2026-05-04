@@ -35,7 +35,7 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     QAction* zoomOutAction = toolBar->addAction(QIcon(":/icons/zoom-out-button.svg"),"Масштаб меньше");
     QAction* zoomInAction = toolBar->addAction(QIcon(":/icons/zoom-in-button.svg"),"Масштаб больше");
     toolBar->addSeparator();
-    QComboBox* pageShow = new QComboBox(this);
+    pageShow = new QComboBox(this);
     pageShow->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     pageShow->setStyleSheet(
         "QComboBox {"
@@ -73,11 +73,11 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
         "   image: url(:/icons/arrow-up.png);"
     "}");
 
-    pageShow->addItem("1 страница");
-    pageShow->addItem("2 страницы");
-    pageShow->addItem("3 страницы");
-    pageShow->addItem("4 страницы");
-    pageShow->addItem("6 страниц");
+    pageShow->addItem("1 страница", 1);
+    pageShow->addItem("2 страницы", 2);
+    pageShow->addItem("3 страницы", 3);
+    pageShow->addItem("4 страницы", 4);
+    pageShow->addItem("6 страниц", 6);
     toolBar->addWidget(pageShow);
     toolBar->addSeparator();
     QAction* settingsAction = toolBar->addAction(QIcon(":/icons/page-setup-button.svg"),"Параметры страницы");
@@ -89,9 +89,10 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     previewWidget->setStyleSheet(
         "QGraphicsView { qproperty-backgroundBrush: #222226; border: none; }"
     );
+    previewWidget->setViewMode(QPrintPreviewWidget::SinglePageView);
     
     baseLayout->addWidget(toolBar);
-    baseLayout->addWidget(previewWidget);
+    baseLayout->addWidget(previewWidget, 1);
 
     QToolBar* pageToolBar = new QToolBar(this);
     pageToolBar->setStyleSheet(
@@ -113,22 +114,50 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     pageToolBar->addWidget(leftSpacer);
     QAction* goFirstPage = pageToolBar->addAction(QIcon(":/icons/go-to-first-page-button.svg"),"Перейти в начало");
     QAction* goPreviuosPage = pageToolBar->addAction(QIcon(":/icons/previous-page-button.svg"),"Предыдущая страница");
-    QLineEdit* pageNumber = new QLineEdit(this);
+    pageNumber = new QLineEdit(this);
     pageNumber->setStyleSheet("QLineEdit { background-color: #222226; font: normal normal normal 15px/18px Roboto;  color: #A8A8A8; border: none; margin-left: 10px; margin-right: 5px;}");
     pageNumber->setFixedWidth(40);
     pageNumber->setText("1");
     pageToolBar->addWidget(pageNumber);
-    QLabel* totalPages = new QLabel("из 1");
-    totalPages->setStyleSheet("QLabel{font: normal normal normal 15px/18px Roboto; color: #838384; margin-left: 5px;}");
-    pageToolBar->addWidget(totalPages);
+    connect(pageNumber, &QLineEdit::textChanged, this, [this](){
+        previewWidget->setCurrentPage(pageNumber->text().toInt());
+    });
+    totalPagesLabel = new QLabel(QString("из %1").arg(printReport->m_document->pageCount()));
+    totalPagesLabel->setStyleSheet("QLabel{font: normal normal normal 15px/18px Roboto; color: #838384; margin-left: 5px;}");
+    pageToolBar->addWidget(totalPagesLabel);
     QAction* goNextPage = pageToolBar->addAction(QIcon(":/icons/next-page-button.svg"),"Следующая страница");
     QAction* goLasttPage = pageToolBar->addAction(QIcon(":/icons/go-to-last-page-button.svg"),"Перейти в конец");
     pageToolBar->addWidget(rightSpacer);
     baseLayout->addWidget(pageToolBar);
 
     active_headers = false;
-
-    connect(previewWidget, SIGNAL(paintRequested(QPrinter *)), printReport, SLOT(print(QPrinter *)));
+    connect(
+        pageShow, QOverload<int>::of(&QComboBox::activated), 
+        this, [this](){
+            switch (pageShow->currentData().toInt())
+            {
+            case 1:
+                previewWidget->setViewMode(QPrintPreviewWidget::SinglePageView);
+                break;
+            case 2:
+                previewWidget->setViewMode(QPrintPreviewWidget::FacingPagesView);
+                break;
+            case 3:
+            case 4:
+            case 6:
+                previewWidget->setViewMode(QPrintPreviewWidget::AllPagesView);
+                break;
+            default:
+                break;
+            }
+        }
+    );
+    connect(previewWidget, &QPrintPreviewWidget::paintRequested, 
+        this, [this](QPrinter* printer){
+            printReport->print(printer);
+            totalPagesLabel->setText(QString("из %1").arg(printReport->m_document->pageCount()));
+        }
+    );
     connect(printAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::print);
     connect(portraitAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::setPortraitOrientation);
     connect(landscapeAction, &QAction::triggered, previewWidget, &QPrintPreviewWidget::setLandscapeOrientation);

@@ -155,6 +155,6 @@ protected:
 
 	void paintPage(QPainter *painter, int pagenum);
 
-protected slots:
+public slots:
 	void print(QPrinter *printer);
 };

@@ -14,7 +14,7 @@ BaseDialog::BaseDialog(QWidget* pwgt, QString title) : QDialog(pwgt) {
     titleBar->setContentsMargins(30, 20, 20, 15);
     
     
-    titleBar->setStyleSheet("background-color: #2b2d32; box-shadow: 0px 0px 10px #0000005C;");
+    titleBar->setStyleSheet("background-color: #2b2d32;");
     setStyleSheet("background-color: #2b2d32;");
     
     QHBoxLayout *titleLayout = new QHBoxLayout(titleBar);

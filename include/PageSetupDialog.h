@@ -24,8 +24,6 @@ class PageSetupDialog: public BaseDialog {
         QComboBox* paperComboBox;
         QComboBox* orientationComboBox;
 
-        bool eventFilter(QObject *watched, QEvent *event) override;
-
 
         void setCancelButtonStyle(QPushButton* btn);
         void setApplyButtonStyle(QPushButton* btn);
