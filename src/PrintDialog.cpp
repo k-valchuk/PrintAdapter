@@ -1,11 +1,12 @@
 #include "PrintDialog.h"
-#include "PageSetupDialog.h"
 
 #include <QToolBar>
 #include <QPushButton>
 #include <QDebug>
 
-PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, "Предварительный просмотр") {
+PrintDialog::PrintDialog(QWidget* pwgt, QString printContent, QString rundownTitle): BaseDialog(pwgt, "Предварительный просмотр"), headerTitle(rundownTitle) {
+    headersValues = {{Headers::EMPTY,Headers::EMPTY,Headers::EMPTY}, {Headers::EMPTY,Headers::EMPTY,Headers::EMPTY}};
+    
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
     baseLayout->setContentsMargins(10, 10, 20, 30);
     QToolBar* toolBar = new QToolBar(this);
@@ -22,7 +23,6 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     QAction* zoomInAction = toolBar->addAction(QIcon(":/icons/zoom-in-button.svg"),"Масштаб больше");
     toolBar->addSeparator();
     pageShow = new QComboBox(this);
-    pageShow->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     pageShow->addItem("1 страница", 1);
     pageShow->addItem("2 страницы", 2);
@@ -39,7 +39,8 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     previewWidget = new QPrintPreviewWidget(printReport->m_printer, this);
     previewWidget->setViewMode(QPrintPreviewWidget::SinglePageView);
     
-    baseLayout->addWidget(toolBar);
+
+    baseLayout->addWidget(toolBar, 1, Qt::AlignHCenter);
     baseLayout->addWidget(previewWidget, 1);
 
     QToolBar* pageToolBar = new QToolBar(this);
@@ -53,6 +54,7 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     QAction* goPreviuosPage = pageToolBar->addAction(QIcon(":/icons/previous-page-button.svg"),"Предыдущая страница");
     pageNumber = new QLineEdit(this);
     pageNumber->setText("1");
+    pageNumber->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
     pageToolBar->addWidget(pageNumber);
     connect(pageNumber, &QLineEdit::textChanged, this, [this](){
         previewWidget->setCurrentPage(pageNumber->text().toInt());
@@ -113,7 +115,8 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     connect(zoomOutAction, SIGNAL(triggered()), previewWidget, SLOT(zoomOut()));
     connect(zoomInAction, SIGNAL(triggered()), previewWidget,  SLOT(zoomIn()));
     connect(settingsAction, &QAction::triggered, previewWidget, [this](){
-        PageSetupDialog * dialog = new PageSetupDialog (this, printReport->m_printer, previewWidget, printReport->m_document);
+        PageSetupDialog * dialog = new PageSetupDialog (this, printReport->m_printer, previewWidget, printReport->m_document, headerTitle, headersValues);
+        connect(dialog, &PageSetupDialog::headersChanged, this, &PrintDialog::updateHeaders);
         if (dialog->exec() == QDialog::Accepted) {
             previewWidget->updatePreview();
         }
@@ -139,17 +142,6 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
 
     QHBoxLayout* button_layout = new QHBoxLayout(this);
     button_layout->setContentsMargins(0, 21, 0, 0);
-    QPushButton* backButton = new QPushButton("Назад");
-    backButton->setObjectName("cancelButton");
-    
-    connect(
-        backButton, &QPushButton::clicked,
-        this, [this](){
-            qDebug() << "Кнопка 'Назад' реально нажата"; 
-            emit backButtonClicked();
-            this->close();
-        }
-    );
     QPushButton* cancelButton = new QPushButton("Отмена");
     cancelButton->setObjectName("cancelButton");
     
@@ -163,13 +155,27 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent): BaseDialog(pwgt, 
     connect(chooseButton, SIGNAL(clicked()), previewWidget, SLOT(print()));
     previewWidget->updatePreview();
 
-    button_layout->addWidget(backButton);
-    button_layout->addStretch();
     button_layout->addWidget(cancelButton);
+    button_layout->addStretch();
     button_layout->addWidget(chooseButton);
 
     baseLayout->addLayout(button_layout);
 
     setBaseLayout(baseLayout);
+
+}
+
+void PrintDialog::updateHeaders(QStringList headers, QStringList footers, QList<QList<Headers>> newHeadersValues){
+    QString html = QString(
+    "<table width='100%' style='border-collapse: collapse;'>"
+    "  <tr>"
+    "    <td width='33.3%' align='left'>%1</td>"
+    "    <td width='33.3%' align='center'>%2</td>"
+    "    <td width='33.3%' align='right'>%3</td>"
+    "  </tr>"
+    "</table>");
+    headersValues = newHeadersValues;
+    printReport->setHeaderText(html.arg(headers.at(0), headers.at(1), headers.at(2)));
+    printReport->setFooterText(html.arg(footers.at(0), footers.at(1), footers.at(2)));
 
 }

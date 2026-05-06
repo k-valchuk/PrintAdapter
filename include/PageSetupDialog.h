@@ -12,6 +12,17 @@
 #include <QLineEdit>
 #include "BaseDialog.h"
 
+enum class Headers {
+    TITLE,
+    PAGE_NUMBER,
+    PAGE_NUMBER_TOTAL,
+    COUNT_PAGES,
+    LONG_DATE,
+    SHORT_DATE,
+    TIME,
+    EMPTY
+};
+
 class PageSetupDialog: public BaseDialog {
     Q_OBJECT
 
@@ -21,8 +32,10 @@ class PageSetupDialog: public BaseDialog {
         QLabel* previewLabel;
         QTextDocument *doc;
         QList<QLineEdit*> marginEdits;
+        QList<QComboBox*> headerComboBoxes;
         QComboBox* paperComboBox;
         QComboBox* orientationComboBox;
+        QString headerTitle;
 
 
         void setCancelButtonStyle(QPushButton* btn);
@@ -33,6 +46,11 @@ class PageSetupDialog: public BaseDialog {
         void setLineEditStyle(QLineEdit* lineEdit);
         void updateThumbnail();
 
+        void computeHeaders();
+
     public:
-        PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPreviewWidget* previewWidget_, QTextDocument *doc_);
+        PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPreviewWidget* previewWidget_, QTextDocument *doc_, QString headerTitle_, QList<QList<Headers>> headersValues);
+    
+    signals:
+        void headersChanged(QStringList, QStringList, QList<QList<Headers>>);
 };

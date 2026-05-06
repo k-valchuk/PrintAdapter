@@ -100,6 +100,7 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
         case ActionId::GET_TEMPLATE:
             response.content = jsonDoc.object().value("content").toString();
             response.content_type = ContentType::HTML;
+            response.title = jsonDoc.object().value("name").toString();
             break;
         case ActionId::GET_ALL_TEMPLATES:
             updateTable(jsonDoc.array(), templatesModel);
@@ -111,12 +112,8 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
 void RequestDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response = responseRouting(jsonDoc, buttonId);
     if (response.content_type == ContentType::HTML) {
-        this->hide();
-        PrintDialog* dialog = new PrintDialog(nullptr, response.content);
+        PrintDialog* dialog = new PrintDialog(nullptr, response.content, response.title);
         dialog->setAttribute(Qt::WA_DeleteOnClose);
-        connect(dialog, &PrintDialog::backButtonClicked, this, [this]() {
-            this->show();
-        });
         dialog->show();
     }
 }

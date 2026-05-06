@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QComboBox>
 #include "BaseDialog.h"
+#include "PageSetupDialog.h"
 
 class PrintDialog: public BaseDialog {
     Q_OBJECT
@@ -15,9 +16,12 @@ class PrintDialog: public BaseDialog {
         QLabel* totalPagesLabel;
         QLineEdit* pageNumber;
         QComboBox* pageShow;
+        QString headerTitle;
+        QList<QList<Headers>> headersValues;
 
     public:
-        PrintDialog(QWidget* pwgt, QString printContent);
-    signals:
-        void backButtonClicked();
+        PrintDialog(QWidget* pwgt, QString printContent, QString rundownTitle);
+    
+    public slots:
+        void updateHeaders(QStringList headers, QStringList footers, QList<QList<Headers>> newHeadersValues);
 };

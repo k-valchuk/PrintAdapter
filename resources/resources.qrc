@@ -17,11 +17,14 @@
     <file alias="go-to-last-page-button.svg">icons/go-to-last-page-button.svg</file>
     <file alias="next-page-button.svg">icons/next-page-button.svg</file>
     <file alias="previous-page-button.svg">icons/previous-page-button.svg</file>
+    <file alias="bramspace_icon.ico">icons/bramspace_icon.ico</file>
   </qresource>
   <qresource prefix="/styles">
     <file alias="dialogs.qss">dark/dialogs.qss</file>
     <file alias="tables.qss">dark/tables.qss</file>
     <file alias="combobox.qss">dark/combobox.qss</file>
     <file alias="toolbar.qss">dark/toolbar.qss</file>
+    <file alias="scrollarea.qss">dark/scrollarea.qss</file>
+    <file alias="scrollbox.qss">dark/scrollbox.qss</file>
   </qresource>
 </RCC>

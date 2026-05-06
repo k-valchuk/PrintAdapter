@@ -33,8 +33,15 @@ QPushButton#cancelButton {
     min-width: 93px;
 }
 
-QPushButton#cancelButton:hover {
-    border: 1px solid #6F8CB7;
+QPushButton#cancelButton:pressed {
+    border-color:rgba(57,108,145,205);
+    background: rgba(57,108,145,50);
+    color: rgba(95,142,176,205);
+}
+
+QPushButton#cancelButton:hover:!pressed {
+    background: rgba(95,142,176, 20);
+    color: #90B6D1;
 }
 
 QPushButton#applyButton {
@@ -47,9 +54,15 @@ QPushButton#applyButton {
     min-width: 114px;
 }
 
-QPushButton#applyButton:hover {
-    background: #9abcff;
+QPushButton#applyButton:hover:!pressed
+{
+	background-color: rgb(85, 125, 180);
 }
+QPushButton#applyButton:pressed
+{
+	background-color: rgb(62, 95, 142);
+}
+
 
 QGraphicsView {
     qproperty-backgroundBrush: #222226;

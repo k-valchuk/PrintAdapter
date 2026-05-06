@@ -23,8 +23,9 @@ class RequestDialog: public BaseDialog {
             public:
                 QString content;
                 ContentType content_type;
-                ContentModel(QString content, ContentType content_type) : content(content), content_type(content_type){};
-                ContentModel() : content(""), content_type(ContentType::HTML){};
+                QString title;
+                ContentModel(QString content, ContentType content_type, QString title) : content(content), content_type(content_type), title(title){};
+                ContentModel() : content(""), content_type(ContentType::HTML), title(""){};
         };
 
         ContentModel responseRouting(const QJsonDocument jsonDoc, ActionId buttonId);
