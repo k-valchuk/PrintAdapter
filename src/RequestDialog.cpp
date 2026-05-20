@@ -4,10 +4,10 @@
 
 RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseDialog(pwgt, "Выбор шаблона печати"), server_requester(server_requester_) {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
-    baseLayout->setContentsMargins(10, 10, 20, 30);
+    baseLayout->setContentsMargins(10, 10, 20, 5);
 
     templatesModel = new QStandardItemModel(0, 2, this);
-    templateTableView = new BaseTableView(this, templatesModel);
+    templateTableView = new BaseTableView(this, templatesModel, QColor("#3D3D41"));
     templateTableView->setColumnHidden(0, true);
     
     QHBoxLayout* table_layout = new QHBoxLayout(this);
@@ -30,7 +30,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
 
     
 
-    server_requester->getAllTemplates();
+    server_requester->getAllTemplates(true, "NEWS");
 
     QHBoxLayout* button_layout = new QHBoxLayout(this);
     button_layout->setContentsMargins(343, 90, 0, 0);
@@ -94,7 +94,6 @@ void RequestDialog::removeRowByID(int itemID, QStandardItemModel* itemModel){
 RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument jsonDoc, ActionId buttonId) {
     ContentModel response;
     response.content_type = ContentType::TEXT;
-    QList<QStandardItem*> rowData{};
     switch (buttonId) {
         case ActionId::EXPORT:
         case ActionId::GET_TEMPLATE:

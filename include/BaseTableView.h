@@ -7,6 +7,6 @@ class BaseTableView: public QTableView {
     Q_OBJECT
 
     public:
-    BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel);
+    BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel, QColor rowColor);
 
 };

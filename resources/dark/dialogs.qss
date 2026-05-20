@@ -63,6 +63,51 @@ QPushButton#applyButton:pressed
 	background-color: rgb(62, 95, 142);
 }
 
+QPushButton#toogleButton {
+    border: 1px solid #3D3D41;
+    color: #BABABA;
+    border-radius: 4px;
+    width: 66px;
+    height: 26px;
+    font: normal normal normal 15px/18px Roboto;
+    background-color: transparent;
+}
+
+QGroupBox#emptyGroupBox {
+    border: none;
+}
+
+QGroupBox#addGroupBox {
+    background-color: #3D3D41;
+    border-radius: 2px 2px 0px 0px;
+}
+
+QLabel#baseLabel {
+    font: normal normal medium 15px/18px Roboto;
+    color: #C2C2C2;
+}
+
+QPushButton#toogleButton:checked {
+    color: #FFFFFF;
+    background-color: #456A9E;
+    border-color: transparent
+}
+
+QPushButton#addButton {
+    border: none;
+    background-color: transparent; 
+    width: 24px;
+    height: 24px;
+}
+
+QPushButton#addButton:hover {
+    margin: -5px;
+    background-color: rgba(128, 128, 128, 0.3);
+}
+
+QPushButton#addButton:pressed {
+    background-color: rgba(128, 128, 128, 0.5);
+}
 
 QGraphicsView {
     qproperty-backgroundBrush: #222226;

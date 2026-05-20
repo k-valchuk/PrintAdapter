@@ -4,7 +4,7 @@
 #include <QFile>
 #include "RowDelegate.h"
 
-BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTableView(pwgt) {
+BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel, QColor rowColor): QTableView(pwgt) {
 
     setModel(itemModel);
     horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -18,15 +18,11 @@ BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel): QTab
     verticalHeader()->setVisible(false);
     verticalHeader()->setDefaultSectionSize(34);
 
-    connect(
-        this, SIGNAL(customContextMenuRequested(const QPoint)),
-        pwgt, SLOT(templateContextMenu(const QPoint))
-    );
     QFile styleFile(":/styles/tables.qss");
     QString styles;
     if (styleFile.open(QFile::ReadOnly)){
         styles += styleFile.readAll();
     }
     setStyleSheet(styles);
-    setItemDelegate(new RowDelegate(this));
+    setItemDelegate(new RowDelegate(this, rowColor));
 }

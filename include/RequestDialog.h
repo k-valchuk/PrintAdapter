@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QButtonGroup>
 #include <QStandardItemModel>
 #include "BaseTableView.h"
 #include "BaseDialog.h"
@@ -17,7 +16,6 @@ class RequestDialog: public BaseDialog {
         QStandardItemModel* templatesModel;
         BaseTableView* templateTableView;
         ServerRequester* server_requester;
-        QButtonGroup* button_group;
 
         class ContentModel {
             public:

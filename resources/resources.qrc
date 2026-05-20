@@ -18,6 +18,7 @@
     <file alias="next-page-button.svg">icons/next-page-button.svg</file>
     <file alias="previous-page-button.svg">icons/previous-page-button.svg</file>
     <file alias="bramspace_icon.ico">icons/bramspace_icon.ico</file>
+    <file alias="add-button.svg">icons/add-button.svg</file>
   </qresource>
   <qresource prefix="/styles">
     <file alias="dialogs.qss">dark/dialogs.qss</file>

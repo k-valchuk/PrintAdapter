@@ -14,7 +14,7 @@ class ServerRequester: public QObject {
     
     public:
         ServerRequester(QObject* pobj, QString base_url);
-        void getAllTemplates();
+        void getAllTemplates(bool isActive, QString subsystemName);
         void getAllTags();
         void getTemplate(QString templateName);
         void removeTemplate(QString templateName);

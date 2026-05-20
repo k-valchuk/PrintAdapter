@@ -10,9 +10,10 @@ ServerRequester::ServerRequester(QObject* pobj, QString base_url) : QObject(pobj
     connect(requester, SIGNAL(error(QString, int)), this, SLOT(slotError(QString, int)));
 }
 
-void ServerRequester::getAllTemplates() {
+void ServerRequester::getAllTemplates(bool isActive, QString subsystemName) {
     setCurrentButton(ActionId::GET_ALL_TEMPLATES);
-    requester->restRequest(QUrl(QString("%1/db/get_all_templates").arg(base_url)), RequestTypes::GET, nullptr);
+    qDebug() << "subsystemName" << subsystemName;
+    requester->restRequest(QUrl(QString("%1/db/get_all_templates?active=%2&subsystem=%3").arg(base_url).arg(isActive).arg(subsystemName)), RequestTypes::GET, nullptr);
 }
 
 void ServerRequester::getAllTags() {

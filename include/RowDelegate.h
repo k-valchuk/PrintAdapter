@@ -3,7 +3,13 @@
 #include <QPainterPath>
 
 class RowDelegate : public QStyledItemDelegate {
+    private:
+        QColor bgColor;
 public:
+    RowDelegate(QWidget* pwgt, QColor backgroundColor): QStyledItemDelegate(pwgt) {
+        bgColor = backgroundColor;
+    };
+
     using QStyledItemDelegate::QStyledItemDelegate;
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override {
@@ -15,7 +21,6 @@ public:
     bool isSelected = option.state & QStyle::State_Selected;
 
 
-    QColor bgColor = QColor("#3D3D41"); 
     QPainterPath path;
     if (index.column() == 0) {
         path.addRoundedRect(rect, radius, radius);
