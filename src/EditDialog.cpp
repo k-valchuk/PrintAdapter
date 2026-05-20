@@ -94,9 +94,12 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
 
     QWidget *tab2 = new QWidget();
     QVBoxLayout *layout2 = new QVBoxLayout(tab2); 
-
-    layout2->addWidget(new QLabel("Редактирование структуры шаблона", tab2));
-    layout2->addWidget(new QTextEdit(tab2));
+    QLabel* panelLabel = new QLabel("Редактирование структуры шаблона", tab2);
+    panelLabel->setObjectName("baseLabel");
+    layout2->addWidget(panelLabel);
+    QTextEdit* templateEdit = new QTextEdit(tab2);
+    templateEdit->setObjectName("EditArea");
+    layout2->addWidget(templateEdit);
 
     tabWidget->addTab(tab1, "Свойства");
     tabWidget->addTab(tab2, "Разметка");
