@@ -1,0 +1,8 @@
+<svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>Layer 1</title>
+  <path transform="rotate(90 5 5)" fill="none" d="m10,0l-10,0l0,10l10,0l0,-10z" id="viewbox_10"/>
+  <path fill="#a8a8a8" d="m4.93478,2.65217l4.5,4.833l-9,0l4.5,-4.833z" id="more"/>
+ </g>
+</svg>

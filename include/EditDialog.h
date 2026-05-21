@@ -2,6 +2,8 @@
 
 #include <QButtonGroup>
 #include <QStandardItemModel>
+#include <QTextEdit>
+#include <QCheckBox>
 #include "BaseTableView.h"
 #include "BaseDialog.h"
 #include "ServerRequester.h"
@@ -18,6 +20,8 @@ class EditDialog: public BaseDialog {
         BaseTableView* templateStoryTableView;
         QButtonGroup* button_group;
 
+        QCheckBox* activeCheckBox;
+        QTextEdit* templateEdit;
         QString currentSubSystem;
     
     public:

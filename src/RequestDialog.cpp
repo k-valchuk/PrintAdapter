@@ -104,6 +104,8 @@ RequestDialog::ContentModel RequestDialog::responseRouting(const QJsonDocument j
         case ActionId::GET_ALL_TEMPLATES:
             updateTable(jsonDoc.array(), templatesModel);
             break;
+        default:
+            break;
     }
     return response;
 }

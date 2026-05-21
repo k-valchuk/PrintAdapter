@@ -83,7 +83,7 @@ QGroupBox#addGroupBox {
 }
 
 QLabel#baseLabel {
-    font: normal normal medium 15px/18px Roboto;
+    font: normal normal normal 15px/18px Roboto;
     color: #C2C2C2;
 }
 
@@ -112,4 +112,15 @@ QPushButton#addButton:pressed {
 QGraphicsView {
     qproperty-backgroundBrush: #222226;
     border: none;
+}
+
+QPushButton#GrayButton {
+    background-color: #4C4C51;
+    width: 58px;
+    height: 26px;
+    border-radius: 2px;
+    color: #C2C2C2;
+    font: normal normal normal 15px/18px Roboto;
+    padding-left: 5px;
+    padding-right: 5px;
 }

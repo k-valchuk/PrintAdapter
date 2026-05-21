@@ -19,6 +19,10 @@
     <file alias="previous-page-button.svg">icons/previous-page-button.svg</file>
     <file alias="bramspace_icon.ico">icons/bramspace_icon.ico</file>
     <file alias="add-button.svg">icons/add-button.svg</file>
+    <file alias="checkbox_active_hover.svg">icons/checkbox_active_hover.svg</file>
+    <file alias="checkbox_active.svg">icons/checkbox_active.svg</file>
+    <file alias="less_information.svg">icons/less_information.svg</file>
+    <file alias="more_information2.svg">icons/more_information2.svg</file>
   </qresource>
   <qresource prefix="/styles">
     <file alias="dialogs.qss">dark/dialogs.qss</file>
