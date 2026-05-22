@@ -7,7 +7,10 @@
 enum class ActionId {
     EXPORT,
     GET_TEMPLATE,
-    GET_ALL_TEMPLATES
+    GET_ALL_TEMPLATES,
+    ADD_TEMPLATE,
+    DELETE_TEMPLATE,
+    NONE_ACTION
 };
 
 // BramSpace Print host

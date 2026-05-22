@@ -4,6 +4,7 @@
 #include <QStandardItemModel>
 #include <QTextEdit>
 #include <QCheckBox>
+#include <QPersistentModelIndex>
 #include "BaseTableView.h"
 #include "BaseDialog.h"
 #include "ServerRequester.h"
@@ -21,6 +22,17 @@ class EditDialog: public BaseDialog {
         QButtonGroup* button_group;
 
         QCheckBox* activeCheckBox;
+        QCheckBox* prompterCheckBox;
+        QCheckBox* skipCheckBox;
+        QCheckBox* separatorCheckBox;
+        QCheckBox* storyCheckBox;
+        QCheckBox* blockCheckBox;
+        QCheckBox* rubricCheckBox;
+
+        QPersistentModelIndex editingIndex;
+
+
+
         QTextEdit* templateEdit;
         QString currentSubSystem;
     

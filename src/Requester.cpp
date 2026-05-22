@@ -23,6 +23,10 @@ QNetworkReply* Requester::sendRequest(QNetworkRequest request, RequestTypes requ
 
 QNetworkReply* Requester::generateReply(const QUrl& url, RequestTypes requestType, const QByteArray& data){
     QNetworkRequest request(url);
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        "application/json"
+    );
     QNetworkReply* reply = sendRequest(request, requestType, data);
     QTimer* timeout = new QTimer(reply);
     timeout->setSingleShot(true);

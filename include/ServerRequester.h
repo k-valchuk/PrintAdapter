@@ -16,8 +16,8 @@ class ServerRequester: public QObject {
         ServerRequester(QObject* pobj, QString base_url);
         void getAllTemplates(bool isActive, QString subsystemName);
         void getAllTags();
-        void getTemplate(QString templateName);
-        void removeTemplate(QString templateName);
+        void getTemplate(QString templateId);
+        void removeTemplate(QString templateId);
         void exportTemplate(int templateId);
         void addTemplate(const QJsonDocument jsonDoc);
         void setCurrentButton(ActionId buttonId);

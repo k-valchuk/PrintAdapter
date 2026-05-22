@@ -63,22 +63,166 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
 
 
     templateRundownModel = new QStandardItemModel(0, 2, this);
-    templateRundownTableView = new BaseTableView(this, templateRundownModel, QColor("#323236"));
+    templateRundownTableView = new BaseTableView(this, templateRundownModel, QColor("#323236"), true);
     tableLayout->addWidget(templateRundownTableView);
 
+    connect(
+        templateRundownTableView,
+        &BaseTableView::deleteTemplate,
+        this,
+        [this](QString templateId){
+            server_requester->setCurrentButton(ActionId::DELETE_TEMPLATE);
+            qDebug() << "templateId" << templateId;
+            server_requester->removeTemplate(templateId);
+        }
+    );
+
     connect(rundownAddLine, &AddLine::addSignal, this, [this](){
-        
+        int row = templateRundownModel->rowCount();
+
+        templateRundownModel->insertRow(row);
+
+        QModelIndex idx = templateRundownModel->index(row, 1);
+
+        templateRundownTableView->edit(idx);
+    });
+
+    connect(templateRundownModel,
+        &QAbstractItemModel::dataChanged,
+        this,
+        [this](const QModelIndex& topLeft,
+               const QModelIndex&){
+            QString value = templateRundownModel->data(topLeft).toString();
+
+            if (value.isEmpty())
+                templateRundownModel->removeRow(topLeft.row());
+    });
+
+    connect(templateRundownTableView->itemDelegate(),
+        &QAbstractItemDelegate::closeEditor,
+        this,
+        [this](QWidget*, QAbstractItemDelegate::EndEditHint){
+            QModelIndex idx = templateRundownTableView->currentIndex();
+
+            if (!idx.isValid())
+                return;
+
+            QString value = templateRundownModel->data(idx).toString();
+
+            if (value.isEmpty())
+                templateRundownModel->removeRow(idx.row());
+    });
+
+    connect(templateRundownModel,
+        &QAbstractItemModel::dataChanged,
+        this,
+        [this](const QModelIndex& tl,
+               const QModelIndex&)
+    {
+        QString templateName = templateRundownModel->data(tl).toString();
+        if (templateName.isEmpty()) {
+            return;
+        }
+
+        QJsonObject jsonObj;
+        qDebug() << "subsystem" << currentSubSystem;
+        jsonObj["name"] = templateName;
+        QString templateContent = templateEdit->toPlainText();
+        jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
+        jsonObj["subsystem"] = currentSubSystem;
+        jsonObj["is_single"] = false;
+
+        server_requester->setCurrentButton(ActionId::ADD_TEMPLATE);
+        server_requester->addTemplate(QJsonDocument(jsonObj));
     });
 
 
     AddLine* storyAddLine = new AddLine(this, "Отдельное событие");
     tableLayout->addWidget(storyAddLine);
     templateStoryModel = new QStandardItemModel(0, 2, this);
-    templateStoryTableView = new BaseTableView(this, templateStoryModel, QColor("#323236"));
+    templateStoryTableView = new BaseTableView(this, templateStoryModel, QColor("#323236"), true);
     tableLayout->addWidget(templateStoryTableView);
 
-    connect(storyAddLine, &AddLine::addSignal, this, [this](){
-        
+    
+    
+    connect(storyAddLine,
+        &AddLine::addSignal,
+        this,
+        [this]()
+    {
+        int row =
+            templateStoryModel
+                ->rowCount();
+
+        if (row > 0){
+            templateStoryModel->insertRow(row);
+        } else {
+            templateStoryModel->insertRow(
+                row,
+                QList<QStandardItem*>{
+                    new QStandardItem(),
+                    new QStandardItem()
+                }
+            );
+        }
+
+        editingIndex = templateStoryModel->index(row, 1);
+
+        templateStoryTableView
+            ->edit(editingIndex);
+    });
+
+    connect(
+    templateStoryTableView->itemDelegate(),
+    &QAbstractItemDelegate::closeEditor,
+    this,
+    [this](QWidget*,
+           QAbstractItemDelegate::EndEditHint)
+    {
+        if (!editingIndex.isValid())
+            return;
+
+        QString value =
+            templateStoryModel
+                ->data(
+                    editingIndex,
+                    Qt::EditRole
+                )
+                .toString()
+                .trimmed();
+
+        if (value.isEmpty())
+        {
+            templateStoryModel
+                ->removeRow(
+                    editingIndex.row()
+                );
+        }
+
+        editingIndex = QPersistentModelIndex();
+    });
+
+    connect(templateStoryModel,
+        &QAbstractItemModel::dataChanged,
+        this,
+        [this](const QModelIndex& tl,
+               const QModelIndex&)
+    {
+        QString templateName = templateStoryModel->data(tl).toString();
+        if (templateName.isEmpty()) {
+            return;
+        }
+
+        QJsonObject jsonObj;
+        qDebug() << "subsystem" << currentSubSystem;
+        jsonObj["name"] = templateName;
+        QString templateContent = templateEdit->toPlainText();
+        jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
+        jsonObj["subsystem"] = currentSubSystem;
+        jsonObj["is_single"] = true;
+
+        server_requester->setCurrentButton(ActionId::ADD_TEMPLATE);
+        server_requester->addTemplate(QJsonDocument(jsonObj));
     });
 
 
@@ -103,8 +247,8 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
     panelStateColumnLabel->setObjectName("baseLabel");
     newsSettingsLayout->addWidget(panelStateColumnLabel, 0, Qt::AlignLeft);
     QHBoxLayout *stateLayout = new QHBoxLayout(newsSettingsPanel);
-    QCheckBox* prompterCheckBox = new QCheckBox("Суфлер", newsSettingsPanel);
-    QCheckBox* skipCheckBox = new QCheckBox("Пропуск", newsSettingsPanel);
+    prompterCheckBox = new QCheckBox("Суфлер", newsSettingsPanel);
+    skipCheckBox = new QCheckBox("Пропуск", newsSettingsPanel);
     stateLayout->addWidget(prompterCheckBox);
     stateLayout->addWidget(skipCheckBox);
     stateLayout->addStretch();
@@ -116,16 +260,16 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
     newsSettingsLayout->addWidget(panelBreakLabel, 0, Qt::AlignLeft);
 
     QHBoxLayout *breakLayout1 = new QHBoxLayout(newsSettingsPanel);
-    QCheckBox* separatorCheckBox = new QCheckBox("Разделителя", newsSettingsPanel);
-    QCheckBox* storyCheckBox = new QCheckBox("События", newsSettingsPanel);
+    separatorCheckBox = new QCheckBox("Разделителя", newsSettingsPanel);
+    storyCheckBox = new QCheckBox("События", newsSettingsPanel);
     breakLayout1->addWidget(separatorCheckBox);
     breakLayout1->addWidget(storyCheckBox);
     breakLayout1->addStretch();
     newsSettingsLayout->addLayout(breakLayout1);
 
     QHBoxLayout *breakLayout2 = new QHBoxLayout(newsSettingsPanel);
-    QCheckBox* blockCheckBox = new QCheckBox("Блока", newsSettingsPanel);
-    QCheckBox* rubricCheckBox = new QCheckBox("Рубрики", newsSettingsPanel);
+    blockCheckBox = new QCheckBox("Блока", newsSettingsPanel);
+    rubricCheckBox = new QCheckBox("Рубрики", newsSettingsPanel);
     breakLayout2->addWidget(blockCheckBox);
     breakLayout2->addWidget(rubricCheckBox);
     breakLayout2->addStretch();
@@ -176,8 +320,6 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
         QModelIndex firstColumnIndex = firstSelectedIndex.sibling(row, 0);
         QString templateId = firstColumnIndex.data(Qt::DisplayRole).toString();
 
-        qDebug() << "ID?" << templateId;
-
         server_requester->setCurrentButton(ActionId::GET_TEMPLATE);
         server_requester->getTemplate(templateId);
     });
@@ -202,6 +344,7 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
     layout2->addLayout(tabTitleLayout);
     templateEdit = new QTextEdit(tab2);
     templateEdit->setObjectName("EditArea");
+    templateEdit->setAcceptRichText(false);
     layout2->addWidget(templateEdit);
 
     tabWidget->addTab(tab1, "Свойства");
@@ -226,8 +369,52 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
     chooseButton->setObjectName("applyButton");
 
     connect(
-        chooseButton, SIGNAL(clicked()),
-        this, SLOT(accepted())
+        chooseButton, &QPushButton::clicked,
+        this, [this](){
+            QTableView* activeTable = nullptr;
+            if (templateRundownTableView->selectionModel()->hasSelection()) {
+                activeTable = templateRundownTableView;
+            } else if (templateStoryTableView->selectionModel()->hasSelection()) {
+                activeTable = templateStoryTableView;
+            }
+
+            if (!activeTable) {
+                return;
+            }
+            QModelIndex idx = activeTable->selectionModel()->selectedRows().first();
+
+            int row = idx.row();
+            
+            QString templateName = activeTable->model()->index(row, 1).data().toString();
+            
+            if (templateName.isEmpty()) {
+                return;
+            }
+
+            QJsonObject jsonObj;
+            jsonObj["name"] = templateName;
+            QString templateContent = templateEdit->toPlainText();
+            jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
+            jsonObj["subsystem"] = currentSubSystem;
+            jsonObj["is_single"] = false;
+            jsonObj["is_active"] = activeCheckBox->isChecked();
+            if (activeTable == templateRundownTableView) {
+                QJsonObject render_data;
+                render_data["prompt_filter"] = prompterCheckBox->isChecked();
+                render_data["skip_filter"] = skipCheckBox->isChecked();
+
+                render_data["sep_break"] = separatorCheckBox->isChecked();
+                render_data["story_break"] = storyCheckBox->isChecked();
+                render_data["block_break"] = blockCheckBox->isChecked();
+                render_data["rubric_break"] = rubricCheckBox->isChecked();
+
+                jsonObj["render_data"] = render_data;
+            }
+
+            server_requester->setCurrentButton(ActionId::NONE_ACTION);
+            server_requester->addTemplate(QJsonDocument(jsonObj));
+
+        }
     );
 
     button_layout->addWidget(cancelButton);
@@ -266,11 +453,46 @@ void EditDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, A
         case ActionId::GET_TEMPLATE:
             activeCheckBox->setChecked(jsonDoc.object().value("is_active").toBool());
             templateEdit->clear();
-            templateEdit->setText(jsonDoc.object().value("content").toString());
+            templateEdit->setPlainText(jsonDoc.object().value("content").toString());
+            if (!jsonDoc.object().value("is_single").toBool()) {
+                prompterCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("prompt_filter").toBool());
+                skipCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("skip_filter").toBool());
+                separatorCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("sep_break").toBool());
+                storyCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("story_break").toBool());
+                blockCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("block_break").toBool());
+                rubricCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("rubric_break").toBool());
+            }
+            break;
+        case ActionId::ADD_TEMPLATE:
+            if (!jsonDoc.object().value("is_single").toBool()) {
+                templateRundownModel->setData(
+                    templateRundownModel->index(templateRundownModel->rowCount() - 1, 0),
+                    QString::number(jsonDoc.object().value("ID").toInt())
+                );
+                for (int i = 0; i < templateRundownModel->rowCount(); i++) {
+                    if (QString::number(jsonDoc.object().value("ID").toInt()) == templateRundownModel->index(i, 0).data().toString()){
+                        templateRundownTableView->selectRow(i);
+                        break;
+                    }
+                }
+            } else {
+                templateStoryModel->setData(
+                    templateStoryModel->index(templateStoryModel->rowCount() - 1, 0),
+                    QString::number(jsonDoc.object().value("ID").toInt())
+                );
+
+                for (int i = 0; i < templateStoryModel->rowCount(); i++) {
+                    if (QString::number(jsonDoc.object().value("ID").toInt()) == templateStoryModel->index(i, 0).data().toString()){
+                        templateStoryTableView->selectRow(i);
+                        break;
+                    }
+                }
+            }
             break;
         default:
             return;
     }
+    server_requester->setCurrentButton(ActionId::NONE_ACTION);
 }
 
 

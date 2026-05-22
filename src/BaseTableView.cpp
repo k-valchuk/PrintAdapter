@@ -4,8 +4,9 @@
 #include <QFile>
 #include "RowDelegate.h"
 
-BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel, QColor rowColor): QTableView(pwgt) {
+BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel, QColor rowColor, bool editable): QTableView(pwgt) {
 
+    
     setModel(itemModel);
     horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -18,11 +19,29 @@ BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel, QColo
     verticalHeader()->setVisible(false);
     verticalHeader()->setDefaultSectionSize(34);
 
+    setMouseTracking(true);
     QFile styleFile(":/styles/tables.qss");
     QString styles;
     if (styleFile.open(QFile::ReadOnly)){
         styles += styleFile.readAll();
     }
     setStyleSheet(styles);
-    setItemDelegate(new RowDelegate(this, rowColor));
+    auto* rowDelegate = new RowDelegate(this, rowColor, editable);
+    setItemDelegate(rowDelegate);
+    if (editable) {
+        connect(
+            rowDelegate,
+            &RowDelegate::removeRequested,
+            this,
+            [this, itemModel](int row)
+            {
+                QModelIndex idx = itemModel->index(row, 0);
+
+                QString templateId = itemModel->data(idx).toString();
+                itemModel->removeRow(row);
+                emit deleteTemplate(templateId);
+            }
+        );
+
+    }
 }

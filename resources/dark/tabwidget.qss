@@ -29,7 +29,6 @@ QTextEdit#EditArea {
     background-color: #222226;
     color: #C2C2C2;
     font: normal normal normal 15px/18px Roboto;
-    text-align: left;
 }
 
 QCheckBox {
@@ -48,6 +47,12 @@ QCheckBox::indicator {
     background-color: #222226;
     width: 18px;
     height: 18px;
+}
+
+QLineEdit {
+    background: #222226;
+    color: #C2C2C2;
+    border: 1px solid #444;
 }
 
 QCheckBox::indicator:hover  {

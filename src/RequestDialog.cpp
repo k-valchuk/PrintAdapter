@@ -7,7 +7,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, ServerRequester* server_requester_):
     baseLayout->setContentsMargins(10, 10, 20, 5);
 
     templatesModel = new QStandardItemModel(0, 2, this);
-    templateTableView = new BaseTableView(this, templatesModel, QColor("#3D3D41"));
+    templateTableView = new BaseTableView(this, templatesModel, QColor("#3D3D41"), false);
     templateTableView->setColumnHidden(0, true);
     
     QHBoxLayout* table_layout = new QHBoxLayout(this);

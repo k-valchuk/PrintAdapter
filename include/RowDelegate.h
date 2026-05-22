@@ -1,13 +1,18 @@
 #include <QStyledItemDelegate>
 #include <QPainter>
 #include <QPainterPath>
+#include <QEvent>
+#include <QMouseEvent>
 
 class RowDelegate : public QStyledItemDelegate {
+    Q_OBJECT
     private:
         QColor bgColor;
-public:
-    RowDelegate(QWidget* pwgt, QColor backgroundColor): QStyledItemDelegate(pwgt) {
+        bool editable;
+    public:
+    RowDelegate(QWidget* pwgt, QColor backgroundColor, bool editable_): QStyledItemDelegate(pwgt) {
         bgColor = backgroundColor;
+        editable = editable_;
     };
 
     using QStyledItemDelegate::QStyledItemDelegate;
@@ -56,7 +61,65 @@ public:
     
    
     painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, text);
+    if (editable && (option.state & QStyle::State_MouseOver) && index.column() == index.model()->columnCount()- 1){
+        QRect icon =
+            crossRect(rect);
+
+        painter->setPen(
+            QColor("#FF7272")
+        );
+
+        painter->drawText(
+            icon,
+            Qt::AlignCenter,
+            "✕"
+        );
+    }
 
     painter->restore();
+    }
+
+    bool editorEvent(
+        QEvent* event,
+        QAbstractItemModel* model,
+        const QStyleOptionViewItem& option,
+        const QModelIndex& index
+    ) override {
+        if (index.column() != index.model()->columnCount()- 1){
+            return false;
+        }
+
+        if (event->type() != QEvent::MouseButtonRelease){
+            return false;
+        }
+
+        auto* mouse = static_cast<QMouseEvent*>(event);
+        if (!mouse) {
+            return false;
+        }
+
+        if (crossRect(option.rect).contains(mouse->pos())){
+            emit removeRequested(
+                index.row()
+            );
+
+            return true;
+        }
+
+        return false;
+    }
+signals:
+    void removeRequested(int row);
+protected:
+    QRect crossRect(
+        const QRect& rect
+    ) const
+    {
+        return QRect(
+            rect.right() - 24,
+            rect.center().y() - 8,
+            16,
+            16
+        );
     }
 };
