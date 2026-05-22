@@ -355,20 +355,119 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
     tabTitleLayout->addWidget(panelLabel);
     tabTitleLayout->addStretch();
     QPushButton* infoButton = new QPushButton("Инфо", tab2);
+    infoButton->setCheckable(true);
     infoButton->setObjectName("GrayButton");
     tabTitleLayout->addWidget(infoButton);
     QPushButton* importButton = new QPushButton("Импорт", tab2);
     importButton->setObjectName("GrayButton");
     tabTitleLayout->addWidget(importButton);
+    connect(
+        importButton,
+        &QPushButton::clicked,
+        this,
+        [this](){
+            QString filePath = QFileDialog::getOpenFileName(
+            this,
+            "Выберите файл для импорта",      
+            QDir::homePath(),                
+                "Текстовые файлы (*.txt *.html);;Все файлы (*.*)"
+            );
+
+            if (filePath.isEmpty()) {
+                return; 
+            }
+
+            QFile file(filePath);
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                
+                QMessageBox::critical(this, "Ошибка", "Не удалось открыть файл для чтения!");
+                return;
+            }
+
+            
+            QTextStream in(&file);
+            in.setCodec("UTF-8"); 
+            QString fileContent = in.readAll(); 
+            file.close();
+
+
+            templateEdit->setPlainText(fileContent);
+
+        }
+    );
+
     QPushButton* exportButton = new QPushButton("Экспорт", tab2);
     exportButton->setObjectName("GrayButton");
     tabTitleLayout->addWidget(exportButton);
+    connect(
+        exportButton,
+        &QPushButton::clicked,
+        this,
+        [this](){
+
+            QTableView* activeTable = nullptr;
+            if (templateRundownTableView->selectionModel()->hasSelection()) {
+                activeTable = templateRundownTableView;
+            } else if (templateStoryTableView->selectionModel()->hasSelection()) {
+                activeTable = templateStoryTableView;
+            }
+
+            if (!activeTable) {
+                return;
+            }
+            QModelIndex idx = activeTable->selectionModel()->selectedRows().first();
+
+            int row = idx.row();
+
+            QString templateName = activeTable->model()->index(row, 1).data().toString();
+            if (templateName.isEmpty()) {
+                return;
+            }
+
+            QString filePath = QFileDialog::getSaveFileName(
+                this,
+                "Экспорт шаблона",
+                QDir::homePath() + "/" + templateName + ".html",
+                "Веб-страницы (*.html *.htm)"
+            );
+
+            if (filePath.isEmpty()) {
+                return;
+            }
+
+            QFile file(filePath);
+            if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QMessageBox::critical(this, "Ошибка", "Не удалось создать или открыть файл для записи!");
+                return;
+            }
+
+            QTextStream out(&file);
+            out.setCodec("UTF-8");
+
+            out << templateEdit->toPlainText();
+
+            file.close();
+        }
+    );
+
     layout2->addLayout(tabTitleLayout);
     templateEdit = new QTextEdit(tab2);
     templateEdit->setDisabled(true);
     templateEdit->setObjectName("EditArea");
     templateEdit->setAcceptRichText(false);
-    layout2->addWidget(templateEdit);
+    QHBoxLayout* editLayout = new QHBoxLayout(tab2);
+    editLayout->addWidget(templateEdit);
+    tagDataModel = new QStandardItemModel(this);
+    QListView* tagList = new QListView(tab2);
+    tagList->setVisible(false);
+    tagList->setModel(tagDataModel);
+    connect(infoButton, &QCheckBox::toggled, tagList, &QWidget::setVisible);
+    editLayout->addWidget(tagList);
+
+    QTimer::singleShot(1000, server_requester, &ServerRequester::getAllTags);
+
+
+    layout2->addLayout(editLayout);
 
     tabWidget->addTab(tab1, "Свойства");
     tabWidget->addTab(tab2, "Разметка");
@@ -503,6 +602,13 @@ void EditDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, A
                 storyCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("story_break").toBool());
                 blockCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("block_break").toBool());
                 rubricCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("rubric_break").toBool());
+            }
+            break;
+        case ActionId::GET_ALL_TAGS:
+            for (const QJsonValue& value : jsonDoc.array()) {
+                QStandardItem *item = new QStandardItem(value.toObject().value("element_name").toString());
+                item->setData(value.toObject().value("element_id").toInt(), Qt::UserRole); 
+                tagDataModel->appendRow(item);
             }
             break;
         default:

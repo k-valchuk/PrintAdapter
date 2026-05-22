@@ -10,6 +10,8 @@ enum class ActionId {
     GET_ALL_TEMPLATES,
     ADD_TEMPLATE,
     DELETE_TEMPLATE,
+    GET_ALL_TAGS,
+    GET_TAG,
     NONE_ACTION
 };
 

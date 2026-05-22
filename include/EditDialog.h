@@ -29,6 +29,8 @@ class EditDialog: public BaseDialog {
         QCheckBox* blockCheckBox;
         QCheckBox* rubricCheckBox;
 
+        QStandardItemModel* tagDataModel;
+
         QPersistentModelIndex editingIndex;
 
 

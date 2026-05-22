@@ -17,7 +17,7 @@ void ServerRequester::getAllTemplates(bool isActive, QString subsystemName) {
 }
 
 void ServerRequester::getAllTags() {
-    //setCurrentButton(ActionId::GET_ALL_TAGS);
+    setCurrentButton(ActionId::GET_ALL_TAGS);
     requester->restRequest(QUrl(QString("%1/db/get_all_tags").arg(base_url)), RequestTypes::GET, nullptr);
 }
 

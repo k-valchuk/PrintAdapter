@@ -32,5 +32,6 @@
     <file alias="scrollarea.qss">dark/scrollarea.qss</file>
     <file alias="scrollbox.qss">dark/scrollbox.qss</file>
     <file alias="tabwidget.qss">dark/tabwidget.qss</file>
+    <file alias="qlistview.qss">dark/qlistview.qss</file>
   </qresource>
 </RCC>

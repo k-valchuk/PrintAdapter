@@ -124,3 +124,9 @@ QPushButton#GrayButton {
     padding-left: 5px;
     padding-right: 5px;
 }
+
+QPushButton#GrayButton:checked {
+    background-color: #6C6C73;
+    color: #E0E0E0;
+
+}
