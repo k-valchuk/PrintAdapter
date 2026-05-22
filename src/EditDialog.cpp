@@ -80,37 +80,50 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
     connect(rundownAddLine, &AddLine::addSignal, this, [this](){
         int row = templateRundownModel->rowCount();
 
-        templateRundownModel->insertRow(row);
+        templateEdit->setDisabled(true);
 
-        QModelIndex idx = templateRundownModel->index(row, 1);
+        if (row > 0){
+            templateRundownModel->insertRow(row);
+        } else {
+            templateRundownModel->insertRow(
+                row,
+                QList<QStandardItem*>{
+                    new QStandardItem(),
+                    new QStandardItem()
+                }
+            );
+        }
 
-        templateRundownTableView->edit(idx);
-    });
+        editingIndex = templateRundownModel->index(row, 1);
 
-    connect(templateRundownModel,
-        &QAbstractItemModel::dataChanged,
-        this,
-        [this](const QModelIndex& topLeft,
-               const QModelIndex&){
-            QString value = templateRundownModel->data(topLeft).toString();
+        templateRundownTableView->edit(editingIndex);
+        templateRundownTableView->scrollTo(editingIndex, QAbstractItemView::EnsureVisible);
 
-            if (value.isEmpty())
-                templateRundownModel->removeRow(topLeft.row());
     });
 
     connect(templateRundownTableView->itemDelegate(),
         &QAbstractItemDelegate::closeEditor,
         this,
         [this](QWidget*, QAbstractItemDelegate::EndEditHint){
-            QModelIndex idx = templateRundownTableView->currentIndex();
-
-            if (!idx.isValid())
+            if (!editingIndex.isValid())
                 return;
 
-            QString value = templateRundownModel->data(idx).toString();
-
+            QString value =
+            templateRundownModel
+                ->data(
+                    editingIndex,
+                    Qt::EditRole
+                )
+                .toString()
+                .trimmed();
+            
             if (value.isEmpty())
-                templateRundownModel->removeRow(idx.row());
+        {
+            templateRundownModel
+                ->removeRow(
+                    editingIndex.row()
+                );
+        }
     });
 
     connect(templateRundownModel,
@@ -123,12 +136,15 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
         if (templateName.isEmpty()) {
             return;
         }
+        editingIndex = tl;
 
         QJsonObject jsonObj;
-        qDebug() << "subsystem" << currentSubSystem;
         jsonObj["name"] = templateName;
-        QString templateContent = templateEdit->toPlainText();
-        jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
+        QString templateContent = " ";
+        if (templateEdit->isEnabled()) {
+            templateContent = templateEdit->toPlainText();
+        }
+        jsonObj["content"] = templateContent;
         jsonObj["subsystem"] = currentSubSystem;
         jsonObj["is_single"] = false;
 
@@ -153,6 +169,8 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
         int row =
             templateStoryModel
                 ->rowCount();
+        
+        templateEdit->setDisabled(true);
 
         if (row > 0){
             templateStoryModel->insertRow(row);
@@ -170,6 +188,7 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
 
         templateStoryTableView
             ->edit(editingIndex);
+        templateStoryTableView->scrollTo(editingIndex, QAbstractItemView::EnsureVisible);
     });
 
     connect(
@@ -199,7 +218,6 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
                 );
         }
 
-        editingIndex = QPersistentModelIndex();
     });
 
     connect(templateStoryModel,
@@ -209,9 +227,11 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
                const QModelIndex&)
     {
         QString templateName = templateStoryModel->data(tl).toString();
+
         if (templateName.isEmpty()) {
             return;
         }
+        editingIndex = tl;
 
         QJsonObject jsonObj;
         qDebug() << "subsystem" << currentSubSystem;
@@ -288,6 +308,7 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
         if (selected.isEmpty()) {
             return;
         }
+        templateEdit->setEnabled(true);
         templateStoryTableView->selectionModel()->blockSignals(true);
         templateStoryTableView->clearSelection();
         templateStoryTableView->selectionModel()->blockSignals(false);
@@ -309,6 +330,7 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
         if (selected.isEmpty()) {
             return;
         }
+        templateEdit->setEnabled(true);
         templateRundownTableView->selectionModel()->blockSignals(true);
         templateRundownTableView->clearSelection();
         templateRundownTableView->selectionModel()->blockSignals(false);
@@ -343,6 +365,7 @@ EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseD
     tabTitleLayout->addWidget(exportButton);
     layout2->addLayout(tabTitleLayout);
     templateEdit = new QTextEdit(tab2);
+    templateEdit->setDisabled(true);
     templateEdit->setObjectName("EditArea");
     templateEdit->setAcceptRichText(false);
     layout2->addWidget(templateEdit);
@@ -450,6 +473,25 @@ void EditDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, A
             updateTable(jsonDoc.array(), templateRundownModel, false);
             updateTable(jsonDoc.array(), templateStoryModel, true);
             break;
+        case ActionId::ADD_TEMPLATE:
+            qDebug() << "ADD_TEMPLATE";
+            if (!jsonDoc.object().value("is_single").toBool()) {
+                qDebug() << "ID" << QString::number(jsonDoc.object().value("ID").toInt());
+                templateRundownModel->setData(
+                    templateRundownModel->index(editingIndex.row(), 0),
+                    QString::number(jsonDoc.object().value("ID").toInt())
+                );
+                templateRundownTableView->selectRow(editingIndex.row());
+            } else {
+                qDebug() << "ID" << QString::number(jsonDoc.object().value("ID").toInt()) << "index" << editingIndex;
+                templateStoryModel->setData(
+                    templateStoryModel->index(editingIndex.row(), 0),
+                    QString::number(jsonDoc.object().value("ID").toInt())
+                );
+
+                templateStoryTableView->selectRow(editingIndex.row());
+            }
+            editingIndex = QPersistentModelIndex();
         case ActionId::GET_TEMPLATE:
             activeCheckBox->setChecked(jsonDoc.object().value("is_active").toBool());
             templateEdit->clear();
@@ -461,32 +503,6 @@ void EditDialog::showResponseSlot(int httpStatus, const QJsonDocument jsonDoc, A
                 storyCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("story_break").toBool());
                 blockCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("block_break").toBool());
                 rubricCheckBox->setChecked(jsonDoc.object().value("render_data").toObject().value("rubric_break").toBool());
-            }
-            break;
-        case ActionId::ADD_TEMPLATE:
-            if (!jsonDoc.object().value("is_single").toBool()) {
-                templateRundownModel->setData(
-                    templateRundownModel->index(templateRundownModel->rowCount() - 1, 0),
-                    QString::number(jsonDoc.object().value("ID").toInt())
-                );
-                for (int i = 0; i < templateRundownModel->rowCount(); i++) {
-                    if (QString::number(jsonDoc.object().value("ID").toInt()) == templateRundownModel->index(i, 0).data().toString()){
-                        templateRundownTableView->selectRow(i);
-                        break;
-                    }
-                }
-            } else {
-                templateStoryModel->setData(
-                    templateStoryModel->index(templateStoryModel->rowCount() - 1, 0),
-                    QString::number(jsonDoc.object().value("ID").toInt())
-                );
-
-                for (int i = 0; i < templateStoryModel->rowCount(); i++) {
-                    if (QString::number(jsonDoc.object().value("ID").toInt()) == templateStoryModel->index(i, 0).data().toString()){
-                        templateStoryTableView->selectRow(i);
-                        break;
-                    }
-                }
             }
             break;
         default:

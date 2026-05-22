@@ -3,6 +3,7 @@
 #include <QStyleFactory>
 #include <QFile>
 #include "RowDelegate.h"
+#include "RemoveConfirmDialog.h"
 
 BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel, QColor rowColor, bool editable): QTableView(pwgt) {
 
@@ -35,6 +36,12 @@ BaseTableView::BaseTableView(QWidget *pwgt, QStandardItemModel* itemModel, QColo
             this,
             [this, itemModel](int row)
             {
+                QString templateName = itemModel->data(itemModel->index(row, 1)).toString();
+                RemoveConfirmDialog* pRemoveConfirmDialog = new RemoveConfirmDialog(this, templateName);
+                if (pRemoveConfirmDialog->exec() == QDialog::Rejected) {
+                    return;
+                }
+                
                 QModelIndex idx = itemModel->index(row, 0);
 
                 QString templateId = itemModel->data(idx).toString();
