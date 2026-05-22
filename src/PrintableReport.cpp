@@ -65,11 +65,11 @@ PrintableReport::~PrintableReport()
 
 void PrintableReport::print(QWidget *parent, const QString &title)
 {
-	// setup printer
+	
 	m_printer->setOutputFormat(QPrinter::NativeFormat);
 	m_printer->setOutputFileName(QString());
 
-	// show print dialog
+	
 	QPrintDialog dialog(m_printer, parent);
 	dialog.setWindowTitle(title);
 	if(dialog.exec() == QDialog::Rejected)
@@ -124,8 +124,15 @@ QRectF PrintableReport::footerRect(QPainter *painter)
 
 void PrintableReport::print(QPrinter *printer)
 {
+	if (!printer || !printer->isValid() || printer->printerState() == QPrinter::Aborted) {
+        return;
+    }
 
 	QPainter painter(printer);
+
+	if (!painter.isActive()) {
+		return;
+	}
 
 	QRectF pr = printer->pageRect(QPrinter::Inch);
 	QRect adjustedViewport(0, 0, 0, 0);
@@ -180,7 +187,7 @@ void PrintableReport::print(QPrinter *printer)
 		int pagenum = firstpage;
 		while(true) {
 			for(int pc = 0; pc < pagecopies; pc++) {
-				if(printer->printerState() == QPrinter::Aborted || printer->printerState() == QPrinter::Error)
+				if(!painter.isActive())
 					return;
                 // print page
 				paintPage(&painter, pagenum);
@@ -200,6 +207,7 @@ void PrintableReport::print(QPrinter *printer)
 		if(dc < doccopies - 1)
 			printer->newPage();
 	}
+	painter.end();
 }
 
 void PrintableReport::paintPage(QPainter *painter, int pagenum)
