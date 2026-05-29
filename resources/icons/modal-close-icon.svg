@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  <g id="modal-close-icon" transform="translate(-2 -2)">
-    <rect id="frame" width="16" height="16" transform="translate(2 2)" fill="none"/>
-    <path id="modal-close-icon-2" data-name="modal-close-icon" d="M-6876.834-711.451l5.2-5.2,5.205,5.2a1.051,1.051,0,0,0,1.488,0,1.052,1.052,0,0,0,0-1.488l-5.2-5.2,5.2-5.2a1.052,1.052,0,0,0,0-1.487,1.055,1.055,0,0,0-1.488,0l-5.2,5.2-5.2-5.2a1.056,1.056,0,0,0-1.489,0,1.05,1.05,0,0,0,0,1.487l5.2,5.2-5.2,5.2a1.05,1.05,0,0,0,0,1.488,1.046,1.046,0,0,0,.744.309A1.051,1.051,0,0,0-6876.834-711.451Z" transform="translate(6881.526 727.741)" fill="gray"/>
-  </g>
-</svg>

@@ -1,4 +1,0 @@
-<svg id="landscape-layout-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <path id="frame" d="M0,0H24V24H0Z" fill="none"/>
-  <path id="landscape-layout-button-2" data-name="landscape-layout-button" d="M16,4H4A2.006,2.006,0,0,0,2,6V18.01A2,2,0,0,0,4,20H20a2.006,2.006,0,0,0,2-2V10ZM4,18.01V6H15v5h5v7.01Z" fill="#a8a8a8"/>
-</svg>

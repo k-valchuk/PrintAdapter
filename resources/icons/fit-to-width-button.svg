@@ -1,4 +1,0 @@
-<svg id="fit-to-width-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <path id="frame" d="M0,0H24V24H0Z" fill="none"/>
-  <path id="fit-to-width-button-2" data-name="fit-to-width-button" d="M-5042-166a2.006,2.006,0,0,1-2-2v-14a2.006,2.006,0,0,1,2-2h14a2.006,2.006,0,0,1,2,2v14a2.006,2.006,0,0,1-2,2Zm0-2h14v-14h-14Zm10.419-6.28h-6.838v2.163l-2.876-2.884,2.876-2.884v2.163h6.838v-2.163L-5028.7-175l-2.876,2.884Z" transform="translate(5047 187)" fill="#a8a8a8"/>
-</svg>
