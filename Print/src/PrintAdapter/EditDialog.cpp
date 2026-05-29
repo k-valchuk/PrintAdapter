@@ -140,15 +140,31 @@ EditDialog::EditDialog(QWidget *pwgt): BaseDialog(pwgt, "Выбор шаблон
         }
         editingIndex = tl;
 
+        int templateId = templateRundownModel->index(tl.row(), 0).data().toInt();
+        qDebug() << "templateId" << templateId;
+        templateId = templateId ? templateId : 0;
+
         QJsonObject jsonObj;
+        jsonObj["ID"] = templateId;
         jsonObj["name"] = templateName;
         QString templateContent = " ";
+        jsonObj["is_single"] = false;
         if (templateEdit->isEnabled()) {
             templateContent = templateEdit->toPlainText();
+            jsonObj["is_active"] = activeCheckBox->isChecked();
+            QJsonObject render_data;
+            render_data["prompt_filter"] = prompterCheckBox->isChecked();
+            render_data["skip_filter"] = skipCheckBox->isChecked();
+
+            render_data["sep_break"] = separatorCheckBox->isChecked();
+            render_data["story_break"] = storyCheckBox->isChecked();
+            render_data["block_break"] = blockCheckBox->isChecked();
+            render_data["rubric_break"] = rubricCheckBox->isChecked();
+
+            jsonObj["render_data"] = render_data;
         }
         jsonObj["content"] = templateContent;
         jsonObj["subsystem"] = currentSubSystem;
-        jsonObj["is_single"] = false;
 
         server_requester->setCurrentButton(ActionId::ADD_TEMPLATE);
         server_requester->addTemplate(QJsonDocument(jsonObj));
@@ -235,11 +251,19 @@ EditDialog::EditDialog(QWidget *pwgt): BaseDialog(pwgt, "Выбор шаблон
         }
         editingIndex = tl;
 
+        int templateId = templateStoryModel->index(tl.row(), 0).data().toInt();
+        qDebug() << "templateId" << templateId;
+        templateId = templateId ? templateId : 0;
+
         QJsonObject jsonObj;
-        qDebug() << "subsystem" << currentSubSystem;
+        jsonObj["ID"] = templateId;
         jsonObj["name"] = templateName;
-        QString templateContent = templateEdit->toPlainText();
-        jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
+        QString templateContent = " ";
+        if (templateEdit->isEnabled()) {
+            templateContent = templateEdit->toPlainText();
+            jsonObj["is_active"] = activeCheckBox->isChecked();
+        }
+        jsonObj["content"] = templateContent;
         jsonObj["subsystem"] = currentSubSystem;
         jsonObj["is_single"] = true;
 
@@ -515,14 +539,20 @@ EditDialog::EditDialog(QWidget *pwgt): BaseDialog(pwgt, "Выбор шаблон
                 return;
             }
 
+            int templateId = activeTable->model()->index(row, 0).data().toInt();
+            qDebug() << "templateId" << templateId;
+            templateId = templateId ? templateId : 0;
+
             QJsonObject jsonObj;
+            jsonObj["ID"] = templateId;
             jsonObj["name"] = templateName;
             QString templateContent = templateEdit->toPlainText();
             jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
             jsonObj["subsystem"] = currentSubSystem;
-            jsonObj["is_single"] = false;
+            jsonObj["is_single"] = true;
             jsonObj["is_active"] = activeCheckBox->isChecked();
             if (activeTable == templateRundownTableView) {
+                jsonObj["is_single"] = false;
                 QJsonObject render_data;
                 render_data["prompt_filter"] = prompterCheckBox->isChecked();
                 render_data["skip_filter"] = skipCheckBox->isChecked();

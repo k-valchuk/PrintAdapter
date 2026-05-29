@@ -3,7 +3,7 @@
 #include <QMessageBox>
 
 ServerRequester::ServerRequester(QObject* pobj, QString base_url) : QObject(pobj), base_url(base_url) {
-    //rest::Executor()->SetBaseUrl("localhost:8000"); // TODO: временно + убрать потом наверное
+    rest::Executor()->SetBaseUrl("localhost:8000"); // TODO: временно + убрать потом наверное
 }
 
 void ServerRequester::getAllTemplates(bool isActive, QString subsystemId) {
