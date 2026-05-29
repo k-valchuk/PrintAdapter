@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="update_disabled" transform="translate(4 4)" opacity="0.3">
+    <g id="_Container_l_Color" data-name="🔲🎨 Container l Color" transform="translate(-4 -4)" fill="none" stroke="#3d3d3d" stroke-width="1">
+      <rect width="28" height="28" rx="2" stroke="none"/>
+      <rect x="0.5" y="0.5" width="27" height="27" rx="1.5" fill="none"/>
+    </g>
+    <path id="viewbox20" d="M0,0H20V20H0Z" fill="none"/>
+    <path id="update" d="M18,8.933H12.35l2.283-2.35A5.866,5.866,0,0,0,6.4,6.5a5.729,5.729,0,0,0,0,8.158,5.85,5.85,0,0,0,8.233,0,5.428,5.428,0,0,0,1.7-4.075H18a7.784,7.784,0,0,1-2.2,5.242,7.545,7.545,0,0,1-10.6,0A7.366,7.366,0,0,1,5.184,5.342a7.489,7.489,0,0,1,10.542,0L18,3Z" transform="translate(-0.5 -0.5)" fill="#a8a8a8"/>
+  </g>
+</svg>

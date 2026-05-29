@@ -6,7 +6,9 @@
 #include <QDebug>
 #include <QStackedWidget>
 
-EditDialog::EditDialog(QWidget *pwgt, ServerRequester* server_requester_): BaseDialog(pwgt, "Выбор шаблона печати"), server_requester(server_requester_) {
+EditDialog::EditDialog(QWidget *pwgt): BaseDialog(pwgt, "Выбор шаблона печати") {
+    
+    server_requester = new ServerRequester(this, BASE_URL);
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
     baseLayout->setContentsMargins(10, 10, 20, 5);
     QHBoxLayout* mainWidgetsLayout = new QHBoxLayout(this);

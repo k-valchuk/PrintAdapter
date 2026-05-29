@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="close__pane_hover" data-name="close_ pane_hover" transform="translate(-566 -57)">
+    <path id="viewbox_24" d="M0,0H24V24H0Z" transform="translate(566 57)" fill="none"/>
+    <path id="close" d="M15.626,6.07,14.555,5,10.313,9.243,6.07,5,5,6.07l4.243,4.243L5,14.555l1.07,1.07,4.243-4.243,4.243,4.243,1.07-1.07-4.243-4.243Z" transform="translate(567.7 58.7)" fill="#fff"/>
+  </g>
+</svg>

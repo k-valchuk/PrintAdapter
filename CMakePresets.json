@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "configurePresets": [
+    {
+      "name": "linux-release-x64",
+      "displayName": "Linux Release x64",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "linux-debug-x64",
+      "displayName": "Linux Debug x64",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win32-release-x64",
+      "displayName": "Windows Release x64",
+      "generator": "Visual Studio 16 2019",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "win32-debug-x64",
+      "displayName": "Windows Debug x64",
+      "generator": "Visual Studio 16 2019",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "linux-release-x64",
+      "configurePreset": "linux-release-x64",
+	  "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "linux-debug-x64",
+      "configurePreset": "linux-debug-x64"
+    },
+    {
+      "name": "win32-release-x64",
+      "configurePreset": "win32-release-x64",
+	  "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "win32-debug-x64",
+      "configurePreset": "win32-debug-x64"
+    }
+  ]
+}

@@ -1,29 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
+project(Print VERSION 1.0 LANGUAGES CXX)
 
-project(NewsPrintAdapter LANGUAGES CXX)
+set(BUILDING_FROM_SOLUTION false)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_AUTOMOC ON)       
-set(CMAKE_AUTOUIC ON)       
-set(CMAKE_AUTORCC ON)    
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)   
+add_subdirectory(Dependencies/Query ./build/lib_Query)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Network PrintSupport ) 
-
-file(GLOB_RECURSE NewsPrintAdapter_SOURCES
-    "src/*.cpp"
-    "include/*.h"
-    "resources/resources.qrc"
-)
-
-add_library(NewsPrintAdapter SHARED ${NewsPrintAdapter_SOURCES}
-    src/PrintDialog.cpp)
-
-target_include_directories(NewsPrintAdapter
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-)
-
-target_link_libraries(NewsPrintAdapter
-    PUBLIC Qt5::Core Qt5::Widgets Qt5::Network Qt5::PrintSupport 
-)
+add_subdirectory(Print ./build/lib_PrintClient)

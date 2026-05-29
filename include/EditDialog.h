@@ -39,7 +39,7 @@ class EditDialog: public BaseDialog {
         QString currentSubSystem;
     
     public:
-        EditDialog(QWidget* pwgt, ServerRequester* server_requester_);
+        EditDialog(QWidget* pwgt);
         void updateTable(QJsonArray value_array, QStandardItemModel* itemModel, bool single);
     
     public slots:

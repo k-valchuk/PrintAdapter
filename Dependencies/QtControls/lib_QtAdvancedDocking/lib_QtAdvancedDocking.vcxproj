@@ -1,0 +1,838 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\AdvancedDockingSystem\ads_globals.h" />
+    <ClInclude Include="..\src\AdvancedDockingSystem\DockComponentsFactory.h" />
+    <ClInclude Include="..\src\AdvancedDockingSystem\DockingStateReader.h" />
+    <ClInclude Include="..\src\AdvancedDockingSystem\IconProvider.h" />
+    <ClInclude Include="resource.h" />
+    <CustomBuild Include="..\src\AutoHideDockWidget\MainWindowWithAutoHideDocks.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AutoHideDockWidget\DockWidgetTabButton.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AutoHideDockWidget\DockWidgetTabBar.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AutoHideDockWidget\AutoHideDockWidgetTitle.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AutoHideDockWidget\AutoHideDockWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\FloatingDragPreview.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\FloatingDockContainer.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\ElidingLabel.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockWidgetTab.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockSplitter.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockOverlay.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockManager.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockFocusController.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockContainerWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockAreaWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockAreaTitleBar_p.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockAreaTitleBar.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\src\AdvancedDockingSystem\DockAreaTabBar.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_SCL_SECURE_NO_WARNINGS -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\lib_qtwinmigrate\src" "-I.\..\src\BramPlayerWidget\Inc" "-I.\..\src\BramPlayerWidget" "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DLIB_LOGGING_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_QML_LIB -DQT_SQL_LIB -D%(PreprocessorDefinitions) "-I.\..\Common" "-I.\..\Common\GUI" "-I.\..\lib_common\src" "-I.\..\src\Logger" "-I.\..\src\TCEditWidget" "-I.\..\lib_QtControls\src" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)" "-I$(QTDIR)\include\QtCore" "-I$(SolutionDir)\VInc" "-I$(SolutionDir)\Inc" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtNetwork" "-I.\src" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4" "-I$(QTDIR)\include\QtGui\5.12.4\QtGui" "-I$(QTDIR)\include\QtCore\5.12.4\QtCore" "-I$(QTDIR)\include\QtWidgets\5.12.4" "-I$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\AdvancedDockingSystem\ads_globals.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockAreaTabBar.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockAreaTitleBar.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockAreaWidget.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockComponentsFactory.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockContainerWidget.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockFocusController.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockingStateReader.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockManager.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockOverlay.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockSplitter.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockWidget.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\DockWidgetTab.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\ElidingLabel.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\FloatingDockContainer.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\FloatingDragPreview.cpp" />
+    <ClCompile Include="..\src\AdvancedDockingSystem\IconProvider.cpp" />
+    <ClCompile Include="..\src\AutoHideDockWidget\AutoHideDockWidget.cpp" />
+    <ClCompile Include="..\src\AutoHideDockWidget\AutoHideDockWidgetTitle.cpp" />
+    <ClCompile Include="..\src\AutoHideDockWidget\DockWidgetTabBar.cpp" />
+    <ClCompile Include="..\src\AutoHideDockWidget\DockWidgetTabButton.cpp" />
+    <ClCompile Include="..\src\AutoHideDockWidget\MainWindowWithAutoHideDocks.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_AutoHideDockWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AutoHideDockWidgetTitle.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockAreaTabBar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockAreaTitleBar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockAreaTitleBar_p.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockAreaWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockContainerWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockFocusController.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockOverlay.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockSplitter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockWidgetTab.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockWidgetTabBar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DockWidgetTabButton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ElidingLabel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FloatingDockContainer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FloatingDragPreview.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainWindowWithAutoHideDocks.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_res_libQtADS.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AutoHideDockWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AutoHideDockWidgetTitle.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockAreaTabBar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockAreaTitleBar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockAreaTitleBar_p.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockAreaWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockContainerWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockFocusController.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockOverlay.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockSplitter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockWidgetTab.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockWidgetTabBar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DockWidgetTabButton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ElidingLabel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FloatingDockContainer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FloatingDragPreview.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainWindowWithAutoHideDocks.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="lib_QtAdvancedDocking.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Resources\res_libQtADS.qrc">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);..\Resources\lang\QtADS_ru.qm;..\Resources\images\ads\close_new_window_default.svg;..\Resources\images\ads\close_new_window_hover.svg;..\Resources\images\ads\close_new_window_pressed.svg;..\Resources\images\ads\close_х_pane_hover.svg;..\Resources\images\ads\close_х_panel_default.svg;..\Resources\images\ads\close_х_panel_pressed.svg;..\Resources\images\ads\new window_default.svg;..\Resources\images\ads\new window_hover.svg;..\Resources\images\ads\new window_pressed.svg;..\Resources\images\ads\return_default.svg;..\Resources\images\ads\return_hover.svg;..\Resources\images\ads\return_pressed.svg;..\Resources\images\ads\select_default.svg;..\Resources\images\ads\select_hover.svg;..\Resources\images\ads\select_pressed.svg;..\Resources\images\ads\unpin_default.svg;..\Resources\images\ads\unpin_hover.svg;..\Resources\images\ads\unpin_pressed.svg;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FullPath);..\Resources\lang\QtADS_ru.qm;..\Resources\images\ads\close_new_window_default.svg;..\Resources\images\ads\close_new_window_hover.svg;..\Resources\images\ads\close_new_window_pressed.svg;..\Resources\images\ads\close_х_pane_hover.svg;..\Resources\images\ads\close_х_panel_default.svg;..\Resources\images\ads\close_х_panel_pressed.svg;..\Resources\images\ads\new window_default.svg;..\Resources\images\ads\new window_hover.svg;..\Resources\images\ads\new window_pressed.svg;..\Resources\images\ads\return_default.svg;..\Resources\images\ads\return_hover.svg;..\Resources\images\ads\return_pressed.svg;..\Resources\images\ads\select_default.svg;..\Resources\images\ads\select_hover.svg;..\Resources\images\ads\select_pressed.svg;..\Resources\images\ads\unpin_default.svg;..\Resources\images\ads\unpin_hover.svg;..\Resources\images\ads\unpin_pressed.svg;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);..\Resources\lang\QtADS_ru.qm;..\Resources\images\ads\close_new_window_default.svg;..\Resources\images\ads\close_new_window_hover.svg;..\Resources\images\ads\close_new_window_pressed.svg;..\Resources\images\ads\close_х_pane_hover.svg;..\Resources\images\ads\close_х_panel_default.svg;..\Resources\images\ads\close_х_panel_pressed.svg;..\Resources\images\ads\new window_default.svg;..\Resources\images\ads\new window_hover.svg;..\Resources\images\ads\new window_pressed.svg;..\Resources\images\ads\return_default.svg;..\Resources\images\ads\return_hover.svg;..\Resources\images\ads\return_pressed.svg;..\Resources\images\ads\select_default.svg;..\Resources\images\ads\select_hover.svg;..\Resources\images\ads\select_pressed.svg;..\Resources\images\ads\unpin_default.svg;..\Resources\images\ads\unpin_hover.svg;..\Resources\images\ads\unpin_pressed.svg;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FullPath);..\Resources\lang\QtADS_ru.qm;..\Resources\images\ads\close_new_window_default.svg;..\Resources\images\ads\close_new_window_hover.svg;..\Resources\images\ads\close_new_window_pressed.svg;..\Resources\images\ads\close_х_pane_hover.svg;..\Resources\images\ads\close_х_panel_default.svg;..\Resources\images\ads\close_х_panel_pressed.svg;..\Resources\images\ads\new window_default.svg;..\Resources\images\ads\new window_hover.svg;..\Resources\images\ads\new window_pressed.svg;..\Resources\images\ads\return_default.svg;..\Resources\images\ads\return_hover.svg;..\Resources\images\ads\return_pressed.svg;..\Resources\images\ads\select_default.svg;..\Resources\images\ads\select_hover.svg;..\Resources\images\ads\select_pressed.svg;..\Resources\images\ads\unpin_default.svg;..\Resources\images\ads\unpin_hover.svg;..\Resources\images\ads\unpin_pressed.svg;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\images\ads\close_new_window_default.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\close_new_window_hover.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\close_new_window_pressed.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\close_х_panel_default.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\close_х_panel_pressed.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\close_х_pane_hover.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\new window_default.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\new window_hover.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\new window_pressed.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\return_default.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\return_hover.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\return_pressed.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\select_default.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\select_hover.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\select_pressed.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\unpin_default.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\unpin_hover.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\images\ads\unpin_pressed.svg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\lang\QtADS_ru.qm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\Resources\lang\QtADS_ru.ts" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{35B85D59-82E5-4E35-8BDE-CFF869A343AA}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;UNICODE;WIN32;WIN64;ADS_STATIC;QT_CORE_LIB;LIB_LOGGING_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_NETWORK_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\..\lib_qtwinmigrate\src;.\..\Common;.\..\Common\GUI;.\..\src\BramPlayerWidget\Inc;.\..\src\BramPlayerWidget;.\..\lib_common\src;.\..\src\Logger;.\..\src\TCEditWidget;.\..\lib_QtControls\src;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(SolutionDir)\VInc;$(SolutionDir)\Inc;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtNetwork;.\src;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <EnablePREfast>false</EnablePREfast>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Networkd.lib;Qt5Xmld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;LIB_LOGGING_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_NETWORK_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\..\Common;.\..\Common\GUI;.\..\lib_common\src;.\..\src\Logger;.\..\src\TCEditWidget;.\..\lib_QtControls\src;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(SolutionDir)\VInc;$(SolutionDir)\Inc;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtNetwork;.\src;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtCore\5.12.4;$(QTDIR)\include\QtGui\5.12.4;$(QTDIR)\include\QtGui\5.12.4\QtGui;$(QTDIR)\include\QtCore\5.12.4\QtCore;$(QTDIR)\include\QtWidgets\5.12.4;$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <EnablePREfast>false</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Networkd.lib;Qt5Xmld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;UNICODE;WIN32;ADS_STATIC;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;LIB_LOGGING_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_NETWORK_LIB;QT_XML_LIB;SMTP_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\..\lib_qtwinmigrate\src;.\..\src\BramPlayerWidget\Inc;.\..\src\BramPlayerWidget;.\..\Common;.\..\Common\GUI;.\..\lib_common\src;.\..\src\Logger;.\..\src\TCEditWidget;.\..\lib_QtControls\src;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(SolutionDir)\VInc;$(SolutionDir)\Inc;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtNetwork;.\src;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtCore\5.12.4;$(QTDIR)\include\QtGui\5.12.4;$(QTDIR)\include\QtGui\5.12.4\QtGui;$(QTDIR)\include\QtCore\5.12.4\QtCore;$(QTDIR)\include\QtWidgets\5.12.4;$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib%(AdditionalDependencies);Qt5Widgets.lib;Qt5Network.lib;Qt5Xml.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;LIB_LOGGING_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_NETWORK_LIB;QT_XML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\..\Common;.\..\Common\GUI;.\..\lib_common\src;.\..\src\Logger;.\..\src\TCEditWidget;.\..\lib_QtControls\src;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(SolutionDir)\VInc;$(SolutionDir)\Inc;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtNetwork;.\src;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtCore\5.12.4;$(QTDIR)\include\QtGui\5.12.4;$(QTDIR)\include\QtGui\5.12.4\QtGui;$(QTDIR)\include\QtCore\5.12.4\QtCore;$(QTDIR)\include\QtWidgets\5.12.4;$(QTDIR)\include\QtWidgets\5.12.4\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib%(AdditionalDependencies);Qt5Widgets.lib;Qt5Network.lib;Qt5Xml.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties lreleaseOptions="" lupdateOnBuild="0" lupdateOptions="" MocDir=".\GeneratedFiles\$(ConfigurationName)" MocOptions="" Qt5Version_x0020_Win32="Qt.5.12.4.VS2019_16.8.4" RccDir=".\GeneratedFiles" UicDir=".\GeneratedFiles" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+  <g id="less_information" transform="translate(297 -33) rotate(90)">
+    <path id="viewbox_10" d="M10,0H0V10H10Z" transform="translate(33 287)" fill="none"/>
+    <path id="more" d="M4.5,0,9,4.833H0Z" transform="translate(40.333 287.5) rotate(90)" fill="#a8a8a8"/>
+  </g>
+</svg>

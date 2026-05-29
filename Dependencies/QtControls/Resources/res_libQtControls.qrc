@@ -1,0 +1,49 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="close">images/close.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>lang/QtControls_ru.qm</file>
+    </qresource>
+    <qresource prefix="/playerIcons">
+        <file alias="plPlay">images/play.svg</file>
+        <file alias="plStop">images/stop.svg</file>
+        <file alias="plSeekBegin">images/seek_begin_button.svg</file>
+        <file alias="plSeekEnd">images/seek_end_button.svg</file>
+        <file alias="frameBack">images/frame_back.svg</file>
+        <file alias="goToIn">images/go_to_mark_in.svg</file>
+        <file alias="goToOut">images/go_to_mark_out.svg</file>
+        <file alias="markIn">images/mark in.svg</file>
+        <file alias="markOut">images/mark out.svg</file>
+        <file alias="frameForward">images/frame_forward.svg</file>
+        <file alias="playBlock">images/play_block_button.svg</file>
+    </qresource>
+    <qresource prefix="/FileDialog_Icons">
+        <file alias="add">images/FileDialog_Icons/add.svg</file>
+        <file>images/FileDialog_Icons/add_disabled.svg</file>
+        <file alias="add_hover">images/FileDialog_Icons/add_hover.svg</file>
+        <file alias="add_pressed">images/FileDialog_Icons/add_pressed.svg</file>
+        <file alias="arrowUp">images/FileDialog_Icons/arrow_up.svg</file>
+        <file>images/FileDialog_Icons/arrow_up_disabled.svg</file>
+        <file alias="arrowUp_hover">images/FileDialog_Icons/arrow_up_hover.svg</file>
+        <file alias="arrowUp_pressed">images/FileDialog_Icons/arrow_up_pressed.svg</file>
+        <file alias="folderClose">images/FileDialog_Icons/folder_close.svg</file>
+        <file alias="folderOpen">images/FileDialog_Icons/folder_open.svg</file>
+        <file alias="paste">images/FileDialog_Icons/paste.svg</file>
+        <file>images/FileDialog_Icons/paste_disabled.svg</file>
+        <file alias="paste_hover">images/FileDialog_Icons/paste_hover.svg</file>
+        <file alias="paste_pressed">images/FileDialog_Icons/paste_pressed.svg</file>
+        <file alias="replace">images/FileDialog_Icons/replace.svg</file>
+        <file>images/FileDialog_Icons/replace_disabled.svg</file>
+        <file alias="replace_hover">images/FileDialog_Icons/replace_hover.svg</file>
+        <file alias="replace_pressed">images/FileDialog_Icons/replace_pressed.svg</file>
+        <file alias="update">images/FileDialog_Icons/update.svg</file>
+        <file>images/FileDialog_Icons/update_disabled.svg</file>
+        <file alias="update_hover">images/FileDialog_Icons/update_hover.svg</file>
+        <file alias="update_pressed">images/FileDialog_Icons/update_pressed.svg</file>
+        <file alias="view">images/FileDialog_Icons/view.svg</file>
+        <file>images/FileDialog_Icons/view_disabled.svg</file>
+        <file alias="view_hover">images/FileDialog_Icons/view_hover.svg</file>
+        <file alias="view_pressed">images/FileDialog_Icons/view_pressed.svg</file>
+    </qresource>
+</RCC>

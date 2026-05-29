@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{ed67549c-1f3f-4c0b-950d-d3d45cf5f325}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{6156e1d3-7c71-4579-9214-7e439379d52a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{3f098868-f3e9-46a8-8d0d-c59b7484f5e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Translation files">
+      <UniqueIdentifier>{7b8346c6-6161-4a60-a597-baae1ac1443a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated files\Debug">
+      <UniqueIdentifier>{d60c4618-0d71-406f-9b88-0d15cca53fce}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated files\Release">
+      <UniqueIdentifier>{fee748c9-b3ae-46f8-a566-e3a033702e5c}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{52ddbc72-0759-40bb-ae59-70e14200c783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Logging">
+      <UniqueIdentifier>{901f7eeb-b096-44b2-b86f-d23ad40dbaf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Logging">
+      <UniqueIdentifier>{bf268200-a1bf-45a8-8581-97267106790b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\DBOperations">
+      <UniqueIdentifier>{39972efb-abe7-463f-b52c-394fa23ba977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\DBOperations">
+      <UniqueIdentifier>{ad51932f-c782-4318-a7ab-eed84b747813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\ViewList">
+      <UniqueIdentifier>{2d1dc5bd-d681-4482-b963-20cbf5df97ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\ViewList">
+      <UniqueIdentifier>{bcb08912-c132-4f3c-9208-9fa06c5cba6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Header files\TCEditWidget">
+      <UniqueIdentifier>{3f2cf904-3b79-43ec-b913-e0208ee36e4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\TCEditWidget">
+      <UniqueIdentifier>{b36282e9-6104-45ce-a90f-f39ccf3661f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated files\NoSeviceDebug">
+      <UniqueIdentifier>{d278900b-34d6-45c8-bb86-1066bc732aee}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header files\BramPlayerWidget">
+      <UniqueIdentifier>{a12bad44-0a90-4093-b028-aa15417728ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BramPlayerWidget">
+      <UniqueIdentifier>{4fa48490-edf5-4c4a-956b-086f8162fff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Application">
+      <UniqueIdentifier>{285fd788-02bc-4cdd-b128-506045e7f0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Application">
+      <UniqueIdentifier>{751927f9-7a28-469c-966f-af7d6b1490ee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\DBOperations\DBConnection.cpp">
+      <Filter>Source files\DBOperations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DBOperations\DBConnector.cpp">
+      <Filter>Source files\DBOperations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Logger\Logger.cpp">
+      <Filter>Source files\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TCEditWidget\TCEditWidget.cpp">
+      <Filter>Source files\TCEditWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TCEditWidget\TCOperations.cpp">
+      <Filter>Source files\TCEditWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ViewList\dropIndicatorProxyStyle.cpp">
+      <Filter>Source files\ViewList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ViewList\headerview.cpp">
+      <Filter>Source files\ViewList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ViewList\hotKeyEditor.cpp">
+      <Filter>Source files\ViewList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ViewList\styleItemDelegate.cpp">
+      <Filter>Source files\ViewList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ViewList\treeitem.cpp">
+      <Filter>Source files\ViewList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ViewList\treemodel.cpp">
+      <Filter>Source files\ViewList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ViewList\treeview.cpp">
+      <Filter>Source files\ViewList</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_res_libQtControls.cpp">
+      <Filter>Generated files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_treeview.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_treeview.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_treemodel.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_treemodel.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_treemodel.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TCEditWidget.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TCEditWidget.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_TCEditWidget.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_styleItemDelegate.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_styleItemDelegate.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_styleItemDelegate.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Logger.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Logger.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_Logger.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_hotKeyEditor.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_hotKeyEditor.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_hotKeyEditor.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_headerview.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_headerview.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_headerview.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DBConnector.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DBConnector.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_DBConnector.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BramPlayerDispatcher.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BramPlayerDispatcher.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_BramPlayerDispatcher.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BramPlayerWidget.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BramPlayerWidget.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\NoSeviceDebug\moc_BramPlayerWidget.cpp">
+      <Filter>Generated files\NoSeviceDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BramPlayerWidget\BramPlayerDispatcher.cpp">
+      <Filter>Source files\BramPlayerWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BramPlayerWidget\BramPlayerWidget.cpp">
+      <Filter>Source files\BramPlayerWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\application.cpp">
+      <Filter>Source files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_application.cpp">
+      <Filter>Generated files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_application.cpp">
+      <Filter>Generated files\Release</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\src\DBOperations\DBConnector.h">
+      <Filter>Header files\DBOperations</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Logger\Logger.h">
+      <Filter>Header files\Logging</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\TCEditWidget\TCEditWidget.h">
+      <Filter>Header files\TCEditWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ViewList\headerview.h">
+      <Filter>Header files\ViewList</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ViewList\hotKeyEditor.h">
+      <Filter>Header files\ViewList</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ViewList\styleItemDelegate.h">
+      <Filter>Header files\ViewList</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ViewList\treemodel.h">
+      <Filter>Header files\ViewList</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ViewList\treeview.h">
+      <Filter>Header files\ViewList</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Resources\res_libQtControls.qrc">
+      <Filter>Resources</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\BramPlayerWidget\BramPlayerDispatcher.h">
+      <Filter>Header files\BramPlayerWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\BramPlayerWidget\BramPlayerWidget.h">
+      <Filter>Header files\BramPlayerWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Application\application.h">
+      <Filter>Header files\Application</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\DBOperations\DBConnection.h">
+      <Filter>Header files\DBOperations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DBOperations\DBTransaction.h">
+      <Filter>Header files\DBOperations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TCEditWidget\TCOperations.h">
+      <Filter>Header files\TCEditWidget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ViewList\dropIndicatorProxyStyle.h">
+      <Filter>Header files\ViewList</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ViewList\treeitem.h">
+      <Filter>Header files\ViewList</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BramPlayerWidget\BramPlayerTypes.h">
+      <Filter>Header files\BramPlayerWidget</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\images\close.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\images\greenFile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\images\redFile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\images\close.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\images\greenFile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\images\redFile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lang\QtControls_ru.qm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lib_QtCommon.vcxproj" />
+    <None Include="..\Resources\lang\QtControls_ru.qm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\lang\QtControls_ru.ts">
+      <Filter>Translation files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
