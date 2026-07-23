@@ -3,18 +3,18 @@
 #include <QMessageBox>
 
 ServerRequester::ServerRequester(QObject* pobj, QString base_url) : QObject(pobj), base_url(base_url) {
-    rest::Executor()->SetBaseUrl("localhost:8000"); // TODO: временно + убрать потом наверное
 }
 
-void ServerRequester::getAllTemplates(bool isActive, QString subsystemId) {
+QJsonDocument ServerRequester::getAllTemplates(bool isActive, QString subsystemId) {
     setCurrentButton(ActionId::GET_ALL_TEMPLATES);
     GetAllTemplates req = GetAllTemplates(isActive, subsystemId);
     slotDone(req);
+    return req.getData();
 }
 
-void ServerRequester::getAllTags() {
+void ServerRequester::getAllTags(QString subsystemId) {
     setCurrentButton(ActionId::GET_ALL_TAGS);
-    GetAllTags req = GetAllTags();
+    GetAllTags req = GetAllTags(subsystemId);
     slotDone(req);
 }
 
@@ -23,8 +23,8 @@ void ServerRequester::getTemplate(QString templateId) {
     slotDone(req);
 }
 
-void ServerRequester::exportTemplate(int templateId) {
-    ExportTemplate req = ExportTemplate(templateId, exportJson);
+void ServerRequester::exportTemplate(int templateId, QString subsystemId) {
+    ExportTemplate req = ExportTemplate(templateId, exportJson, subsystemId);
     slotDone(req);
 }
 
@@ -38,9 +38,10 @@ void ServerRequester::removeTag(QString tagId) {
     slotDone(req);
 }
 
-void ServerRequester::addTemplate(const QJsonDocument jsonDoc) {
+QString ServerRequester::addTemplate(const QJsonDocument jsonDoc) {
     AddTemplate req = AddTemplate(jsonDoc);
     slotDone(req);
+    return QString::number(req.getData().object().value("ID").toInt());
 }
 
 void ServerRequester::addTag(const QJsonDocument jsonDoc) {

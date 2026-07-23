@@ -13,12 +13,12 @@ class ServerRequester: public QObject {
     
     public:
         ServerRequester(QObject* pobj, QString base_url);
-        void getAllTemplates(bool isActive, QString subsystemId);
-        void getAllTags();
+        QJsonDocument getAllTemplates(bool isActive, QString subsystemId);
+        void getAllTags(QString subsystemId);
         void getTemplate(QString templateId);
         void removeTemplate(QString templateId);
-        void exportTemplate(int templateId);
-        void addTemplate(const QJsonDocument jsonDoc);
+        void exportTemplate(int templateId, QString subsystemId);
+        QString addTemplate(const QJsonDocument jsonDoc);
         void setCurrentButton(ActionId buttonId);
         void addTag(const QJsonDocument jsonDoc);
         void removeTag(QString tagName);

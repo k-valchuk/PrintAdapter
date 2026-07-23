@@ -1,5 +1,6 @@
 #include "RequestDialog.h"
 #include "PrintDialog.h"
+#include "ShowRowDelegate.h"
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, QJsonDocument json_doc, QString subsystemId_): BaseDialog(pwgt, "Выбор шаблона печати") {
@@ -11,7 +12,7 @@ RequestDialog::RequestDialog(QWidget *pwgt, QJsonDocument json_doc, QString subs
     baseLayout->setContentsMargins(10, 10, 20, 5);
 
     templatesModel = new QStandardItemModel(0, 2, this);
-    templateTableView = new BaseTableView(this, templatesModel, QColor("#3D3D41"), false);
+    templateTableView = new BaseTableView(this, templatesModel, new ShowRowDelegate(nullptr, QColor("#3D3D41")));
     templateTableView->setColumnHidden(0, true);
     
     QHBoxLayout* table_layout = new QHBoxLayout(this);
@@ -37,7 +38,8 @@ RequestDialog::RequestDialog(QWidget *pwgt, QJsonDocument json_doc, QString subs
     server_requester->getAllTemplates(true, subsystemId);
 
     QHBoxLayout* button_layout = new QHBoxLayout(this);
-    button_layout->setContentsMargins(343, 90, 0, 0);
+    button_layout->setContentsMargins(0, 30, 0, 0);
+    button_layout->addStretch();
     QPushButton* cancelButton = new QPushButton("Отмена", this);
     cancelButton->setObjectName("cancelButton");
     
@@ -83,7 +85,7 @@ void RequestDialog::printTemplate(){
     QModelIndex index = templateTableView->selectionModel()->currentIndex();
     QString dbId = templateTableView->model()->data(templateTableView->model()->index(index.row(), 0)).toString();
     server_requester->setCurrentButton(ActionId::EXPORT);
-    server_requester->exportTemplate(dbId.toInt());
+    server_requester->exportTemplate(dbId.toInt(), subsystemId);
 }
 
 void RequestDialog::removeRowByID(int itemID, QStandardItemModel* itemModel){

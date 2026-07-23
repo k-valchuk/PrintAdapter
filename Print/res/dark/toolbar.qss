@@ -1,31 +1,48 @@
-QToolBar {
+
+QToolBar#PrintToolBar {
     background-color: #323236;
+    margin: 0px 0px 0px 15px;
 }
-QToolBar::separator {
+QToolBar#PrintToolBar::separator {
     background-color: #1E1E22;
     width: 1px;
     margin-left: 5px;
     margin-right: 5px;
 }
 
-QToolButton {
-    background-color: transparent;
+QToolBar#PrintToolBar QToolButton {
+    background-color: #323236;
+}
+
+QWidgetr#Spacer {
+    background-color: #323236;
 }
 
 
-
-QToolBar QLabel {
-    font: normal normal normal 15px/18px Roboto;
+QToolBar#PrintToolBar QLabel {
+    font: normal normal normal 15px Roboto;
     color: #838384;
     margin-left: 5px;
 }
 
-QToolBar QLineEdit {
+QToolBar#PageFlipperToolBar {
+    background-color: transparent;
+}
+
+QToolBar#PageFlipperToolBar QToolButton {
+    background-color: transparent;
+}
+
+QToolBar#PageFlipperToolBar {
+    spacing: 10px; 
+}
+
+QToolBar#PageFlipperToolBar QLineEdit {
+    qproperty-alignment: 'AlignCenter';
     background-color: #222226;
-    font: normal normal normal 15px/18px Roboto;
+    font: normal normal normal 15px Roboto;
     color: #A8A8A8;
     border: none;
-    margin-left: 10px;
-    margin-right: 5px;
+    margin-right: 10px;
     width: 40px;
 }

@@ -5,9 +5,13 @@
 #include <QTextEdit>
 #include <QCheckBox>
 #include <QPersistentModelIndex>
+#include <QStackedWidget>
 #include "BaseTableView.h"
 #include "BaseDialog.h"
 #include "ServerRequester.h"
+#include "TemplateManager.h"
+#include "SubsystemButton.h"
+#include "CheckPanel.h"
 
 
 class EditDialog: public BaseDialog {
@@ -15,34 +19,62 @@ class EditDialog: public BaseDialog {
 
     private:
         ServerRequester* server_requester;
-        QStandardItemModel* templateRundownModel;
-        QStandardItemModel* templateStoryModel;
-        BaseTableView* templateRundownTableView;
-        BaseTableView* templateStoryTableView;
         QButtonGroup* button_group;
 
-        QCheckBox* activeCheckBox;
-        QCheckBox* prompterCheckBox;
-        QCheckBox* skipCheckBox;
-        QCheckBox* separatorCheckBox;
-        QCheckBox* storyCheckBox;
-        QCheckBox* blockCheckBox;
-        QCheckBox* rubricCheckBox;
+
+        CheckPanel* activePanel;
+        CheckPanel* newsParsePanel;
+        CheckPanel* breakPanel;
 
         QStandardItemModel* tagDataModel;
 
         QPersistentModelIndex editingIndex;
 
-
+        QVector<TemplateManager*> m_allManagers;
+        QModelIndex m_currentSelectedIndex;
+        BaseTableView* m_activeTable = nullptr;
 
         QTextEdit* templateEdit;
         QString currentSubSystem;
+
+        SubsystemButton* btn_news;
+        QStackedWidget* stackedWidget;
+
+        int defaultSettingIndex;
+        int rundownSettingIndex;
+
+
+
+        QVector<QVector<SubTableConfig>> m_appMenuConfig;
+
+        QPushButton* infoButton;
+        QPushButton* importButton;
+        QPushButton* exportButton;
+
+        void initData();
+        void setupUi();
+        QWidget* createNavigationPanel(QGroupBox* groupBoxToggle);
+        QWidget* createEditSpace();
+        void setupConnections();
+
+        QWidget* createTemplateStatePanel();
+        QWidget* createNewsSettingsPanel();
+        QWidget* createBreakSettingsPanel();
+        QFrame* createTemplateEditorPanel();
+        QHBoxLayout* createTemplateEditorTitlePanel(QWidget* templateEditor);
+
+    private slots:
+        void saveTemplate();
     
     public:
         EditDialog(QWidget* pwgt);
-        void updateTable(QJsonArray value_array, QStandardItemModel* itemModel, bool single);
     
     public slots:
         void showResponseSlot(const QJsonDocument jsonDoc, ActionId buttonId);
         void getErrorRequestSlot(QString message, int httpStatus);
+        void changeStateTemplateEdit(bool);
+        void setPersistentIndex(QModelIndex);
+        void onDeleteTemplate(QString templateId);
+        void onRowActivated(const QString &tableName, const QString &templateId, int settingsPanelIndex, const QModelIndex &index, BaseTableView* activeTable);
+        void onChangeTemplate(int templateId, const QString templateName, bool is_single, BaseTableView* activeTable);
 };

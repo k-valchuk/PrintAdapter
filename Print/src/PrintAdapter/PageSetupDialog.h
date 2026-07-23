@@ -37,13 +37,8 @@ class PageSetupDialog: public BaseDialog {
         QComboBox* orientationComboBox;
         QString headerTitle;
 
-
-        void setCancelButtonStyle(QPushButton* btn);
-        void setApplyButtonStyle(QPushButton* btn);
         void setComboBoxStyle(QComboBox* cbox, const QStringList elements, int distance);
-        void setGroupBoxStyle(QGroupBox* gbox);
         void addParam(const QString label, QFormLayout* layout, QWidget* pwgt, int distance);
-        void setLineEditStyle(QLineEdit* lineEdit);
         void updateThumbnail();
 
         void computeHeaders();

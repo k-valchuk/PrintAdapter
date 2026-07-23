@@ -18,7 +18,7 @@ struct GetAllTemplates: public IPrintRequest {
 
 struct GetAllTags: public IPrintRequest{
     
-    GetAllTags();
+    GetAllTags(QString subsystemId);
 
 };
 
@@ -30,7 +30,7 @@ struct GetTemplate: public IPrintRequest{
 
 struct ExportTemplate: public IPrintRequest{
     
-    ExportTemplate(int templateId, QJsonDocument json_doc);
+    ExportTemplate(int templateId, QJsonDocument json_doc, QString subsystemId);
 
 };
 

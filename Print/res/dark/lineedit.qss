@@ -1,0 +1,9 @@
+QLineEdit#pageFieldInput{
+    color: #BABABA;
+    font: normal normal normal 15px Roboto;
+    background-color: #222226;
+    border: none;
+    padding-left: 10px;
+    margin-left: 40px;
+}
+

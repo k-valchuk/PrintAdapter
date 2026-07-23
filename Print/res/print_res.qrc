@@ -22,6 +22,14 @@
         <file alias="checkbox_active.svg">images/checkbox_active.svg</file>
         <file alias="less_information.svg">images/less_information.svg</file>
         <file alias="more_information2.svg">images/more_information2.svg</file>
+        <file alias="done.svg">images/done.svg</file>
+        <file alias="nav-icon-news-active.svg">images/nav-icon-news-active.svg</file>
+        <file alias="nav-icon-news-inactive.svg">images/nav-icon-news-inactive.svg</file>
+        <file alias="tab-icon-broadcast-active.svg">images/tab-icon-broadcast-active.svg</file>
+        <file alias="tab-icon-broadcast-inactive.svg">images/tab-icon-broadcast-inactive.svg</file>
+        <file alias="tab-icon-logging-active.svg">images/tab-icon-logging-active.svg</file>
+        <file alias="tab-icon-logging-inactive.svg">images/tab-icon-logging-inactive.svg</file>
+        <file alias="add-button-hover.svg">images/add-button-hover.svg</file>
     </qresource>
     <qresource prefix="/styles">
         <file alias="dialogs.qss">dark/dialogs.qss</file>
@@ -32,6 +40,10 @@
         <file alias="scrollbox.qss">dark/scrollbox.qss</file>
         <file alias="tabwidget.qss">dark/tabwidget.qss</file>
         <file alias="qlistview.qss">dark/qlistview.qss</file>
+        <file alias="splitter.qss">dark/splitter.qss</file>
+        <file alias="groupbox.qss">dark/groupbox.qss</file>
+        <file alias="lineedit.qss">dark/lineedit.qss</file>
+        <file alias="menu.qss">dark/menu.qss</file>
     </qresource>
     <qresource prefix="/json_data">
         <file alias="mock.json">jsons/mock.json</file>

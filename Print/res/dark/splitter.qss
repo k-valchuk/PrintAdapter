@@ -1,0 +1,10 @@
+QSplitter#mySplitter::handle:horizontal {
+    width: 2px;
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 1, y2: 0,
+        stop: 0 #1E1E22, 
+        stop: 0.5 #1E1E22,
+        stop: 0.51 #3D3D41,
+        stop: 1 #3D3D41
+    );
+}

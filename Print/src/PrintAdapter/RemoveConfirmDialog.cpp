@@ -9,7 +9,8 @@ RemoveConfirmDialog::RemoveConfirmDialog(QWidget* pwgt, QString templateName): B
     label->setObjectName("baseLabel");
     baseLayout->addWidget(label);
     QHBoxLayout* button_layout = new QHBoxLayout(this);
-    button_layout->setContentsMargins(160, 90, 0, 0);
+    button_layout->setContentsMargins(0, 90, 0, 0);
+    button_layout->addStretch();
     QPushButton* cancelButton = new QPushButton("Отмена", this);
     cancelButton->setObjectName("cancelButton");
     

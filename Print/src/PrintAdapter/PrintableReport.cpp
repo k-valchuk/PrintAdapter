@@ -134,16 +134,19 @@ void PrintableReport::print(QPrinter *printer)
 		return;
 	}
 
-	QRectF pr = printer->pageRect(QPrinter::Inch);
-	QRect adjustedViewport(0, 0, 0, 0);
-	adjustedViewport.setWidth(pr.width() * printer->resolution());
-	adjustedViewport.setHeight(pr.height() * printer->resolution());
-	painter.setViewport(adjustedViewport);
 
 
-	m_document->setUseDesignMetrics(true);
+	//m_document->setUseDesignMetrics(true);
 	m_document->documentLayout()->setPaintDevice(printer);
-	m_document->setPageSize(contentRect(&painter).size());
+
+	QFont printFont = painter.font();
+	printFont.setFamily("Arial");
+	printFont.setHintingPreference(QFont::PreferNoHinting);
+	printFont.setStyleStrategy(QFont::ForceOutline);
+	painter.setFont(printFont);
+
+	m_document->setDefaultFont(printFont);
+    m_document->setPageSize(contentRect(&painter).size());
 	// dump existing margin (if any)
 	QTextFrameFormat fmt = m_document->rootFrame()->frameFormat();
 	fmt.setMargin(0);
@@ -182,7 +185,7 @@ void PrintableReport::print(QPrinter *printer)
 	}
 
 	// loop through and print pages
-	painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform, true);
+	painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::HighQualityAntialiasing | QPainter::SmoothPixmapTransform, true);
 	for(int dc = 0; dc < doccopies; dc++) {
 		int pagenum = firstpage;
 		while(true) {
@@ -241,9 +244,11 @@ void PrintableReport::paintPage(QPainter *painter, int pagenum)
 		painter->translate(rect.left(), rect.top());
 		QRectF clip(0, 0, rect.width(), rect.height());
 		QTextDocument doc;
-		doc.setUseDesignMetrics(true);
-		doc.setHtml(header);
+		//doc.setUseDesignMetrics(true);
+		
 		doc.documentLayout()->setPaintDevice(painter->device());
+		doc.setDefaultFont(painter->font());
+		doc.setHtml(header);
 		doc.setPageSize(rect.size());
 
 		// align text to bottom
@@ -282,9 +287,10 @@ void PrintableReport::paintPage(QPainter *painter, int pagenum)
 		painter->translate(rect.left(), rect.top());
 		QRectF clip(0, 0, rect.width(), rect.height());
 		QTextDocument doc;
-		doc.setUseDesignMetrics(true);
-		doc.setHtml(footer);
+		//doc.setUseDesignMetrics(true);
 		doc.documentLayout()->setPaintDevice(painter->device());
+		doc.setDefaultFont(painter->font());
+		doc.setHtml(footer);
 		doc.setTextWidth(m_printer->pageRect().width());
 		doc.setPageSize(rect.size());
 		doc.drawContents(painter, clip);

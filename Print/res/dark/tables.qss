@@ -1,5 +1,7 @@
-QTableView {
+BaseTableView {
+    min-width: 400px;
     border: none;
     background-color: transparent;
-    font: normal normal normal 15px/18px Roboto;
+    font: normal normal normal 15px Roboto;
+    vertical-scroll-mode: ScrollPerItem;
 }

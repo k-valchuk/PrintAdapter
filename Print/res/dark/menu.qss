@@ -1,0 +1,23 @@
+QMenu#ToggleMenu {
+    padding: 4px 0px;
+}
+QMenu#ToggleMenu::item {
+    font-family: Roboto;
+    font-size: 14px;
+    padding: 6px 15px 6px 10px !important;
+    background-color: transparent;
+}
+
+QMenu#ToggleMenu::indicator {
+    width: 16px; 
+    height: 16px; 
+    
+    margin-left: -10px; 
+    
+   
+    margin-top: 1px; 
+}
+
+QMenu#ToggleMenu::indicator:exclusive:checked {
+    image: url(:/icons/done.png);
+}

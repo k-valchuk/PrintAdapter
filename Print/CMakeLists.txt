@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(NewsPrintAdapter VERSION 1.0)
+project(PrintAdapter VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -60,6 +60,7 @@ set(SOURCES
 
         src/PrintAdapter/AddLine.h
         src/PrintAdapter/AddLine.cpp
+        src/PrintAdapter/BaseDelegate.h
         src/PrintAdapter/BaseDialog.h
         src/PrintAdapter/BaseDialog.cpp
         src/PrintAdapter/BaseTableView.h
@@ -80,8 +81,19 @@ set(SOURCES
         src/PrintAdapter/Requests.h
         src/PrintAdapter/Requests.cpp
         src/PrintAdapter/RowDelegate.h
+        src/PrintAdapter/RowDelegate.cpp
         src/PrintAdapter/ServerRequester.h
         src/PrintAdapter/ServerRequester.cpp
+        src/PrintAdapter/ShowRowDelegate.h
+        src/PrintAdapter/ShowRowDelegate.cpp
+        src/PrintAdapter/TemplateHighlighter.h
+        src/PrintAdapter/TemplateHighlighter.cpp
+        src/PrintAdapter/TemplateManager.h
+        src/PrintAdapter/TemplateManager.cpp
+        src/PrintAdapter/SubsystemButton.h
+        src/PrintAdapter/SubsystemButton.cpp
+        src/PrintAdapter/CheckPanel.h
+        src/PrintAdapter/CheckPanel.cpp
 
         src/version.h
 
@@ -128,7 +140,7 @@ endif()
 #установить в true если требуется обновить ts filы по исходникам
 #в таком случае Очистка или Пересборка удалит их, будьте ОСТОРОЖНЫ!!!
 add_compile_definitions(_USES_LIB_QUERY)
-add_library(NewsPrintAdapter SHARED ${SOURCES}
+add_library(PrintAdapter SHARED ${SOURCES}
     ${QRC_SRCS_NEWSBROADCASTER} 
     ${QM_FILES_NEWSBROADCASTER} #это только для того чтобы была зависимость и выполнялся update
     ${WINVERSIONRC}
@@ -138,7 +150,7 @@ set(COMMON_LIBS
     Qt5::Network
     Qt5::PrintSupport
     ${CMAKE_DL_LIBS})
-target_link_libraries(NewsPrintAdapter lib_Query ${COMMON_LIBS} ${SPECPLATFORM_LIBS})
+target_link_libraries(PrintAdapter lib_Query ${COMMON_LIBS} ${SPECPLATFORM_LIBS})
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     set(DEBUG_OR_RELEASE "debug")
@@ -148,7 +160,7 @@ endif()
 set(PROJECT_BINARY_DIR ../../../../bin/${OS_path}-${DEBUG_OR_RELEASE}-${PROC_path})
 #set_target_properties(NewsBroadCaster PROPERTIES
 #         ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
-set_target_properties(NewsPrintAdapter PROPERTIES
+set_target_properties(PrintAdapter PROPERTIES
          LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
      
      
@@ -159,7 +171,7 @@ set(project_path_name $<TARGET_FILE:${PROJECT_NAME}>)
 get_filename_component(project_file_name_wo_prefix ${project_path_name} NAME_WE)
 
 add_custom_command(
-        TARGET NewsPrintAdapter POST_BUILD
+        TARGET PrintAdapter POST_BUILD
                 # Strip debug information to separate file
         COMMAND objcopy --only-keep-debug ${project_path_name} ${project_file_name_wo_prefix}.dbg
         COMMAND strip -g --strip-unneeded ${project_path_name}

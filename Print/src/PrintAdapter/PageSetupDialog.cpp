@@ -5,102 +5,16 @@
 #include <QLocale>
 #include <QPainter>
 
-void PageSetupDialog::setCancelButtonStyle(QPushButton* btn){
-    btn->setFixedHeight(30);
-    btn->setMinimumWidth(93);
-    btn->setStyleSheet(
-        "QPushButton {border: 1px solid #494949; border-radius: 2px; font: normal normal normal 15px/18px Roboto; color: #6F8CB7; background-color: transparent; margin-right: 10px;}"
-        "QPushButton:hover{border: 1px solid #6F8CB7;}"
-    );
-
-}
-
-void PageSetupDialog::setApplyButtonStyle(QPushButton* btn) {
-    btn->setFixedHeight(30);
-    btn->setMinimumWidth(114);
-    btn->setStyleSheet(
-        "QPushButton{font: normal normal normal 15px/18px Roboto; background: #6F8CB7; color: #FFFFFF; border-radius: 2px; margin-left: 10px;}"
-        "QPushButton:hover{background: #9abcff;}"
-    );
-}
-
 void PageSetupDialog::setComboBoxStyle(QComboBox* cbox, const QStringList elements, int distance) {
+    cbox->setObjectName("PageComboBox");
     cbox->addItems(elements);
     cbox->setFixedSize(140, 28);
-    cbox->setStyleSheet(
-        QString("QComboBox {"
-        "   color: #BABABA;"
-        "   border: none;"
-        "   background: #222226;"
-        "   combobox-popup: 0;"
-        "   font: normal normal normal 15/18px Roboto;"
-        "   padding-left: 10px;"
-        "}"
-        "QComboBox QAbstractItemView {"
-        "   background-color: #222226;"
-        "   font: normal normal normal 15/18px Roboto;"
-        "   color: #BABABA;"
-        "   selection-background-color: #222226;"
-        "   selection-color: #FAFAFA;"
-        "   outline: none;"
-        "   border: none;"
-        "}"
-        "QComboBox::drop-down {"
-        "   subcontrol-origin: padding;"
-        "   subcontrol-position: top right;"
-        "   width: 20px;"
-        "   border: none;"
-        "   background: transparent;"
-        "}"
-        "QComboBox::down-arrow {"
-        "   image: url(:/icons/arrow-down.png);"
-        "   width: 12px;"
-        "   height: 12px;"
-        "}"
-        "QComboBox::down-arrow:on {"
-        "   top: 1px;"
-        "   image: url(:/icons/arrow-up.png);"
-    "}").arg(distance)
-);
 }
 
-void PageSetupDialog::setGroupBoxStyle(QGroupBox* gbox){
-
-    gbox->setStyleSheet(
-        "QGroupBox {"
-        "   border: 1px solid #494949;"
-        "   border-radius: 2px;"
-        "   margin-top: 10px;"
-        "   font: normal normal normal 15/18px Roboto;"
-        "}"
-        "QGroupBox::title {"
-        "   color: #BABABA;"
-        "subcontrol-origin: margin;"
-        "subcontrol-position: top left;" 
-        "top: 2px;"
-        "left: 10px;"
-        "padding: 0 3px;"
-        "}"
-    );
-}
-
-void PageSetupDialog::setLineEditStyle(QLineEdit* lineEdit){
-    lineEdit->setFixedSize(140, 28);
-    lineEdit->setStyleSheet(
-            "QLineEdit{"
-            "   color: #BABABA;"
-            "   font: normal normal normal 15px/18px Roboto;"
-            "   background-color: #222226;"
-            "   border: none;"
-            "   padding-left: 10px;"
-            "   margin-left: 40px;"
-            "}"
-    );
-}
 
 void PageSetupDialog::addParam(const QString label, QFormLayout* layout, QWidget* pwgt, int distance){
     QLabel* pLabel = new QLabel(label, this);
-    pLabel->setStyleSheet(QString("QLabel {color: #838384; font: normal normal normal 15px/18px Roboto; margin-right: %1 px;}").arg(distance));
+    pLabel->setStyleSheet(QString("QLabel {color: #838384; font: normal normal normal 15px Roboto; margin-right: %1 px;}").arg(distance));
     layout->addRow(pLabel, pwgt);
 }
 
@@ -110,12 +24,12 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     doc = doc_;
 
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
-    baseLayout->setContentsMargins(10, 10, 20, 30);
+    baseLayout->setContentsMargins(10, 10, 20, 5);
 
     QHBoxLayout* pageLayout = new QHBoxLayout(this);
     QVBoxLayout* baseSettingsLayout = new QVBoxLayout(this);
     QGroupBox* pageGroupBox = new QGroupBox("Параметры страницы", this);
-    setGroupBoxStyle(pageGroupBox);
+    pageGroupBox->setObjectName("pageSetupGroupBox");
     pageGroupBox->setMaximumSize(327, 114);
     QFormLayout* page_form_layout = new QFormLayout();
     paperComboBox = new QComboBox(this);
@@ -149,7 +63,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     for (auto pair : data){
         QLineEdit* pLineEdit = new QLineEdit(this);
         pLineEdit->setText(QString::number(pair.second, 'f', 1));
-        setLineEditStyle(pLineEdit);
+        pLineEdit->setObjectName("pageFieldInput");
         QDoubleValidator* validator = new QDoubleValidator(0.0, 999, 2, pLineEdit);
         validator->setNotation(QDoubleValidator::StandardNotation);
         validator->setLocale(QLocale::C);
@@ -159,7 +73,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
         marginEdits.append(pLineEdit);
         connect(pLineEdit, &QLineEdit::editingFinished, this, &PageSetupDialog::updateThumbnail);
     }
-    setGroupBoxStyle(fieldGroupBox);
+    fieldGroupBox->setObjectName("pageSetupGroupBox");
     fieldGroupBox->setMaximumWidth(327);
     fieldGroupBox->setLayout(field_form_layout);
     baseSettingsLayout->addStretch();
@@ -177,7 +91,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     previewGroupBox->setContentsMargins(10, 14, 10, 10);
     
     previewLabel = new QLabel(this);
-    previewLabel->setStyleSheet("background-color: #313135; none;");
+    previewLabel->setStyleSheet("background-color: #313135;");
     previewLabel->setAlignment(Qt::AlignCenter);
     previewLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QVBoxLayout* previewLayout = new QVBoxLayout(this);
@@ -197,7 +111,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     for (QString title : {"Верхний колонтитул", "Нижний колонтитул"}){
         QGroupBox* headerGroupBox = new QGroupBox(title, this);
         QHBoxLayout *pform_layout = new QHBoxLayout(this);
-        setGroupBoxStyle(headerGroupBox);
+        headerGroupBox->setObjectName("pageSetupGroupBox");
         for (int i = 0; i < 3; i++) {
             QComboBox *pcomboBox = new QComboBox(this);
             for (const auto& pair : {
@@ -214,6 +128,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
                 pcomboBox->addItem(QString(pair.first), pair.second);
             }
             pcomboBox->setCurrentIndex(pcomboBox->findData(static_cast<int>(headersValues[j][i])));
+            pcomboBox->setObjectName("PageComboBox");
                 
             
             pform_layout->addWidget(pcomboBox);
@@ -227,14 +142,15 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     
 
     QHBoxLayout* button_layout = new QHBoxLayout(this);
-    button_layout->setContentsMargins(343, 90, 0, 0);
+    button_layout->addStretch();
+    button_layout->setContentsMargins(0, 90, 0, 0);
 
     QPushButton* cancelButton = new QPushButton("Отмена", this);
-    setCancelButtonStyle(cancelButton);
+    cancelButton->setObjectName("cancelButton");
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
 
     QPushButton* applyButton = new QPushButton("Применить");
-    setApplyButtonStyle(applyButton);
+    applyButton->setObjectName("applyButton");
     connect(
         applyButton, &QPushButton::clicked, 
         this, [this](){
