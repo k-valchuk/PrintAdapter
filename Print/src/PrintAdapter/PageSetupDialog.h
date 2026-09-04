@@ -10,6 +10,7 @@
 #include <QTextDocument>
 #include <QEvent>
 #include <QLineEdit>
+#include <QTimer>
 #include "BaseDialog.h"
 
 enum class Headers {
@@ -37,15 +38,32 @@ class PageSetupDialog: public BaseDialog {
         QComboBox* orientationComboBox;
         QString headerTitle;
 
+        QTimer* resizeTimer;      
+        QPixmap cachedPreviewPixmap;
+
+        QGroupBox* previewGroupBox;
+
         void setComboBoxStyle(QComboBox* cbox, const QStringList elements, int distance);
         void addParam(const QString label, QFormLayout* layout, QWidget* pwgt, int distance);
         void updateThumbnail();
 
         void computeHeaders();
+    
+    protected:
+    
+        void resizeEvent(QResizeEvent* event) override;
+   
 
     public:
         PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPreviewWidget* previewWidget_, QTextDocument *doc_, QString headerTitle_, QList<QList<Headers>> headersValues);
     
+    private slots:
+    
+        void renderThumbnail(); 
+        
+        void scaleCachedThumbnail();
+
     signals:
         void headersChanged(QStringList, QStringList, QList<QList<Headers>>);
+    
 };

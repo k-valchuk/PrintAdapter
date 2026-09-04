@@ -30,7 +30,7 @@ void EditDialog::setupUi() {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
     baseLayout->setContentsMargins(10, 10, 10, 5);
 
-    QGroupBox* groupBoxToggle = new QGroupBox(this);
+    QWidget* groupBoxToggle = new QWidget(this);
     groupBoxToggle->setObjectName("emptyGroupBox");
     groupBoxToggle->setMaximumHeight(50);
     baseLayout->addWidget(groupBoxToggle);
@@ -64,7 +64,7 @@ void EditDialog::setupUi() {
 }
 
 
-QWidget* EditDialog::createNavigationPanel(QGroupBox* groupBoxToggle) {
+QWidget* EditDialog::createNavigationPanel(QWidget* groupBoxToggle) {
     QWidget* tableWidget = new QWidget(this);
     tableWidget->setObjectName("EmptyStyle");
     tableWidget->setMinimumWidth(500);
@@ -84,11 +84,11 @@ QWidget* EditDialog::createNavigationPanel(QGroupBox* groupBoxToggle) {
     
     btn_news = new SubsystemButton("Новости", ":/icons/nav-icon-news-active.svg", ":/icons/nav-icon-news-inactive.svg", "toogleButton", "news", QVector<QString>{"Выпуск", "Отдельное событие"}, groupBoxToggle);
     SubsystemButton* btn_plan = new SubsystemButton("Планирование", ":/icons/nav-icon-news-active.svg", ":/icons/nav-icon-news-inactive.svg", "toogleButton", "plan", QVector<QString>{"Мониторинг"}, groupBoxToggle);
-    SubsystemButton* btn_logs = new SubsystemButton("Логи", ":/icons/tab-icon-logging-active.svg", ":/icons/tab-icon-logging-inactive.svg", "toogleButton", "logs", QVector<QString>{}, groupBoxToggle);
-    SubsystemButton* btn_broadcast = new SubsystemButton("Эфир", ":/icons/tab-icon-broadcast-active.svg", ":/icons/tab-icon-broadcast-inactive.svg", "toogleButton", "broadcast", QVector<QString>{}, groupBoxToggle);
+    //SubsystemButton* btn_logs = new SubsystemButton("Логи", ":/icons/tab-icon-logging-active.svg", ":/icons/tab-icon-logging-inactive.svg", "toogleButton", "logs", QVector<QString>{}, groupBoxToggle);
+    //SubsystemButton* btn_broadcast = new SubsystemButton("Эфир", ":/icons/tab-icon-broadcast-active.svg", ":/icons/tab-icon-broadcast-inactive.svg", "toogleButton", "broadcast", QVector<QString>{}, groupBoxToggle);
 
     stackedWidget = new QStackedWidget(this);
-    QVector<QPushButton*> buttons = {btn_news, btn_plan, btn_logs, btn_broadcast};
+    QVector<QPushButton*> buttons = {btn_news, btn_plan};
 
     for (int i = 0; i < buttons.size(); ++i) {
         QPushButton *btn = buttons[i];
@@ -252,6 +252,12 @@ void EditDialog::setupConnections() {
             currentManager->updateTables(serverData);
         }
         server_requester->getAllTags(currentSubSystem);
+        newsParsePanel->hide();
+        breakPanel->hide();
+        templateEdit->clear();
+        activePanel->setCheckBoxActive("is_active", false);
+        activePanel->setCheckBoxState("is_active", false);
+
     });
 
     // Импорт шаблона
@@ -403,7 +409,7 @@ void EditDialog::setPersistentIndex(QModelIndex index){
 
 void EditDialog::onDeleteTemplate(QString templateId) {
     server_requester->setCurrentButton(ActionId::DELETE_TEMPLATE);
-    server_requester->removeTemplate(templateId);
+    server_requester->removeTemplate(templateId, currentSubSystem);
 }
 
 
@@ -428,7 +434,7 @@ void EditDialog::onRowActivated(const QString &tableName, const QString &templat
 
     activePanel->setCheckBoxActive("is_active", true);
     server_requester->setCurrentButton(ActionId::GET_TEMPLATE);
-    server_requester->getTemplate(templateId);
+    server_requester->getTemplate(templateId, currentSubSystem);
 }
 
 void EditDialog::onChangeTemplate(int templateId, const QString templateName, bool is_single, BaseTableView* activeTable) {
@@ -457,10 +463,9 @@ void EditDialog::onChangeTemplate(int templateId, const QString templateName, bo
             
     }
     jsonObj["content"] = templateContent;
-    jsonObj["subsystem"] = currentSubSystem;
 
     server_requester->setCurrentButton(ActionId::ADD_TEMPLATE);
-    QString realTemplateId = server_requester->addTemplate(QJsonDocument(jsonObj));
+    QString realTemplateId = server_requester->addTemplate(QJsonDocument(jsonObj), currentSubSystem);
     activeTable->blockSignals(true);
     QStandardItemModel* tableModel = qobject_cast<QStandardItemModel*>(activeTable->model());
     tableModel->setData(
@@ -492,7 +497,6 @@ void EditDialog::saveTemplate() {
     jsonObj["name"] = templateName;
     QString templateContent = templateEdit->toPlainText();
     jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
-    jsonObj["subsystem"] = currentSubSystem;
     jsonObj["is_single"] = true;
     jsonObj["is_active"] = activePanel->getCheckBoxState("is_active");
     if (!m_activeTable->property("single").toBool()) {
@@ -511,7 +515,7 @@ void EditDialog::saveTemplate() {
     }
 
     server_requester->setCurrentButton(ActionId::NONE_ACTION);
-    server_requester->addTemplate(QJsonDocument(jsonObj));
+    server_requester->addTemplate(QJsonDocument(jsonObj), currentSubSystem);
 }
 
 

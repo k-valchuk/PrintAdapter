@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QFrame >
+#include <QFrame>
 #include <QHash>
 #include <QVector>
 #include <QCheckBox>

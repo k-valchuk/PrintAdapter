@@ -1,6 +1,7 @@
 #include "RequestDialog.h"
 #include "PrintDialog.h"
 #include "ShowRowDelegate.h"
+#include <QDebug>
 
 
 RequestDialog::RequestDialog(QWidget *pwgt, QJsonDocument json_doc, QString subsystemId_): BaseDialog(pwgt, "Выбор шаблона печати") {
@@ -84,6 +85,7 @@ void RequestDialog::updateTable(QJsonArray value_array, QStandardItemModel* item
 void RequestDialog::printTemplate(){
     QModelIndex index = templateTableView->selectionModel()->currentIndex();
     QString dbId = templateTableView->model()->data(templateTableView->model()->index(index.row(), 0)).toString();
+    server_requester->setTemplateName(templateTableView->model()->data(templateTableView->model()->index(index.row(), 1)).toString());
     server_requester->setCurrentButton(ActionId::EXPORT);
     server_requester->exportTemplate(dbId.toInt(), subsystemId);
 }

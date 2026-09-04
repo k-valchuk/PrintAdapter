@@ -1,56 +1,63 @@
 #include "ServerRequester.h"
 #include <QtWidgets>
 #include <QMessageBox>
+#include <QDebug>
 
 ServerRequester::ServerRequester(QObject* pobj, QString base_url) : QObject(pobj), base_url(base_url) {
+    //rest::Executor()->SetBaseUrl("localhost:8111");
 }
 
 QJsonDocument ServerRequester::getAllTemplates(bool isActive, QString subsystemId) {
     setCurrentButton(ActionId::GET_ALL_TEMPLATES);
     GetAllTemplates req = GetAllTemplates(isActive, subsystemId);
-    slotDone(req);
+    slotDone(req, false);
     return req.getData();
 }
 
 void ServerRequester::getAllTags(QString subsystemId) {
     setCurrentButton(ActionId::GET_ALL_TAGS);
     GetAllTags req = GetAllTags(subsystemId);
-    slotDone(req);
+    slotDone(req, false);
 }
 
-void ServerRequester::getTemplate(QString templateId) {
-    GetTemplate req = GetTemplate(templateId);
-    slotDone(req);
+void ServerRequester::getTemplate(QString templateId, QString subsystemId) {
+    GetTemplate req = GetTemplate(templateId, subsystemId);
+    slotDone(req, true);
 }
 
 void ServerRequester::exportTemplate(int templateId, QString subsystemId) {
     ExportTemplate req = ExportTemplate(templateId, exportJson, subsystemId);
-    slotDone(req);
+    qDebug() << req.response().answerString();
+    slotDone(req, true);
 }
 
-void ServerRequester::removeTemplate(QString templateId) {
-    DeleteTemplate req = DeleteTemplate(templateId);
-    slotDone(req);
+void ServerRequester::removeTemplate(QString templateId, QString subsystemId) {
+    DeleteTemplate req = DeleteTemplate(templateId, subsystemId);
+    slotDone(req, true);
 }
 
-void ServerRequester::removeTag(QString tagId) {
-    DeleteTag req = DeleteTag(tagId);
-    slotDone(req);
+void ServerRequester::removeTag(QString tagId, QString subsystemId) {
+    DeleteTag req = DeleteTag(tagId, subsystemId);
+    slotDone(req, true);
 }
 
-QString ServerRequester::addTemplate(const QJsonDocument jsonDoc) {
-    AddTemplate req = AddTemplate(jsonDoc);
-    slotDone(req);
+QString ServerRequester::addTemplate(const QJsonDocument jsonDoc, QString subsystemId) {
+    AddTemplate req = AddTemplate(jsonDoc, subsystemId);
+    slotDone(req, true);
     return QString::number(req.getData().object().value("ID").toInt());
 }
 
-void ServerRequester::addTag(const QJsonDocument jsonDoc) {
-    AddTag req = AddTag(jsonDoc);
-    slotDone(req);
+void ServerRequester::addTag(const QJsonDocument jsonDoc, QString subsystemId) {
+    AddTag req = AddTag(jsonDoc, subsystemId);
+    slotDone(req, true);
 }
 
 void ServerRequester::setCurrentButton(ActionId buttonId) {
     currentButtonId = buttonId;
+}
+
+void ServerRequester::setTemplateName(QString templateName) {
+    exportTemplateName = templateName;
 }
 
 void ServerRequester::setExportJson(QJsonDocument json_doc){
@@ -61,17 +68,35 @@ QJsonDocument ServerRequester::getExportJson(){
     return exportJson;
 }
 
-void ServerRequester::slotDone(IPrintRequest req){
+void ServerRequester::slotDone(IPrintRequest req, bool showError){
     if (!req.isSuccess()) {
-        slotError(req);
+        slotError(req, showError);
         return;
     }
 
+    QJsonDocument result;
+    if (exportTemplateName != "") {
+        QString fileContent = req.getDataFile();
 
-    emit done(req.getData(), currentButtonId);
+        QJsonObject fileData;
+        fileData["name"] = exportTemplateName;
+        fileData["content"] = fileContent;
+
+        result = QJsonDocument(fileData);
+        exportTemplateName = "";
+    } else {
+        result = req.getData();
+    }
+
+
+
+
+    emit done(result, currentButtonId);
 }
 
-void ServerRequester::slotError(IPrintRequest req){
+void ServerRequester::slotError(IPrintRequest req, bool showError){
     qDebug() << "ServerRequester Error" << req.query().url() << req.response().answerString().toUtf8() << req.response().code() << "\n";
-    emit error(req.response().answerString().toUtf8(), req.response().code());
+    if (showError) {
+        emit error(req.response().answerString().toUtf8(), req.response().code());
+    }
 }

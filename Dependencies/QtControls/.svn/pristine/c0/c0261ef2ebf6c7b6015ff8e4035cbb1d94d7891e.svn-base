@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-  <g id="folder_close" transform="translate(-541 -198.7)">
-    <path id="viewbox20" d="M0,0H20V20H0Z" transform="translate(541 198.7)" fill="none"/>
-    <path id="folder" d="M12.179,48.962H6.755l-1.08-1.285a.164.164,0,0,0-.131-.059H1.179A1.19,1.19,0,0,0,0,48.81v7.858a1.19,1.19,0,0,0,1.179,1.19h11a1.19,1.19,0,0,0,1.179-1.19V50.153A1.19,1.19,0,0,0,12.179,48.962Z" transform="translate(544.288 155.952)" fill="#6c6f7c"/>
-  </g>
-</svg>

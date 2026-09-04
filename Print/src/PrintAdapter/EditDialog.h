@@ -53,7 +53,7 @@ class EditDialog: public BaseDialog {
 
         void initData();
         void setupUi();
-        QWidget* createNavigationPanel(QGroupBox* groupBoxToggle);
+        QWidget* createNavigationPanel(QWidget* groupBoxToggle);
         QWidget* createEditSpace();
         void setupConnections();
 

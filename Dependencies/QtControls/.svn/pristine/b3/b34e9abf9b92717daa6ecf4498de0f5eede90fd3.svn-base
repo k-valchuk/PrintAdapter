@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <g id="new_window_default" data-name="new window_default" transform="translate(-1865 -82)">
-    <path id="viewbox_24" d="M0,0H24V24H0Z" transform="translate(1865 82)" fill="none"/>
-    <path id="new_window" data-name="new window" d="M0,12.5V2.5H2.5V0h10V10H10v2.5ZM8.5,11V4h-7v7ZM11,8.5v-7H4v1h6v6Z" transform="translate(1871 87.5)" fill="#585858"/>
-  </g>
-</svg>

@@ -12,7 +12,7 @@ PrintDialog::PrintDialog(QWidget* pwgt, QString printContent, QString rundownTit
 
     this->installEventFilter(this);
     
-    QVBoxLayout* baseLayout = new QVBoxLayout(this);
+    QVBoxLayout* baseLayout = new QVBoxLayout();
     baseLayout->setContentsMargins(20, 10, 20, 5);
     toolBar = new QToolBar(this);
     toolBar->setObjectName("PrintToolBar");

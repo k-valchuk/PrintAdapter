@@ -6,6 +6,9 @@
 class IPrintRequest: public rest::Request {
 
     public:
+        QString getDataFile() {
+            return response().answerString().toUtf8();
+        };
         QJsonDocument getData() {return QJsonDocument::fromJson(response().answerString().toUtf8());};
 
 };
@@ -24,7 +27,7 @@ struct GetAllTags: public IPrintRequest{
 
 struct GetTemplate: public IPrintRequest{
     
-    GetTemplate(QString templateId);
+    GetTemplate(QString templateId, QString subsystemId);
 
 };
 
@@ -36,25 +39,25 @@ struct ExportTemplate: public IPrintRequest{
 
 struct DeleteTemplate: public IPrintRequest{
     
-    DeleteTemplate(QString templateId);
+    DeleteTemplate(QString templateId, QString subsystemId);
 
 };
 
 struct DeleteTag: public IPrintRequest{
     
-    DeleteTag(QString tagId);
+    DeleteTag(QString tagId, QString subsystemId);
 
 };
 
 struct AddTemplate: public IPrintRequest{
     
-    AddTemplate(QJsonDocument jsonDoc);
+    AddTemplate(QJsonDocument jsonDoc, QString subsystemId);
 
 };
 
 
 struct AddTag: public IPrintRequest{
     
-    AddTag(QJsonDocument jsonDoc);
+    AddTag(QJsonDocument jsonDoc, QString subsystemId);
 
 };
