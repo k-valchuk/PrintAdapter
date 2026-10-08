@@ -15,6 +15,7 @@ class ServerRequester: public QObject {
     public:
         ServerRequester(QObject* pobj, QString base_url);
         QJsonDocument getAllTemplates(bool isActive, QString subsystemId);
+        QJsonDocument getTemplateTypes(QString subsystemId);
         void getAllTags(QString subsystemId);
         void getTemplate(QString templateId, QString subsystemId);
         void removeTemplate(QString templateId, QString subsystemId);
@@ -31,8 +32,8 @@ class ServerRequester: public QObject {
         
 
     private slots:
-        void slotError(IPrintRequest, bool showError);
-        void slotDone(IPrintRequest req, bool showError);
+        void slotError(IPrintRequest);
+        void slotDone(IPrintRequest req);
     
     signals:
         void done(const QJsonDocument jsonDoc, ActionId buttonId);

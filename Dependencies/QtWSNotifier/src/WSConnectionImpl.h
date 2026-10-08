@@ -44,6 +44,7 @@ private:
     static const int pongTimeoutMsec = pingPeriodMsec * 1.2;
     virtual void timerEvent(QTimerEvent *event) override;
     QTimer *m_pongTimerTimeout = nullptr;
+    bool m_serverSupportsPong = false;
 
 public slots:
     void init(void);

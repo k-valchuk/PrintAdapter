@@ -30,7 +30,7 @@ class PrintModule : public IModule {
 
         void OnThemeChanged(IThemeManager* tm) override
         {
-            auto themeStr = tm->CurrentTheme() == IWindowManager::ColorTheme::Dark ? "dark" : "dark"; // TODO: светлая тема нужна
+            auto themeStr = tm->CurrentTheme() == IThemeManager::ColorTheme::Dark ? "dark" : "dark"; // TODO: светлая тема нужна
             tm->LoadStyleSheet(QString(":/styles/%1/combobox.qss").arg(themeStr));
             tm->LoadStyleSheet(QString(":/styles/%1/dialogs.qss").arg(themeStr));
             tm->LoadStyleSheet(QString(":/styles/%1/qlistview.qss").arg(themeStr));

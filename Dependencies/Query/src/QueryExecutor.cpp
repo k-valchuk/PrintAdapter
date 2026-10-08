@@ -5,7 +5,6 @@
 #include <QTimer>
 #include <QNetworkReply>
 #include <QJsonDocument>
-#include <QNetworkConfigurationManager>
 #include <QNetworkCookieJar>
 #include <QJsonObject>
 #include <QCoreApplication>
@@ -138,7 +137,6 @@ rest::QueryExecutor::QueryExecutor()
     m_thread = new QThread();
     m_accessManager = new QNetworkAccessManager();
     m_accessManager->moveToThread(m_thread);
-    
     QObject::connect(m_thread, &QThread::finished, m_accessManager, &QObject::deleteLater);
     QObject::connect(m_thread, &QThread::finished, m_thread, &QObject::deleteLater);
 

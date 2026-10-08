@@ -21,3 +21,8 @@ int GetModulesCount()
 {
     return 1;
 }
+
+quint32 GetBramSpaceModuleAbiVersion()
+{
+    return BRAM_SPACE_MODULE_ABI_VERSION;
+}

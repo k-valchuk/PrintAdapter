@@ -10,6 +10,9 @@
 #include "IMenuManager.h"
 #include "IWindowManager.h"
 
+#include "ICommandBuilders.h"
+#include "ICommandContext.h"
+
 class ICompositionManager
 {
 public:
@@ -135,6 +138,10 @@ public:
     {
         PlaceContent(panel);
     }
+    
+    virtual void RouteCommand(ICommandRoutingContext* context) {}
+    virtual void QueryCommandState(ICommandStateContext* context) {}
+    virtual void ExecuteCommand(ICommandExecutionContext* context) {}
 };
 
 

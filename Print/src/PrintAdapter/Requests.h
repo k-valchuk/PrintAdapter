@@ -61,3 +61,9 @@ struct AddTag: public IPrintRequest{
     AddTag(QJsonDocument jsonDoc, QString subsystemId);
 
 };
+
+struct GetTemplateTypes: public IPrintRequest{
+    
+    GetTemplateTypes(QString subsystemId);
+
+};

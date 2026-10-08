@@ -4,7 +4,6 @@
 #include <QDateTime>
 #include <QLocale>
 #include <QPainter>
-#include <QCoreApplication>
 
 void PageSetupDialog::setComboBoxStyle(QComboBox* cbox, const QStringList elements, int distance) {
     cbox->setObjectName("PageComboBox");
@@ -23,13 +22,12 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     printer = printer_;
     previewWidget = previewWidget_;
     doc = doc_;
-    setMinimumSize(400, 300);
 
-    QVBoxLayout* baseLayout = new QVBoxLayout();
+    QVBoxLayout* baseLayout = new QVBoxLayout(this);
     baseLayout->setContentsMargins(10, 10, 20, 5);
 
-    QHBoxLayout* pageLayout = new QHBoxLayout();
-    QVBoxLayout* baseSettingsLayout = new QVBoxLayout();
+    QHBoxLayout* pageLayout = new QHBoxLayout(this);
+    QVBoxLayout* baseSettingsLayout = new QVBoxLayout(this);
     QGroupBox* pageGroupBox = new QGroupBox("Параметры страницы", this);
     pageGroupBox->setObjectName("pageSetupGroupBox");
     pageGroupBox->setMaximumSize(327, 114);
@@ -74,9 +72,6 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
         addParam(pair.first, field_form_layout, pLineEdit, 40);
         marginEdits.append(pLineEdit);
         connect(pLineEdit, &QLineEdit::editingFinished, this, &PageSetupDialog::updateThumbnail);
-        connect(pLineEdit, &QLineEdit::returnPressed, this, [pLineEdit]() {
-            pLineEdit->clearFocus();
-        });
     }
     fieldGroupBox->setObjectName("pageSetupGroupBox");
     fieldGroupBox->setMaximumWidth(327);
@@ -85,8 +80,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     baseSettingsLayout->addWidget(fieldGroupBox);
     pageLayout->addLayout(baseSettingsLayout);
 
-    previewGroupBox = new QGroupBox(this);
-    previewGroupBox->setMinimumWidth(100);
+    QGroupBox* previewGroupBox = new QGroupBox(this);
     previewGroupBox->setStyleSheet(
         "QGroupBox {"
         "   margin-top: 10px;"
@@ -99,19 +93,16 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     previewLabel = new QLabel(this);
     previewLabel->setStyleSheet("background-color: #313135;");
     previewLabel->setAlignment(Qt::AlignCenter);
-    previewLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored); 
-    QVBoxLayout* previewLayout = new QVBoxLayout();
-    previewLayout->addWidget(previewLabel);
+    previewLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QVBoxLayout* previewLayout = new QVBoxLayout(this);
+    previewLayout->addStretch();
+    previewLayout->addWidget(previewLabel, 1);
+    previewLayout->addStretch();
     previewGroupBox->setLayout(previewLayout);
-    pageLayout->addWidget(previewGroupBox, 1);
+    pageLayout->addWidget(previewGroupBox);
 
 
     baseLayout->addLayout(pageLayout);
-
-    resizeTimer = new QTimer(this);
-    resizeTimer->setSingleShot(true);
-
-    connect(resizeTimer, &QTimer::timeout, this, &PageSetupDialog::renderThumbnail);
 
     QTimer::singleShot(0, this, [this]() {
         updateThumbnail();
@@ -119,7 +110,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     int j = 0;
     for (QString title : {"Верхний колонтитул", "Нижний колонтитул"}){
         QGroupBox* headerGroupBox = new QGroupBox(title, this);
-        QHBoxLayout *pform_layout = new QHBoxLayout();
+        QHBoxLayout *pform_layout = new QHBoxLayout(this);
         headerGroupBox->setObjectName("pageSetupGroupBox");
         for (int i = 0; i < 3; i++) {
             QComboBox *pcomboBox = new QComboBox(this);
@@ -150,7 +141,7 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
     }
     
 
-    QHBoxLayout* button_layout = new QHBoxLayout();
+    QHBoxLayout* button_layout = new QHBoxLayout(this);
     button_layout->addStretch();
     button_layout->setContentsMargins(0, 90, 0, 0);
 
@@ -160,11 +151,6 @@ PageSetupDialog::PageSetupDialog(QWidget* pwgt, QPrinter* printer_, QPrintPrevie
 
     QPushButton* applyButton = new QPushButton("Применить");
     applyButton->setObjectName("applyButton");
-    cancelButton->setAutoDefault(false);
-    cancelButton->setDefault(false);
-
-    applyButton->setAutoDefault(false);
-    applyButton->setDefault(false);
     connect(
         applyButton, &QPushButton::clicked, 
         this, [this](){
@@ -232,21 +218,8 @@ void PageSetupDialog::computeHeaders() {
 
 
 void PageSetupDialog::updateThumbnail() {
-    cachedPreviewPixmap = QPixmap(); 
-    renderThumbnail();
-}
-
-void PageSetupDialog::renderThumbnail() {
-    if (marginEdits.size() < 4) return; 
-
-    previewGroupBox->setMinimumWidth(100);
-    previewGroupBox->setMaximumWidth(16777215);
-
-    QCoreApplication::processEvents();
-
-    QSize viewSize = previewLabel->size();
-    if (viewSize.width() <= 0 || viewSize.height() <= 0) return;
-
+    QSize labelSize = previewLabel->size();
+    if (labelSize.isEmpty()) return;
     auto originOrientation = printer->orientation();
     auto originPageSize = printer->paperSize();
     printer->setPageOrientation((QPageLayout::Orientation)orientationComboBox->currentData().toInt());
@@ -256,72 +229,51 @@ void PageSetupDialog::renderThumbnail() {
 
     printer->setPaperSize(originPageSize);
     printer->setOrientation(originOrientation);
+   
+    double scale = qMin((double)labelSize.width() / pageRect.width(), 
+                        (double)labelSize.height() / pageRect.height()) * 0.9; 
 
-    if (pageRect.isEmpty()) return;
+    QSize pixmapSize = (pageRect.size() * scale).toSize();
     
-    double scale = qMin((double)viewSize.width() / pageRect.width(), 
-                        (double)viewSize.height() / pageRect.height()) * 0.95;
-    
-    QSize pixmapSize(qRound(pageRect.width() * scale), qRound(pageRect.height() * scale));
-    if (pixmapSize.width() <= 0 || pixmapSize.height() <= 0) return;
+
     QPixmap pixmap(pixmapSize);
     pixmap.fill(Qt::white);
-
+    
     QPainter painter(&pixmap);
-    painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform, true);
-
+    painter.setRenderHints(QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform, true);
     painter.scale(scale, scale);
 
+
+    
+    //{"Верхнее", "Нижнее", "Левое", "Правое"}
     double mmToPx = 2.8346; 
-    double marginLeft   = marginEdits[2]->text().toDouble() * mmToPx;
-    double marginTop    = marginEdits[0]->text().toDouble() * mmToPx;
-    double marginRight   = marginEdits[3]->text().toDouble() * mmToPx;
+    double marginLeft = marginEdits[2]->text().toDouble() * mmToPx;
+    double marginTop = marginEdits[0]->text().toDouble() * mmToPx;
+    double marginRight = marginEdits[3]->text().toDouble() * mmToPx;
     double marginBottom = marginEdits[1]->text().toDouble() * mmToPx;
 
-    QScopedPointer<QTextDocument> doc_clone(doc->clone());
-    if (doc_clone) {
-        doc_clone->setPageSize(QSize(pageRect.width() - marginLeft - marginRight, pageRect.height() - marginTop - marginBottom));
-        doc_clone->setDocumentMargin(0);
+    QTextDocument* doc_clone = doc->clone();
+    doc_clone->setPageSize(QSize(pageRect.width() - marginLeft -marginRight, pageRect.height() - marginTop - marginBottom));
+    doc_clone->setDocumentMargin(0);
 
-        painter.save();
-        painter.translate(marginLeft, marginTop);
-        QRectF contentRect(0, 0, pageRect.width() - marginLeft - marginRight, pageRect.height() - marginTop - marginBottom);
-        painter.setClipRect(contentRect); 
+    painter.save();
+    painter.translate(marginLeft, marginTop);
+    QRectF contentRect(0, 0, pageRect.width() - marginLeft -marginRight, pageRect.height() - marginTop - marginBottom);
+    painter.setClipRect(contentRect); 
 
-        doc_clone->drawContents(&painter, contentRect);
-        painter.restore();
-    }
+    doc_clone->drawContents(&painter, contentRect);
+    painter.restore();
 
-    QRectF marginRect = QRectF(0, 0, pageRect.width(), pageRect.height()).adjusted(marginLeft, marginTop, -marginRight, -marginBottom);
+    QRectF marginRect = QRectF(0,0, pageRect.width(), pageRect.height()).adjusted(marginLeft, marginTop, -marginRight, -marginBottom);
     QPen marginPen(QColor("#39393C"), 1, Qt::DashLine);
     marginPen.setCosmetic(true);
     painter.setPen(marginPen);
     painter.setBrush(Qt::NoBrush);
     painter.drawRect(marginRect);
+
     
     painter.end();
 
 
-    cachedPreviewPixmap = pixmap;
-
-    previewLabel->setPixmap(cachedPreviewPixmap);
-}
-
-
-void PageSetupDialog::resizeEvent(QResizeEvent* event) {
-    BaseDialog::resizeEvent(event); 
-
-    previewGroupBox->setFixedWidth(previewGroupBox->width());
-
-    if (!cachedPreviewPixmap.isNull()) {
-        scaleCachedThumbnail();
-    }
-
-    resizeTimer->start(150); 
-}
-
-void PageSetupDialog::scaleCachedThumbnail() {
-    if (cachedPreviewPixmap.isNull()) return;
-
-    previewLabel->setPixmap(cachedPreviewPixmap);
+    previewLabel->setPixmap(pixmap);
 }

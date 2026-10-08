@@ -23,6 +23,22 @@ RightScheme GetRightScheme::data()
 }
 
 //-------------------------------------------------------------------------------
+GetRightObjectsHierarchy::GetRightObjectsHierarchy(const QString& module)
+{
+    query()
+        .setUrl(QString("/api/%1/objects/hierarchy").arg(module));
+}
+
+//-----------------------
+ObjectsHierarchy GetRightObjectsHierarchy::data()
+{
+    ObjectsHierarchy hierarchy;
+    auto o = QJsonDocument::fromJson(response().answerString().toUtf8()).object();
+    hierarchy.parse(o);
+    return hierarchy;
+}
+
+//-------------------------------------------------------------------------------
 AddRightGroup::AddRightGroup(UpdateRightGroup& group, const QString& module)
 {
     query()

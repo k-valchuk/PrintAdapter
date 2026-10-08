@@ -5,7 +5,7 @@
 #include <QScrollArea>
 #include "RowDelegate.h"
 
-TemplateManager::TemplateManager(QVector<SubTableConfig> tableNames, QWidget* pwgt): QWidget(pwgt) {
+TemplateManager::TemplateManager(QJsonArray tableNames, QWidget* pwgt): QWidget(pwgt) {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 20, 0);
     QScrollArea *scrollArea = new QScrollArea(this);
@@ -15,13 +15,17 @@ TemplateManager::TemplateManager(QVector<SubTableConfig> tableNames, QWidget* pw
     QVBoxLayout *contentLayout = new QVBoxLayout(scrollContent);
     contentLayout->setContentsMargins(0, 0, 0, 0);
 
-    for (SubTableConfig tableConfig : tableNames) {
+    for (const QJsonValue& value : tableNames) {
+        QJsonObject value_object = value.toObject();
+        QString tableLabel = value_object.value("label").toString();
+        QString tableType = value_object.value("name").toString();
+
         QWidget *blockWidget = new QWidget(scrollContent);
         QVBoxLayout *blockLayout = new QVBoxLayout(blockWidget);
         blockLayout->setContentsMargins(0, 0, 0, 0);
         blockLayout->setSpacing(0);
 
-        AddLine* addLine = new AddLine(blockWidget, tableConfig.name);
+        AddLine* addLine = new AddLine(blockWidget, tableLabel);
         blockLayout->addWidget(addLine);
 
         QStandardItemModel* tableModel = new QStandardItemModel(0, 2, this);
@@ -32,9 +36,8 @@ TemplateManager::TemplateManager(QVector<SubTableConfig> tableNames, QWidget* pw
         blockLayout->addWidget(tableView);
         contentLayout->addWidget(blockWidget);
 
-        tableView->setProperty("settingsIndex", tableConfig.settingsPanelIndex);
-        tableView->setProperty("tableName", tableConfig.name);
-        tableView->setProperty("single", tableConfig.is_single);
+        tableView->setProperty("tableName", tableLabel);
+        tableView->setProperty("type", tableType);
 
         // Соединение удаления шаблона
         connect(tableView, &BaseTableView::deleteTemplate, this, &TemplateManager::deleteTemplate);
@@ -105,7 +108,7 @@ TemplateManager::TemplateManager(QVector<SubTableConfig> tableNames, QWidget* pw
             emit setIndex(editingIndex);
             int templateId = tableModel->index(tl.row(), 0).data().toInt();
             templateId = templateId ? templateId : 0;
-            emit changedTemplate(templateId, templateName, tableView->property("single").toBool(), tableView);
+            emit changedTemplate(templateId, templateName, tableView->property("type").toString(), tableView);
         });
 
         // Соединение выбора только одной строчки из таблиц
@@ -126,9 +129,8 @@ TemplateManager::TemplateManager(QVector<SubTableConfig> tableNames, QWidget* pw
             QString templateId = firstColumnIndex.data(Qt::DisplayRole).toString();
 
             QString currentTableName = tableView->property("tableName").toString();
-            int settingsIndex = tableView->property("settingsIndex").toInt();
 
-            emit rowActivated(currentTableName, templateId, settingsIndex, firstColumnIndex, tableView);
+            emit rowActivated(currentTableName, templateId, firstColumnIndex, tableView);
         });
 
 
@@ -150,10 +152,10 @@ void TemplateManager::updateTables(QJsonArray data) {
         QStandardItemModel *tableModel = qobject_cast<QStandardItemModel*>(tableView->model());
         if (!tableModel) continue;
         tableModel->removeRows(0, tableModel->rowCount()); 
-        bool currentTableIsSingle = tableView->property("single").toBool();
+        QString currentTableType = tableView->property("type").toString();
         for (const QJsonValue& value : data) {
             auto value_object = value.toObject();
-            if (value_object.value("is_single").toBool() == currentTableIsSingle) {
+            if (value_object.value("type").toString() == currentTableType) {
                 tableModel->appendRow({
                     new QStandardItem(QString::number(value_object.value("element_id").toInt())),
                     new QStandardItem(value_object.value("element_name").toString())

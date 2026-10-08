@@ -10,46 +10,52 @@ ServerRequester::ServerRequester(QObject* pobj, QString base_url) : QObject(pobj
 QJsonDocument ServerRequester::getAllTemplates(bool isActive, QString subsystemId) {
     setCurrentButton(ActionId::GET_ALL_TEMPLATES);
     GetAllTemplates req = GetAllTemplates(isActive, subsystemId);
-    slotDone(req, false);
+    slotDone(req);
+    return req.getData();
+}
+
+QJsonDocument ServerRequester::getTemplateTypes(QString subsystemId) {
+    GetTemplateTypes req = GetTemplateTypes(subsystemId);
+    slotDone(req);
     return req.getData();
 }
 
 void ServerRequester::getAllTags(QString subsystemId) {
     setCurrentButton(ActionId::GET_ALL_TAGS);
     GetAllTags req = GetAllTags(subsystemId);
-    slotDone(req, false);
+    slotDone(req);
 }
 
 void ServerRequester::getTemplate(QString templateId, QString subsystemId) {
     GetTemplate req = GetTemplate(templateId, subsystemId);
-    slotDone(req, true);
+    slotDone(req);
 }
 
 void ServerRequester::exportTemplate(int templateId, QString subsystemId) {
     ExportTemplate req = ExportTemplate(templateId, exportJson, subsystemId);
     qDebug() << req.response().answerString();
-    slotDone(req, true);
+    slotDone(req);
 }
 
 void ServerRequester::removeTemplate(QString templateId, QString subsystemId) {
     DeleteTemplate req = DeleteTemplate(templateId, subsystemId);
-    slotDone(req, true);
+    slotDone(req);
 }
 
 void ServerRequester::removeTag(QString tagId, QString subsystemId) {
     DeleteTag req = DeleteTag(tagId, subsystemId);
-    slotDone(req, true);
+    slotDone(req);
 }
 
 QString ServerRequester::addTemplate(const QJsonDocument jsonDoc, QString subsystemId) {
     AddTemplate req = AddTemplate(jsonDoc, subsystemId);
-    slotDone(req, true);
-    return QString::number(req.getData().object().value("ID").toInt());
+    slotDone(req);
+    return QString::number(req.getData().object().value("id").toInt());
 }
 
 void ServerRequester::addTag(const QJsonDocument jsonDoc, QString subsystemId) {
     AddTag req = AddTag(jsonDoc, subsystemId);
-    slotDone(req, true);
+    slotDone(req);
 }
 
 void ServerRequester::setCurrentButton(ActionId buttonId) {
@@ -68,9 +74,9 @@ QJsonDocument ServerRequester::getExportJson(){
     return exportJson;
 }
 
-void ServerRequester::slotDone(IPrintRequest req, bool showError){
+void ServerRequester::slotDone(IPrintRequest req){
     if (!req.isSuccess()) {
-        slotError(req, showError);
+        slotError(req);
         return;
     }
 
@@ -94,9 +100,7 @@ void ServerRequester::slotDone(IPrintRequest req, bool showError){
     emit done(result, currentButtonId);
 }
 
-void ServerRequester::slotError(IPrintRequest req, bool showError){
+void ServerRequester::slotError(IPrintRequest req){
     qDebug() << "ServerRequester Error" << req.query().url() << req.response().answerString().toUtf8() << req.response().code() << "\n";
-    if (showError) {
-        emit error(req.response().answerString().toUtf8(), req.response().code());
-    }
+    emit error(req.response().answerString().toUtf8(), req.response().code());
 }

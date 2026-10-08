@@ -18,19 +18,13 @@ EditDialog::EditDialog(QWidget *pwgt): BaseDialog(pwgt, "Настройки ша
 void EditDialog::initData() {
     server_requester = new ServerRequester(this, BASE_URL);
     tagDataModel = new QStandardItemModel(this);
-    
-
-    m_appMenuConfig = {
-        { {"Выпуск", 1, false}, {"Отдельное событие", 0, true} },
-        { {"Мониториг", 0, false} }
-    };
 }
 
 void EditDialog::setupUi() {
     QVBoxLayout* baseLayout = new QVBoxLayout(this);
     baseLayout->setContentsMargins(10, 10, 10, 5);
 
-    QWidget* groupBoxToggle = new QWidget(this);
+    QGroupBox* groupBoxToggle = new QGroupBox(this);
     groupBoxToggle->setObjectName("emptyGroupBox");
     groupBoxToggle->setMaximumHeight(50);
     baseLayout->addWidget(groupBoxToggle);
@@ -64,7 +58,7 @@ void EditDialog::setupUi() {
 }
 
 
-QWidget* EditDialog::createNavigationPanel(QWidget* groupBoxToggle) {
+QWidget* EditDialog::createNavigationPanel(QGroupBox* groupBoxToggle) {
     QWidget* tableWidget = new QWidget(this);
     tableWidget->setObjectName("EmptyStyle");
     tableWidget->setMinimumWidth(500);
@@ -82,20 +76,20 @@ QWidget* EditDialog::createNavigationPanel(QWidget* groupBoxToggle) {
     button_group->setExclusive(true);
 
     
-    btn_news = new SubsystemButton("Новости", ":/icons/nav-icon-news-active.svg", ":/icons/nav-icon-news-inactive.svg", "toogleButton", "news", QVector<QString>{"Выпуск", "Отдельное событие"}, groupBoxToggle);
-    SubsystemButton* btn_plan = new SubsystemButton("Планирование", ":/icons/nav-icon-news-active.svg", ":/icons/nav-icon-news-inactive.svg", "toogleButton", "plan", QVector<QString>{"Мониторинг"}, groupBoxToggle);
+    btn_news = new SubsystemButton("Новости", ":/icons/nav-icon-news-active.svg", ":/icons/nav-icon-news-inactive.svg", "toogleButton", "news", groupBoxToggle);
+    SubsystemButton* btn_plan = new SubsystemButton("Планирование", ":/icons/nav-icon-news-active.svg", ":/icons/nav-icon-news-inactive.svg", "toogleButton", "plan", groupBoxToggle);
     //SubsystemButton* btn_logs = new SubsystemButton("Логи", ":/icons/tab-icon-logging-active.svg", ":/icons/tab-icon-logging-inactive.svg", "toogleButton", "logs", QVector<QString>{}, groupBoxToggle);
     //SubsystemButton* btn_broadcast = new SubsystemButton("Эфир", ":/icons/tab-icon-broadcast-active.svg", ":/icons/tab-icon-broadcast-inactive.svg", "toogleButton", "broadcast", QVector<QString>{}, groupBoxToggle);
 
     stackedWidget = new QStackedWidget(this);
-    QVector<QPushButton*> buttons = {btn_news, btn_plan};
+    QVector<SubsystemButton*> buttons = {btn_news, btn_plan};
 
     for (int i = 0; i < buttons.size(); ++i) {
-        QPushButton *btn = buttons[i];
+        SubsystemButton *btn = buttons[i];
         button_group->addButton(btn, i);
         navLayout->addWidget(btn);
 
-        QVector<SubTableConfig> tableNames = (m_appMenuConfig.size() > i) ? m_appMenuConfig[i] : QVector<SubTableConfig>{};
+        QJsonArray tableNames = server_requester->getTemplateTypes(btn->subsystem).array();
         TemplateManager* manager = new TemplateManager(tableNames, this);
         stackedWidget->addWidget(manager);
         m_allManagers.append(manager);
@@ -123,8 +117,6 @@ QWidget* EditDialog::createEditSpace() {
     QHBoxLayout* editPanelsLayout = new QHBoxLayout();
 
     editPanelsLayout->addWidget(createTemplateStatePanel());
-    editPanelsLayout->addWidget(createNewsSettingsPanel());
-    editPanelsLayout->addWidget(createBreakSettingsPanel());
 
     editSpaceLayout->addLayout(editPanelsLayout);
     editSpaceLayout->addWidget(createTemplateEditorPanel());
@@ -144,39 +136,6 @@ QWidget* EditDialog::createTemplateStatePanel() {
     );
     activePanel->setCheckBoxActive("is_active", false);
     return activePanel;
-}
-
-QWidget* EditDialog::createNewsSettingsPanel() {
-
-    QHash<QString, QString> checkBoxMap = {
-        {"Суфлер", "snd_prompt"},
-        {"Пропуск", "skip_flag"}
-    };
-
-    newsParsePanel = new CheckPanel(
-        "Учитывать состояния в столбцах",
-        checkBoxMap,
-        this
-    );
-    newsParsePanel->hide();
-    return newsParsePanel;
-}
-
-QWidget* EditDialog::createBreakSettingsPanel() {
-    QHash<QString, QString> checkBoxMap = {
-        {"Разделителя", "separator_break"},
-        {"События", "story_break"},
-        {"Блока", "block_break"},
-        {"Рубрики", "rubric_break"}
-    };
-
-    breakPanel = new CheckPanel(
-        "Разрыв страницы после",
-        checkBoxMap,
-        this
-    );
-    breakPanel->hide();
-    return breakPanel;
 }
 
 QFrame* EditDialog::createTemplateEditorPanel() {
@@ -243,21 +202,18 @@ void EditDialog::setupConnections() {
 
     // Запрос данных при клике на подсистемы
     connect(button_group, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), this, [this](QAbstractButton *button) {
-        if (!button) return;
+   
+        SubsystemButton *subBtn = qobject_cast<SubsystemButton*>(button);
+        if (!subBtn) return;
         
-        currentSubSystem = button->property("name").toString();
+        currentSubSystem = subBtn->subsystem;
+        
         QJsonArray serverData = server_requester->getAllTemplates(false, currentSubSystem).array();
         
         if (TemplateManager *currentManager = qobject_cast<TemplateManager*>(stackedWidget->currentWidget())) {
             currentManager->updateTables(serverData);
         }
         server_requester->getAllTags(currentSubSystem);
-        newsParsePanel->hide();
-        breakPanel->hide();
-        templateEdit->clear();
-        activePanel->setCheckBoxActive("is_active", false);
-        activePanel->setCheckBoxState("is_active", false);
-
     });
 
     // Импорт шаблона
@@ -350,40 +306,6 @@ void EditDialog::showResponseSlot(const QJsonDocument jsonDoc, ActionId buttonId
             activePanel->setCheckBoxState("is_active", jsonDoc.object().value("is_active").toBool());
             templateEdit->clear();
             templateEdit->setPlainText(jsonDoc.object().value("content").toString());
-            if (!jsonDoc.object().value("is_single").toBool()) {
-
-                auto jsonObject = jsonDoc.object().value("render_data").toObject();
-
-                newsParsePanel->setCheckBoxState(
-                    "snd_prompt", 
-                    jsonObject.value("snd_prompt").toBool()
-                );
-                newsParsePanel->setCheckBoxState(
-                    "skip_flag", 
-                    jsonObject.value("skip_flag").toBool()
-                );
-
-                breakPanel->setCheckBoxState(
-                    "separator_break",
-                    jsonObject.value("separator_break").toBool()
-                );
-
-                breakPanel->setCheckBoxState(
-                    "story_break",
-                    jsonObject.value("story_break").toBool()
-                );
-
-                breakPanel->setCheckBoxState(
-                    "block_break",
-                    jsonObject.value("block_break").toBool()
-                );
-
-                breakPanel->setCheckBoxState(
-                    "rubric_break",
-                    jsonObject.value("rubric_break").toBool()
-                );
-
-            }
             break;
         case ActionId::GET_ALL_TAGS:
             tagDataModel->clear();
@@ -413,7 +335,7 @@ void EditDialog::onDeleteTemplate(QString templateId) {
 }
 
 
-void EditDialog::onRowActivated(const QString &tableName, const QString &templateId, int settingsPanelIndex, const QModelIndex &index, BaseTableView* activeTable) {
+void EditDialog::onRowActivated(const QString &tableName, const QString &templateId, const QModelIndex &index, BaseTableView* activeTable) {
     TemplateManager *currentManager = qobject_cast<TemplateManager*>(sender());
     for (TemplateManager *manager : m_allManagers) {
         if (manager != currentManager) {
@@ -424,43 +346,23 @@ void EditDialog::onRowActivated(const QString &tableName, const QString &templat
     m_activeTable = activeTable;
     templateEdit->setEnabled(true);
 
-    if (settingsPanelIndex) {
-        newsParsePanel->show();
-        breakPanel->show();
-    } else {
-        newsParsePanel->hide();
-        breakPanel->hide();
-    }
-
     activePanel->setCheckBoxActive("is_active", true);
     server_requester->setCurrentButton(ActionId::GET_TEMPLATE);
     server_requester->getTemplate(templateId, currentSubSystem);
 }
 
-void EditDialog::onChangeTemplate(int templateId, const QString templateName, bool is_single, BaseTableView* activeTable) {
+void EditDialog::onChangeTemplate(int templateId, const QString templateName, QString templateType, BaseTableView* activeTable) {
     QJsonObject jsonObj;
     if (templateId) {
         jsonObj["ID"] = templateId;
     }
     jsonObj["name"] = templateName;
     QString templateContent = " ";
-    jsonObj["is_single"] = is_single;
+    jsonObj["type"] = templateType;
+    qDebug() << "templateType" << templateType;
     if (templateEdit->isEnabled()) {
         templateContent = templateEdit->toPlainText();
         jsonObj["is_active"] = activePanel->getCheckBoxState("is_active");
-        if (!is_single) {
-            QJsonObject render_data;
-            render_data["snd_prompt"] = newsParsePanel->getCheckBoxState("snd_prompt");
-            render_data["skip_flag"] = newsParsePanel->getCheckBoxState("skip_flag");
-
-            render_data["separator_break"] = breakPanel->getCheckBoxState("separator_break");
-            render_data["story_break"] = breakPanel->getCheckBoxState("story_break");
-            render_data["block_break"] = breakPanel->getCheckBoxState("block_break");
-            render_data["rubric_break"] = breakPanel->getCheckBoxState("rubric_break");
-
-            jsonObj["render_data"] = render_data;
-        }
-            
     }
     jsonObj["content"] = templateContent;
 
@@ -497,22 +399,8 @@ void EditDialog::saveTemplate() {
     jsonObj["name"] = templateName;
     QString templateContent = templateEdit->toPlainText();
     jsonObj["content"] = !templateContent.isEmpty() ? templateContent : " ";
-    jsonObj["is_single"] = true;
+    jsonObj["type"] = m_activeTable->property("type").toString();
     jsonObj["is_active"] = activePanel->getCheckBoxState("is_active");
-    if (!m_activeTable->property("single").toBool()) {
-        jsonObj["is_single"] = false;
-        QJsonObject render_data;
-
-        render_data["snd_prompt"] = newsParsePanel->getCheckBoxState("snd_prompt");
-        render_data["skip_flag"] = newsParsePanel->getCheckBoxState("skip_flag");
-
-        render_data["separator_break"] = breakPanel->getCheckBoxState("separator_break");
-        render_data["story_break"] = breakPanel->getCheckBoxState("story_break");
-        render_data["block_break"] = breakPanel->getCheckBoxState("block_break");
-        render_data["rubric_break"] = breakPanel->getCheckBoxState("rubric_break");
-
-        jsonObj["render_data"] = render_data;
-    }
 
     server_requester->setCurrentButton(ActionId::NONE_ACTION);
     server_requester->addTemplate(QJsonDocument(jsonObj), currentSubSystem);

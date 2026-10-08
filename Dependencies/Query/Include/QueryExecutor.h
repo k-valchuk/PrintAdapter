@@ -96,26 +96,6 @@ public:
     };
     AuthToken GetAuthToken();
 
-    template <class SubObj>
-    void SetOnNetworkStatus(SubObj* subscriber, void (SubObj::*action)(QNetworkAccessManager::NetworkAccessibility accessible))
-    {
-        std::unique_lock lock{m_lock};
-
-        //deprecated in Qt6+
-        //In Qt6 using QNetworkInformation class with signal "reachabilityChanged(QNetworkInformation::Reachability newReachability)"
-        QObject::connect(m_accessManager, &QNetworkAccessManager::networkAccessibleChanged, subscriber, action, Qt::QueuedConnection);
-    }
-
-    template <class SubObj>
-    void SetOnNetworkStatus(SubObj* subscriber, void (*action)(QNetworkAccessManager::NetworkAccessibility accessible))
-    {
-        std::unique_lock lock{m_lock};
-
-        //deprecated in Qt6+
-        //In Qt6 using QNetworkInformation class with signal "reachabilityChanged(QNetworkInformation::Reachability newReachability)"
-        QObject::connect(m_accessManager, &QNetworkAccessManager::networkAccessibleChanged, subscriber, action, Qt::QueuedConnection);
-    }
-
     Response Execute(Query q, CancellationToken ct = CancellationToken(), bool cancellableByCancelAll = true);
 
     void ExecuteAsync(Query q, std::function<void(Response)> onFinished,

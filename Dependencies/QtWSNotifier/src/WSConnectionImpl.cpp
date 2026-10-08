@@ -121,19 +121,25 @@ void WSConnectionImpl::init(void)
 //---------------------------------------------------------------------------------------------
 void WSConnectionImpl::onConnected()
 {
+    m_serverSupportsPong = false;
+
     if(m_pingTimerID)
         killTimer(m_pingTimerID);
     m_pingTimerID = startTimer(pingPeriodMsec);
 
     if(!m_pongTimerTimeout) {
         m_pongTimerTimeout = new QTimer(this);
+        m_pongTimerTimeout->setSingleShot(true);
         connect(m_pongTimerTimeout, &QTimer::timeout, [this](){
 #ifdef WSTRACE
             qDebug("WS:pong timeout!");
 #endif // WSTRACE
-            disconnect(pingPongTimeoutDisconnectReason());
+            QMetaObject::invokeMethod(this, "abort", Qt::QueuedConnection);
         });
     }
+
+    if(m_socket)
+        m_socket->ping();
 
 #ifdef WSTRACE
     qDebug("WS: connected!");
@@ -147,10 +153,12 @@ void WSConnectionImpl::onDisconnected()
 {
     killTimer(m_pingTimerID);
     m_pingTimerID = 0;
-    if(m_pongTimerTimeout)
+    m_serverSupportsPong = false;
+    if(m_pongTimerTimeout) {
         m_pongTimerTimeout->stop();
-    delete m_pongTimerTimeout;
-    m_pongTimerTimeout = nullptr;
+        m_pongTimerTimeout->deleteLater();
+        m_pongTimerTimeout = nullptr;
+    }
 
 #ifdef WSTRACE
     qDebug("WS: disconnected!");
@@ -218,11 +226,12 @@ void WSConnectionImpl::sendTextMessage(const QString& data)
 //---------------------------------------------------------------------------------------------
 void WSConnectionImpl::onPong(quint64 elapsedTime, const QByteArray& payload)
 {
+    Q_UNUSED(elapsedTime)
+    Q_UNUSED(payload)
+
+    m_serverSupportsPong = true;
     if(m_pongTimerTimeout)
-    {
         m_pongTimerTimeout->stop();
-        m_pongTimerTimeout->start(pongTimeoutMsec);
-    }
 
 #ifdef WSTRACE
     qDebug("WS:pong!");
@@ -235,6 +244,9 @@ void WSConnectionImpl::timerEvent(QTimerEvent *event)
     if(event->timerId() == m_pingTimerID){
         if(isConnected()) {
             m_socket->ping();
+
+            if(m_serverSupportsPong && m_pongTimerTimeout)
+                m_pongTimerTimeout->start(pongTimeoutMsec);
 #ifdef WSTRACE
             qDebug("WS:ping!");
 #endif // WSTRACE

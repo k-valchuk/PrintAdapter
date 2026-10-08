@@ -103,6 +103,19 @@ QString rest::Request::getErrorText() const
         return QString();
 }
 
+rest::Problem rest::Request::getProblem() const
+{
+    std::unique_lock lock{m_impl->m_lock};
+    rest::Problem problem{};
+    if(!m_impl->m_response.isSuccess()){
+        auto js = QJsonDocument::fromJson(m_impl->m_response.answerString().toUtf8()).object();
+        if(js.contains("problem")){
+            problem.parse(js.value("problem").toObject());
+        }
+    }
+    return problem;
+}
+
 void rest::whenAllRequestsAsync(QList<QSharedPointer<Request>> requests, QObject* context,
                                 std::function<void (QList<QSharedPointer<Request>>)> onFinish)
 {

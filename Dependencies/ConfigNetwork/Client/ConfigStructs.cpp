@@ -165,6 +165,7 @@ QJsonObject Service::construct(void) const
 bool Service::isNecessaryForChannels() const
 {
     if(props.type == Config::EServiceType::eCaptureVSManager || props.type == Config::EServiceType::eAirVSManager
+        || props.type == Config::EServiceType::eAirMOSSynchronizer
         || props.type == Config::EServiceType::eAzimuth || props.type == Config::EServiceType::eTeletextInserter
         || props.type == Config::EServiceType::eGraphicsCarrot || props.type == Config::EServiceType::eGraphicsTitleStation
         || props.type == Config::EServiceType::eGraphicsVizRT)
@@ -208,10 +209,12 @@ bool Service::isServiceHavePath() const
 //---------------
 bool Service::isServiceHavePathByType(Config::EServiceType type)
 {
-    return (type == Config::EServiceType::eQueue) || (type == Config::EServiceType::ePostgreSQL)
-           || (type == Config::EServiceType::eElasticSearch) || (type == Config::EServiceType::eAccessPoint)
-           || (type == Config::EServiceType::eGARSearch) || (type == Config::EServiceType::eMessageApp)
-           || (type == Config::EServiceType::eBPMCoreConnection) || (type == Config::EServiceType::eBPMCoreStorage) || (type == Config::EServiceType::eBPMRestService);
+    return (type == Config::EServiceType::eQueue) || (type == Config::EServiceType::ePostgreSQL) ||
+           (type == Config::EServiceType::eElasticSearch) || (type == Config::EServiceType::eAccessPoint) ||
+           (type == Config::EServiceType::eGARSearch) || (type == Config::EServiceType::eMessageApp) ||
+           (type == Config::EServiceType::eBPMCoreConnection) || (type == Config::EServiceType::eBPMCoreStorage) ||
+           (type == Config::EServiceType::eBPMRestService) ||
+           (type == Config::EServiceType::eBPMScriptService);
 }
 
 //---------------
@@ -239,6 +242,13 @@ void RightScheme::parse(const QJsonObject& o)
         schemeArray = o["rights"].toArray();
     if(o.contains("objectsRights"))
         schemeObjectsArray = o["objectsRights"].toArray();
+}
+
+//-----------------------------------------------------
+void ObjectsHierarchy::parse(const QJsonObject& o)
+{
+    if(o.contains("objects"))
+        hierarchy = o["objects"].toArray();
 }
 
 //-----------------------------------------------------

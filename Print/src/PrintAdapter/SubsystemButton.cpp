@@ -1,5 +1,6 @@
 #include "SubsystemButton.h"
 #include <QVariant>
+#include <QVector>
 
 SubsystemButton::SubsystemButton(
     const QString &buttonName,
@@ -7,16 +8,14 @@ SubsystemButton::SubsystemButton(
     const QString &inActivePath, 
     const QString &styleClass,
     const QString &subsystemName, 
-    QVector<QString> tableList,
     QWidget* pwgt
 ): 
     QPushButton(buttonName, pwgt),
     m_activeIcon(activePath),       
-    m_inActiveIcon(inActivePath) 
+    m_inActiveIcon(inActivePath),
+    subsystem(subsystemName)
 {
     setCheckable(true);
-    setProperty("name", subsystemName);
-    setProperty("tableList", QVariant::fromValue(tableList));
     setObjectName(styleClass);
     setIcon(m_inActiveIcon);
 }

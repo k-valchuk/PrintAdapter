@@ -23,8 +23,6 @@ class EditDialog: public BaseDialog {
 
 
         CheckPanel* activePanel;
-        CheckPanel* newsParsePanel;
-        CheckPanel* breakPanel;
 
         QStandardItemModel* tagDataModel;
 
@@ -53,7 +51,7 @@ class EditDialog: public BaseDialog {
 
         void initData();
         void setupUi();
-        QWidget* createNavigationPanel(QWidget* groupBoxToggle);
+        QWidget* createNavigationPanel(QGroupBox* groupBoxToggle);
         QWidget* createEditSpace();
         void setupConnections();
 
@@ -75,6 +73,6 @@ class EditDialog: public BaseDialog {
         void changeStateTemplateEdit(bool);
         void setPersistentIndex(QModelIndex);
         void onDeleteTemplate(QString templateId);
-        void onRowActivated(const QString &tableName, const QString &templateId, int settingsPanelIndex, const QModelIndex &index, BaseTableView* activeTable);
-        void onChangeTemplate(int templateId, const QString templateName, bool is_single, BaseTableView* activeTable);
+        void onRowActivated(const QString &tableName, const QString &templateId, const QModelIndex &index, BaseTableView* activeTable);
+        void onChangeTemplate(int templateId, const QString templateName, QString templateType, BaseTableView* activeTable);
 };

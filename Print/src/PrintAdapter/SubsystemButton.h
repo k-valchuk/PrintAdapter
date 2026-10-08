@@ -15,13 +15,14 @@ class SubsystemButton: public QPushButton {
         void nextCheckState() override;
         
     public:
+        QString subsystem;
+
         SubsystemButton(
             const QString &buttonName,
             const QString &activePath, 
             const QString &inActivePath, 
             const QString &styleClass, 
             const QString &subsystemName, 
-            QVector<QString> tableList,
             QWidget* pwgt
         );
 };

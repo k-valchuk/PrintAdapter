@@ -21,7 +21,7 @@ class TemplateManager: public QWidget {
 
 
     public:
-        TemplateManager(QVector<SubTableConfig> tableNames, QWidget* pwgt = nullptr);
+        TemplateManager(QJsonArray tableNames, QWidget* pwgt = nullptr);
         QVector<QStandardItemModel*> getModels() const { return m_models; }
         void clearAllSelections();
         void updateTables(QJsonArray data);
@@ -30,8 +30,8 @@ class TemplateManager: public QWidget {
         void disableTemplateEdit(bool isDisabled);
         void setIndex(QModelIndex index);
         void deleteTemplate(QString templateId);
-        void changedTemplate(int templateId, QString templateName, bool is_single, BaseTableView* activeTable);
-        void rowActivated(const QString &tableName, const QString &rowId, int settingsPanelIndex, const QModelIndex &index, BaseTableView* activeTable);
+        void changedTemplate(int templateId, QString templateName, QString templateType, BaseTableView* activeTable);
+        void rowActivated(const QString &tableName, const QString &rowId, const QModelIndex &index, BaseTableView* activeTable);
 
 
 };

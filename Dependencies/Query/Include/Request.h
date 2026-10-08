@@ -9,27 +9,6 @@
 
 namespace rest {
 
-class Subscriptions : public QObject
-{
-    Q_OBJECT
-public:
-    Subscriptions(){};
-
-    template <class SubObj>
-    static void subscribeOnNetworkStatus(SubObj* context, void (SubObj::*action)(QNetworkAccessManager::NetworkAccessibility accessible))
-    {
-        auto executor = Executor();
-        executor->SetOnNetworkStatus(context, action);
-    }
-
-    template <class SubObj>
-    static void subscribeOnNetworkStatus(SubObj* context, void (*action)(QNetworkAccessManager::NetworkAccessibility accessible))
-    {
-        auto executor = Executor();
-        executor->SetOnNetworkStatus(context, action);
-    }
-};
-
 // Запрос
 class Request
 {
@@ -164,6 +143,7 @@ public:
     bool isSuccess();
     rest::StatusCode getStatusCode();
     QString getErrorText() const;
+    Problem getProblem() const;
     
     template <class TRequest, class TResult>
     QSharedPointer<IAsyncTask<TResult>> GetAsyncTask(std::function<TResult(TRequest)> resultConverter);

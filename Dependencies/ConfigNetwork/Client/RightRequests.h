@@ -16,6 +16,13 @@ struct GetRightScheme : public rest::Request
     RightScheme data();
 };
 
+// --- Получить иерархию объектных прав и их значения
+struct GetRightObjectsHierarchy : public rest::Request
+{
+    GetRightObjectsHierarchy(const QString& module);
+    ObjectsHierarchy data();
+};
+
 // --- Добавить новую группу прав
 struct AddRightGroup : public rest::Request
 {

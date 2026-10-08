@@ -2,6 +2,9 @@
 #define ANSWER_H
 
 #include "Query.h"
+#include <QVariant>
+#include <QJsonObject>
+
 namespace rest{
 
 enum StatusCode {
@@ -58,6 +61,28 @@ const QMap<StatusCode, QString> errorStrMap{
     
         //other
         {ClientRequestTimeout, "Client Timeout"}
+};
+
+
+// --- Field описывает проблему, привязанную к конкретному полю ввода (валидация).
+struct ProblemField{
+    QString code;           // Уникальный машинный код ошибки (SCREAMING_SNAKE_CASE)
+    QString trKey;          // Ключ в i18n-словаре фронтенда
+    QString message;        // Человекочитаемый fallback
+    QMap<QString, QVariant> params;
+
+    void parse(const QJsonObject& o);
+};
+
+// --- Класс проблемы, приходит с ответом от сервера при неудачном запросе (Подробное описания проблемы с ключом перевода для словаря)
+struct Problem {
+    QString code{};         // Уникальный машинный код ошибки (SCREAMING_SNAKE_CASE)
+    QString trKey{};        // Ключ в i18n-словаре фронтенда
+    QString message{};      // Человекочитаемый fallback
+    QMap<QString, QVariant> params{};
+    QMap<QString, ProblemField> fields{};       // Ошибки валидации по полям
+
+    void parse(const QJsonObject& o);
 };
 
 class Response

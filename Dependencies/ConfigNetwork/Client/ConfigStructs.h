@@ -45,6 +45,7 @@ enum class EServiceType {
     eGraphicsCarrot = 14,
     eGraphicsVizRT = 15,
     eAirConfigApp = 16,
+    eAirMOSSynchronizer = 17,
 
     //Storage
     eStorageFileBrowser = 20,
@@ -69,10 +70,12 @@ enum class EServiceType {
     eAssetConfigApp = 62,
     eDAMFileManager = 63,
     eDAMFileAgent = 64,
+    eDAMFileWatcher = 65,
 
     //News
     eNewsApp = 71,
     eNewsConfigApp = 72,
+    eGraphicsCarrotPlugin = 73,
 
     //Agency
     eAgencyApp = 81,
@@ -81,8 +84,8 @@ enum class EServiceType {
     //Studio
     eStudioVSManager = 90,
     eStudioApp = 91,
-    ePrompterApp = 92,
-    eGraphicsApp = 93,
+    ePrompterServer = 92,
+    eGraphicsServer = 93,
     eStudioConfigApp = 94,
 
     //GAR (Пока в основном для поиска в Plan)
@@ -110,7 +113,8 @@ enum class EServiceType {
     // BPM
     eBPMCoreConnection = 200,
     eBPMCoreStorage = 201,
-    eBPMRestService = 205
+    eBPMRestService = 205,
+    eBPMScriptService = 206
 };
 
 // --- Тип сервиса - его ИД и имя
@@ -267,6 +271,12 @@ struct RightScheme{
     QJsonArray schemeArray{};
     QJsonArray schemeObjectsArray{};
 
+    // Из Json
+    void parse(const QJsonObject& o);
+};
+
+struct ObjectsHierarchy{
+    QJsonArray hierarchy{};
     // Из Json
     void parse(const QJsonObject& o);
 };

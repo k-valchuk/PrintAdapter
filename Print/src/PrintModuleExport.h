@@ -7,6 +7,7 @@ extern "C" {
 Q_DECL_EXPORT int GetModulesCount();
 Q_DECL_EXPORT IModule** CreateModules();
 Q_DECL_EXPORT void ReleaseModules(IModule** modules);
+Q_DECL_EXPORT quint32 GetBramSpaceModuleAbiVersion();
 }
 
 #endif // PRINTMODULEEXPORT_H

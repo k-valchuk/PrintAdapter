@@ -17,6 +17,7 @@ class IModuleWidget;
 class IModulePanel;
 class IModule;
 class ISubpanelManager;
+class ICommandService;
 
 class IWindowManager
 {
@@ -33,12 +34,6 @@ public:
         InvalidDockWidgetArea = NoDockWidgetArea,
         OuterDockAreas = TopDockWidgetArea | LeftDockWidgetArea | RightDockWidgetArea | BottomDockWidgetArea,
         AllDockAreas = OuterDockAreas | CenterDockWidgetArea
-    };
-    
-    enum ColorTheme
-    {
-        Dark = 1,
-        Light = 2
     };
     
     virtual void PlaceNewPanel(IModuleWidget* panel,
@@ -94,6 +89,8 @@ public:
     virtual QObject* UiContextObject() = 0;
     
     virtual void UpdateDynamicMenu() = 0;
+    
+    virtual ICommandService* Commands() = 0;
 };
 
 template<class ...Args>
@@ -109,13 +106,6 @@ public:
     //virtual IMenuManager<IWindowManager*>* GetPanelToolbarMenuManager() = 0;
     virtual ads::CDockAreaWidget* GetDockArea(IModuleWidget* widget) = 0;
     virtual QWidget* GetNativeParent() = 0;
-};
-
-class IThemeManager
-{
-public:
-    virtual IWindowManager::ColorTheme CurrentTheme() = 0;
-    virtual void LoadStyleSheet(const QString& resource) = 0;
 };
 
 #endif // IWINDOWMANAGER_H

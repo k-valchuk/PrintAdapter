@@ -4,10 +4,20 @@
 GetAllTemplates::GetAllTemplates(bool isActive, QString subsystemId) {
     query()
         .setUrl(
-            QString("/api/%1/config/print/db/get_all_templates").arg(subsystemId)
+            QString("/api/%1/config/print/db/get_all_templates").arg(subsystemId.toLower())
             
         )
         .setQueryParameter("active", isActive ? "true" : "false")
+        .setMethod(rest::Method::GET);
+    exec();
+}
+
+GetTemplateTypes::GetTemplateTypes(QString subsystemId) {
+    query()
+        .setUrl(
+            QString("/api/%1/config/print/db/get_template_types").arg(subsystemId.toLower())
+            
+        )
         .setMethod(rest::Method::GET);
     exec();
 }
@@ -17,7 +27,7 @@ GetAllTemplates::GetAllTemplates(bool isActive, QString subsystemId) {
 GetAllTags::GetAllTags(QString subsystemId) {
     query()
         .setUrl(
-            QString("/api/%1/config/print/db/get_all_tags").arg(subsystemId)
+            QString("/api/%1/config/print/db/get_all_tags").arg(subsystemId.toLower())
         )
         .setMethod(rest::Method::GET);
     exec();
@@ -28,7 +38,7 @@ GetAllTags::GetAllTags(QString subsystemId) {
 GetTemplate::GetTemplate(QString templateId, QString subsystemId) {
     query()
         .setUrl(
-            QString("/api/%1/config/print/db/get_template").arg(subsystemId)
+            QString("/api/%1/config/print/db/get_template").arg(subsystemId.toLower())
         )
         .setQueryParameter("id", templateId)
         .setMethod(rest::Method::GET);
@@ -41,7 +51,7 @@ ExportTemplate::ExportTemplate(int templateId, QJsonDocument json_doc, QString s
     QJsonObject jsonObj;
     jsonObj["template_id"] = templateId;
     jsonObj["data"] = json_doc.object();
-    jsonObj["subsystem"] = subsystemId;
+    jsonObj["subsystem"] = subsystemId.toLower();
     jsonObj["format"] = "html";
     query()
         .setUrl(
@@ -57,7 +67,7 @@ ExportTemplate::ExportTemplate(int templateId, QJsonDocument json_doc, QString s
 DeleteTemplate::DeleteTemplate(QString templateId, QString subsystemId) {
     query()
         .setUrl(
-            QString("/api/%1/config/print/db/delete_template").arg(subsystemId)
+            QString("/api/%1/config/print/db/delete_template").arg(subsystemId.toLower())
         )
         .setQueryParameter("id", templateId)
         .setMethod(rest::Method::DEL);
@@ -67,7 +77,7 @@ DeleteTemplate::DeleteTemplate(QString templateId, QString subsystemId) {
 DeleteTag::DeleteTag(QString tagId, QString subsystemId) {
     query()
         .setUrl(
-            QString("/api/%1/config/print/db/delete_tag").arg(subsystemId)
+            QString("/api/%1/config/print/db/delete_tag").arg(subsystemId.toLower())
         )
         .setQueryParameter("id", tagId)
         .setMethod(rest::Method::DEL);
@@ -79,7 +89,7 @@ DeleteTag::DeleteTag(QString tagId, QString subsystemId) {
 AddTemplate::AddTemplate(QJsonDocument jsonDoc, QString subsystemId) {
     query()
         .setUrl(
-            QString("/api/%1/config/print/db/add_template").arg(subsystemId)
+            QString("/api/%1/config/print/db/add_template").arg(subsystemId.toLower())
         )
         .setMethod(rest::Method::POST)
         .setData(jsonDoc.toJson());
@@ -89,7 +99,7 @@ AddTemplate::AddTemplate(QJsonDocument jsonDoc, QString subsystemId) {
 AddTag::AddTag(QJsonDocument jsonDoc, QString subsystemId) {
     query()
         .setUrl(
-            QString("/api/%1/config/print/db/add_tag").arg(subsystemId)
+            QString("/api/%1/config/print/db/add_tag").arg(subsystemId.toLower())
         )
         .setMethod(rest::Method::POST)
         .setData(jsonDoc.toJson());

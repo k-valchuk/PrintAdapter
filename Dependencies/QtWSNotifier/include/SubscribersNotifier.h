@@ -76,6 +76,7 @@ public:
     void setReconnection(int periodMsec = defaultReconnectPeriodMsec);
     void stopReconnection(void);
     void startReconnection(int periodMsec = 0);
+    bool isReconnectionEnabled() const { return reconnectionPeriodMsec > 0; }
 
     // Получить список объектов подписок
     QList<ISubscriber*> subscribers(void);

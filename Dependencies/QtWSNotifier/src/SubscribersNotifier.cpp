@@ -226,5 +226,9 @@ void SubscribersNotifier::startReconnection(int periodMsec)
         setReconnection(periodMsec);
 
     if(reconnectionPeriodMsec)
+    {
+        if(!isConnected())
+            Connect();
         reconnectTimer.start(reconnectionPeriodMsec);
+    }
 }
